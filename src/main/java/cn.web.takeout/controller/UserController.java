@@ -15,14 +15,20 @@ public class UserController {
     @Resource
     private IUserService userService;
 
-    @RequestMapping("/showUser.do")
+    @RequestMapping("/checkUser.do")
     public void selectUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        long userId = Long.parseLong(request.getParameter("id"));
-        User user = this.userService.selectUser(userId);
-        ObjectMapper mapper = new ObjectMapper();
-        response.getWriter().write(mapper.writeValueAsString(user));
+
+        String userId = request.getParameter("id");
+        String password = request.getParameter("password");
+        //User user = userService.selectUser(Long.parseLong(userId));
+        User user = userService.checkUser(userId,password);
+        if(user != null){//验证成功，跳转页面
+            response.getWriter().write(1);
+        }else{//验证失败，重新登录
+            response.getWriter().write(0);
+        }
         response.getWriter().close();
     }
 }

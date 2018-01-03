@@ -4,10 +4,22 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="cn.web.takeout.dao.IUserDao">
     
-    <resultMap id="tt_user" type="User"></resultMap>
+    <resultMap id="tb_user" type="User">
+        <id column="id" property="id"></id>
+        <result column="user_name" property="userName"></result>
+        <result column="password" property="password"></result>
+        <result column="wx_user_id" property="wxUserId"></result>
+        <result column="head_pic" property="headPic"></result>
+        <result column="shop_id" property="shopId"></result>
+        <result column="create_time" property="createTime"></result>
+    </resultMap>
 
     <select id="selectUser" resultType="User" parameterType="long">
-        SELECT * FROM tt_user WHERE id = #{id}
+        SELECT * FROM tb_user WHERE id = #{id}
+    </select>
+
+    <select id="checkUser" resultType="User" parameterType="java.util.Map">
+        SELECT * FROM tb_user WHERE  id = #{userId} AND password = #{password}
     </select>
 
 </mapper>

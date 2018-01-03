@@ -1,22 +1,28 @@
 package cn.web.takeout.model;
 import java.util.Date;
 
+/**
+ * 用户
+ */
 public class User {
 
-    private long id;
+    private String id;
     private String email;
     private String password;
-    private String username;
-    private String role;
-    private int status;
-    private Date regTime;
-    private String regIp;
+    private String userName;
+    private String phone;
+    private String wxUserId;
+    private int type;
+    private String headPic;
+    private int sex;
+    private String shopId;
+    private Date createTime;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -36,44 +42,67 @@ public class User {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getRole() {
-        return role;
+    public String getWxUserId() {
+        return wxUserId;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setWxUserId(String wxUserId) {
+        this.wxUserId = wxUserId;
     }
 
-    public int getStatus() {
-        return status;
+    public int getType() {
+        return type;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public Date getRegTime() {
-        return regTime;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setRegTime(Date regTime) {
-        this.regTime = regTime;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getRegIp() {
-        return regIp;
+    public String getHeadPic() {
+        return headPic;
     }
 
-    public void setRegIp(String regIp) {
-        this.regIp = regIp;
+    public void setHeadPic(String headPic) {
+        this.headPic = headPic;
     }
 
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }
