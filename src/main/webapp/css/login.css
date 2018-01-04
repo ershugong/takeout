@@ -74,6 +74,8 @@ a[href^="http://tongji.baidu.com"]{display: none;}
 .zhuce_body .zhuce_kong .zc .bj_right .zhuce_wb{ border:1px solid #f26d7e; color:#f26d7e; background:url(../images/zc_10.jpg) no-repeat 28px 7px #fff;}
 .zhuce_body .zhuce_kong .zc .bj_right .zhuce_wx{ border:1px solid #00c800; color:#00c800; background:url(../images/zc_15.jpg) no-repeat 28px 7px #fff;}
 
+.sex_label{margin-left: 20px}
+
 /*登录页面*/
 .zhuce_body .login_kuang{ position:absolute; top:50%; left:50%; width:512px; height:325px; margin-left:-256px; margin-top:-162px;}
 .zhuce_body .login_kuang .zc{ width:512px; height:auto;}

@@ -3,10 +3,12 @@ package cn.web.takeout.service.impl;
 import cn.web.takeout.dao.IUserDao;
 import cn.web.takeout.model.User;
 import cn.web.takeout.service.IUserService;
+import cn.web.takeout.util.CommenUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,5 +27,16 @@ public class UserServiceImpl implements IUserService{
         map.put("userId",userId);
         map.put("password",password);
         return userDao.checkUser(map);
+    }
+
+    @Override
+    public long registerUser(User user) {
+        //需要补充的参数有，id，type，shopId，createTime
+        user.setId(CommenUtil.getUUID32());
+        user.setType(CommenUtil.SHOPER);
+        user.setHeadPic("0");//在管理后台具体设置
+        user.setCreateTime(new Date());
+        user.setShopId(CommenUtil.getUUID32());
+        return userDao.registerUser(user);
     }
 }

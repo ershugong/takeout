@@ -19,7 +19,11 @@
     </select>
 
     <select id="checkUser" resultType="User" parameterType="java.util.Map">
-        SELECT * FROM tb_user WHERE  id = #{userId} AND password = #{password}
+        SELECT * FROM tb_user WHERE  user_name = #{userId} AND password = #{password}
     </select>
+
+    <insert id="registerUser" parameterType="User">
+        INSERT INTO tb_user VALUES (#{id},#{password},#{userName},#{email},#{phone},#{wxUserId},#{type},#{headPic},#{sex},#{shopId},#{createTime})
+    </insert>
 
 </mapper>

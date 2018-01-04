@@ -1,19 +1,19 @@
 $(function(){
     var ctx = getRootPath();
-    $("#bt_login").click(function () {
+    /*$("#bt_login").click(function () {
         var userId = $("#userId").val();
         var password = $("#password").val();
-        $.post(ctx + "/user/checkUser.do",{id:userId,password:password},function (data){
-            if(data == 0){//登录失败
+        $.post(ctx + "/user/checkUser.do",{userId:userId,password:password},function (data){
+            /*if(data == 0){//登录失败
                 alert("登录失败");
                 $("#userId").val("");
                 $("#password").val("");
-            }else{
-                window.location=ctx + "/stage/success.jsp";
+            }else{//跳转到主界面
+                window.location=ctx + "/stage/index.jsp";
             }
-
+            //window.location = ctx + "/stage/index.jsp";
         });
-    });
+    });*/
 
     //获取根目录
     function getRootPath(){

@@ -13,4 +13,11 @@ public interface IUserDao {
      * @return
      */
     User checkUser(Map<String,Object> map);
+
+    /**
+     * 注册用户
+     * @param user
+     * @return
+     */
+    long registerUser(User user);
 }

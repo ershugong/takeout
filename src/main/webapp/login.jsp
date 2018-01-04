@@ -23,13 +23,13 @@
         <div class="zc">
             <div class="bj_bai">
                 <h3>登录</h3>
-                <form action="" method="get">
-                    <input id="userId" name="" type="text" class="kuang_txt" placeholder="账号">
-                    <input id="password" name="" type="text" class="kuang_txt" placeholder="密码">
+                <form action=<%request.getContextPath();%>user/checkUser.do method="post">
+                    <input id="userId" name="userId" type="text" class="kuang_txt" placeholder="账号">
+                    <input id="password" name="password" type="text" class="kuang_txt" placeholder="密码">
                     <div>
                         <a href="#">忘记密码？</a><input name="" type="checkbox" value="" checked><span>记住我</span>
                     </div>
-                    <input id="bt_login" name="登录" type="button" class="btn_zhuce" value="登录">
+                    <input id="bt_login" name="登录" type="submit" class="btn_zhuce" value="登录">
 
                 </form>
             </div>
@@ -38,11 +38,11 @@
                 <a href="#" class="zhuce_qq">QQ注册</a>
                 <a href="#" class="zhuce_wb">微博注册</a>
                 <a href="#" class="zhuce_wx">微信注册</a>
-                <p>已有账号？<a href="#">立即登录</a></p>
+                <p>没有账号？<a href=<% request.getContextPath();%>register.jsp>立即注册</a></p>
 
             </div>
         </div>
-        <P>Diyhe.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎您定制盒子模型</P>
+        <!--<P>Diyhe.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎您定制盒子模型</P>-->
     </div>
 
 </div>

@@ -1,9 +1,12 @@
 package cn.web.takeout.controller;
 import cn.web.takeout.model.User;
 import cn.web.takeout.service.IUserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,20 +18,28 @@ public class UserController {
     @Resource
     private IUserService userService;
 
-    @RequestMapping("/checkUser.do")
-    public void selectUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        String userId = request.getParameter("id");
-        String password = request.getParameter("password");
-        //User user = userService.selectUser(Long.parseLong(userId));
+    @RequestMapping("/checkUser")
+    public String selectUser(String userId,String password,RedirectAttributes attributes) throws IOException {
         User user = userService.checkUser(userId,password);
+        String url;
         if(user != null){//验证成功，跳转页面
-            response.getWriter().write(1);
+            attributes.addAttribute("user",user);
+            url = "redirect:/stage/index.jsp";
         }else{//验证失败，重新登录
-            response.getWriter().write(0);
+            url = "redirect:/login.jsp";
         }
-        response.getWriter().close();
+        return url;
+    }
+
+    @RequestMapping("/registerUser")
+    public String registerUser(@ModelAttribute("form") User user) throws IOException{
+        long result = userService.registerUser(user);
+        String url;
+        if(result == 1){//注册成功
+            url = "redirect:/login.jsp";
+        }else{//注册失败
+            url = "redirect:/register.jsp";
+        }
+        return url;
     }
 }
