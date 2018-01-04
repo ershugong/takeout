@@ -14,11 +14,11 @@
         <result column="create_time" property="createTime"></result>
     </resultMap>
 
-    <select id="selectUser" resultType="User" parameterType="long">
+    <select id="selectUser" resultType="User" parameterType="String">
         SELECT * FROM tb_user WHERE id = #{id}
     </select>
 
-    <select id="checkUser" resultType="User" parameterType="java.util.Map">
+    <select id="checkUser" resultMap="tb_user" parameterType="java.util.Map">
         SELECT * FROM tb_user WHERE  user_name = #{userId} AND password = #{password}
     </select>
 

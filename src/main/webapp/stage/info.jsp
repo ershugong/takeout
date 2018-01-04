@@ -1,4 +1,4 @@
-<%--
+<%@ page import="cn.web.takeout.model.User" %><%--
   Created by IntelliJ IDEA.
   User: admin
   Date: 2018/1/4
@@ -15,8 +15,19 @@
     <title>网站信息</title>
     <link rel="stylesheet" href="../css/pintuer.css">
     <link rel="stylesheet" href="../css/admin.css">
-    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery.min.js"></script>
     <script src="../js/pintuer.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            //判断session中的sex值 性别为男或女
+            var userSex = ${sessionScope.user.sex};
+            if(userSex == 1){//女
+                $("#radioWoman").attr("checked","checked");
+            }else{//男
+                $("#radioMan").attr("checked","checked");
+            }
+        });
+    </script>
 </head>
 <body>
 <div class="panel admin-panel">
@@ -25,30 +36,31 @@
         <form method="post" class="form-x" action="">
             <div class="form-group">
                 <div class="label">
-                    <label>网站标题：</label>
+                    <label>用户名：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="stitle" value="" />
+                    <input type="text" class="input" name="userName" value="${sessionScope.user.userName}" />
                     <div class="tips"></div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="label">
-                    <label>网站LOGO：</label>
+                    <label>头像：</label>
                 </div>
                 <div class="field">
-                    <input type="text" id="url1" name="slogo" class="input tips" style="width:25%; float:left;" value="" data-toggle="hover" data-place="right" data-image=""  />
+                    <input type="text" id="url1" name="slogo" class="input tips" style="width:25%; float:left;" value="${sessionScope.user.headPic }" data-toggle="hover" data-place="right" data-image=""  />
                     <input type="button" class="button bg-blue margin-left" id="image1" value="+ 浏览上传" >
                 </div>
             </div>
             <div class="form-group">
                 <div class="label">
-                    <label>网站域名：</label>
+                    <label>密码：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="surl" value="" />
+                    <input type="text" class="input" name="surl" value="${sessionScope.user.password }" />
                 </div>
             </div>
+            <!--
             <div class="form-group" style="display:none">
                 <div class="label">
                     <label>副加标题：</label>
@@ -75,25 +87,28 @@
                     <textarea class="input" name="sdescription"></textarea>
                     <div class="tips"></div>
                 </div>
+            </div>-->
+            <div class="form-group">
+                <div class="label">
+                    <label>性别：</label>
+                </div>
+                <div class="ffield">
+                    <!--<input type="text" class="input" name="s_name" value="" />
+                    <div class="tips"></div>-->
+                    男&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" id="radioMan"  value="0"/>
+                    女&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" id="radioWoman" value="1"/>
+                </div>
             </div>
             <div class="form-group">
                 <div class="label">
-                    <label>联系人：</label>
+                    <label>联系电话：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="s_name" value="" />
+                    <input type="text" class="input" name="s_phone" value="${sessionScope.user.phone }" />
                     <div class="tips"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>手机：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" name="s_phone" value="" />
-                    <div class="tips"></div>
-                </div>
-            </div>
+            <!--
             <div class="form-group">
                 <div class="label">
                     <label>电话：</label>
@@ -138,17 +153,18 @@
                     <input type="text" class="input" name="s_qqu" value="" />
                     <div class="tips"></div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="form-group">
                 <div class="label">
                     <label>Email：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="s_email" value="" />
+                    <input type="text" class="input" name="s_email" value="${sessionScope.user.email }" />
                     <div class="tips"></div>
                 </div>
             </div>
+            <!--
             <div class="form-group">
                 <div class="label">
                     <label>地址：</label>
@@ -157,15 +173,16 @@
                     <input type="text" class="input" name="s_address" value="" />
                     <div class="tips"></div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="form-group">
                 <div class="label">
-                    <label>底部信息：</label>
+                    <label>创建时间：</label>
                 </div>
                 <div class="field">
-                    <textarea name="scopyright" class="input" style="height:120px;"></textarea>
-                    <div class="tips"></div>
+                    <!--<textarea name="scopyright" class="input" style="height:120px;"></textarea>
+                    <div class="tips"></div>-->
+                    <label class="input">${sessionScope.user.createTime }</label>
                 </div>
             </div>
             <div class="form-group">

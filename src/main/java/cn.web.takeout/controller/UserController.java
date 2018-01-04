@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 @Controller
 @RequestMapping("/user")
@@ -18,12 +19,20 @@ public class UserController {
     @Resource
     private IUserService userService;
 
+    /**
+     * 登录验证
+     * @param userId
+     * @param password
+     * @param session
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/checkUser")
-    public String selectUser(String userId,String password,RedirectAttributes attributes) throws IOException {
+    public String selectUser(String userId, String password, HttpSession session) throws IOException {
         User user = userService.checkUser(userId,password);
         String url;
         if(user != null){//验证成功，跳转页面
-            attributes.addAttribute("user",user);
+            session.setAttribute("user",user);
             url = "redirect:/stage/index.jsp";
         }else{//验证失败，重新登录
             url = "redirect:/login.jsp";
@@ -31,6 +40,12 @@ public class UserController {
         return url;
     }
 
+    /**
+     * 注册
+     * @param user
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/registerUser")
     public String registerUser(@ModelAttribute("form") User user) throws IOException{
         long result = userService.registerUser(user);
