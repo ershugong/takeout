@@ -26,4 +26,10 @@
         INSERT INTO tb_user VALUES (#{id},#{password},#{userName},#{email},#{phone},#{wxUserId},#{type},#{headPic},#{sex},#{shopId},#{createTime})
     </insert>
 
+    <update id="updateUser" parameterType="User">
+        UPDATE tb_user SET user_name = #{userName},password = #{password},
+        email = #{email},phone = #{phone},head_pic = #{headPic},sex = #{sex}
+        WHERE id = #{id}
+    </update>
+
 </mapper>

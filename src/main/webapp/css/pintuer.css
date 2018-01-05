@@ -1086,3 +1086,6 @@ a:focus,a:hover{color:#0ae;} /*链接-悬浮颜色*/
 .ffield{
     padding-top: 9px;
 }
+#userId{
+    display: none;
+}

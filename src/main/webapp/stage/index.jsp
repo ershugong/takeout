@@ -5,7 +5,7 @@
   Time: 9:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -58,7 +58,7 @@
 </script>
 <ul class="bread">
     <li><a href="info.jsp" target="right" class="icon-home"> 首页</a></li><!--"{:U('Index/info')}"-->
-    <li><a href="##" id="a_leader_txt"></a><%=session.getAttribute("userName") %></li><!--网站信息-->
+    <li><a href="##" id="a_leader_txt"></a>${sessionScope.user.userName }</li><!--网站信息-->
     <li><b>当前语言：</b><span style="color:red;">中文</span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
 </ul>

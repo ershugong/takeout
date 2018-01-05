@@ -15,11 +15,4 @@ public class IUserDaoTest {
     @Autowired
     private IUserDao dao;
 
-    @Test
-    public void testSelectUser() throws Exception {
-        long id = 1;
-        User user = dao.selectUser(id);
-        System.out.println(user.getUserName());
-    }
-
 }

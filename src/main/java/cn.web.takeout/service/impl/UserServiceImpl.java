@@ -17,7 +17,7 @@ public class UserServiceImpl implements IUserService{
     @Resource
     private IUserDao userDao;
 
-    public User selectUser(long userId) {
+    public User selectUser(String userId) {
         return this.userDao.selectUser(userId);
     }
 
@@ -38,5 +38,10 @@ public class UserServiceImpl implements IUserService{
         user.setCreateTime(new Date());
         user.setShopId(CommenUtil.getUUID32());
         return userDao.registerUser(user);
+    }
+
+    @Override
+    public long updateUser(User user) {
+        return userDao.updateUser(user);
     }
 }

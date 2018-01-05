@@ -5,7 +5,7 @@ import cn.web.takeout.model.User;
 import java.util.Map;
 
 public interface IUserDao {
-    User selectUser(long id);
+    User selectUser(String id);
 
     /**
      * 登录验证
@@ -20,4 +20,11 @@ public interface IUserDao {
      * @return
      */
     long registerUser(User user);
+
+    /**
+     * 修改用户个人资料
+     * @param user
+     * @return
+     */
+    long updateUser(User user);
 }
