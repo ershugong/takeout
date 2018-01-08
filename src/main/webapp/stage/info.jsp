@@ -34,7 +34,7 @@
                 alert(form);
                 //alert(form.password);$("#formData").serialize()
                 $.ajax({
-                    url:"${pageContext.request.contextPath}/user/updateUser.do",
+                    url:"/user/updateUser.do",
                     type:"post",
                     data:form,
                     contentType:"",
@@ -104,7 +104,7 @@
                 // 通过 file 生成目标 url
                 var imgURL = URL.createObjectURL(file);
                 //用attr将img的src属性改成获得的url
-                $("#url1").attr("data-image", imgURL);
+                $("#img").attr("src", imgURL);
                 // 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
                 // URL.revokeObjectURL(imgURL);
             }
@@ -139,9 +139,9 @@
                     <label>头像：</label>
                 </div>
                 <div class="field">
-                    <!--<input type="text" id="url1" name="headPic" class="input tips" style="width:25%; float:left;" value="${sessionScope.user.headPic }" data-toggle="hover" data-place="right" data-image="../${sessionScope.user.headPic }"  />-->
+                    <!--<input type="text" id="url1" name="headPic" class="input tips" style="width:25%; float:left;" value="" data-toggle="hover" data-place="right" data-image="../"  />-->
                     <!--img便签不能带中文-->
-                    <img src="../upload/adminperson2017-09-18_105601.png " style="width: 60px;height: 50px;">
+                    <img id="img" src="../upload/adminperson2017-09-18_105601.png " style="width: 60px;height: 50px;">
                     <input type="file" id="file" name="file" style="display: none" onchange="fileChange(event);">
                     <input type="button" class="button bg-blue margin-left" id="image1" value="+ 浏览上传" >
                 </div>
