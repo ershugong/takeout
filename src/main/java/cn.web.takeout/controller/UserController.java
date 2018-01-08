@@ -67,33 +67,18 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping("/updateUser")
-    public void updateUser(@ModelAttribute("form") User user, HttpServletResponse response) throws Exception{
-        long result = userService.updateUser(user);
-        response.getWriter().print(result);
-        response.getWriter().close();
-    }
-
-    /**
-     * 上传图片
-     * @param file
-     * @param request
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping(value = "/imgUpload")
-    @ResponseBody
-    public synchronized String imgUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
-        String message = "false";
-        System.out.println("arrive here");
+    public void updateUser(@RequestParam("file") MultipartFile file,@RequestParam("form") User user
+            ,HttpSession session) throws Exception{
+        String message;
+        String userName = user.getUserName();
         if(!file.isEmpty()) {
-            String userName = request.getParameter("userName");
-            message = userName+"person" + file.getOriginalFilename();//现在的文件名是时间戳加原文件名，出现图片相同时，读取不出来的bug
-            String realPath = request.getSession().getServletContext().getRealPath("/upload/");//将文件保存在当前工程下的一个upload文件
+            message = userName+"-person-" + file.getOriginalFilename();//现在的文件名是时间戳加原文件名，出现图片相同时，读取不出来的bug
+            String realPath = session.getServletContext().getRealPath("/upload/");//将文件保存在当前工程下的一个upload文件
             FileUtils.copyInputStreamToFile(file.getInputStream(), new File(realPath, message));//将文件的输入流输出到一个新的文件
             message="upload/"+message;
+            user.setHeadPic(message);
         }
-        return message;
+        userService.updateUser(user);
     }
-
 
 }

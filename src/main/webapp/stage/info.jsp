@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../css/pintuer.css">
     <link rel="stylesheet" href="../css/admin.css">
     <script src="../js/jquery.min.js"></script>
-    <script src="../js/ajaxfileupload.js"></script>
+    <script src="../js/jquery-form.js"></script>
     <script src="../js/pintuer.js"></script>
     <script type="text/javascript">
         $(function(){
@@ -29,14 +29,15 @@
             }
 
             //点击提交按钮
-            $("#submit").click(function(){
-                //var form = new FormData($("#formData"));
-                //alert(form.password);
+            /*$("#submit").click(function(){
+                var form = new FormData($("#formData")[0]);
+                alert(form);
+                //alert(form.password);$("#formData").serialize()
                 $.ajax({
                     url:"${pageContext.request.contextPath}/user/updateUser.do",
                     type:"post",
-                    data:$("#formData").serialize(),
-                    contentType:"application/x-www-form-urlencoded",
+                    data:form,
+                    contentType:"",
                     success:function(data){
                         if(data == 1){
                             alert("更新成功");
@@ -45,36 +46,76 @@
                         }
                     }
                 });
+            });*/
+
+            //头像和文本同时上传
+            $("#submit").click(function(){
+                $("#formData").ajaxSubmit({
+                    url : "${pageContext.request.contextPath}/user/updateUser.do",
+                    type : "post",
+                    dataType : 'json',
+                    success : function(data) {
+                        alert("设置成功！");
+                        },
+                    error : function(data) {
+                        alert("error:" + data.responseText);
+                    }
+                });
+
             });
 
+            //点击图片的输入框-----上传图片
+            $("#image1").click(function () {
+                $("#file").click();
+            });
 
             //点击上传图片按钮
-            $("#image1").click(function () {
+            /*$("#image1").click(function () {
+                var files = event.target.files;
                 $.ajaxFileUpload({
-                    url: '${pageContext.request.contextPath}/user/imgUpload.do',
-                    fileElementId:'file',
+                    url: "/takeout/user/imgUpload.do",
+                    data:files,
                     dataType:'txt',
                     secureuri : false,
                     success: function (data){
                         if(data != ""){
+                            alert("hello");
                             $("#url1").val(data);
                         }else{
                             alert("上传失败")
                         }
                     }
                 });
-            });
-
-
-
+            });*/
         });
+
+        //改变图片
+        var fileChange = function(event) {
+            var files = event.target.files, file;
+            if (files && files.length > 0) {
+                // 获取目前上传的文件
+                file = files[0];// 文件大小校验的动作
+                if (file.size > 1024 * 1024 * 2) {
+                    alert('图片大小不能超过 2MB!');
+                    return false;
+                }
+                // 获取 window 的 URL 工具
+                var URL = window.URL || window.webkitURL;
+                // 通过 file 生成目标 url
+                var imgURL = URL.createObjectURL(file);
+                //用attr将img的src属性改成获得的url
+                $("#url1").attr("data-image", imgURL);
+                // 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
+                // URL.revokeObjectURL(imgURL);
+            }
+        }
     </script>
 </head>
 <body>
 <div class="panel admin-panel">
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站信息</strong></div>
     <div class="body-content">
-        <form id="formData" method="post" class="form-x" action="">
+        <form id="formData" method="post" class="form-x" action="" enctype="multipart/form-data">
             <div id="userId" class="form-group">
                 <div class="label">
                     <label>用户名：</label>
@@ -98,8 +139,10 @@
                     <label>头像：</label>
                 </div>
                 <div class="field">
-                    <input type="text" id="url1" name="headPic" class="input tips" style="width:25%; float:left;" value="${sessionScope.user.headPic }" data-toggle="hover" data-place="right" data-image="../${sessionScope.user.headPic }"  />
-                    <input type="file" id="file">
+                    <!--<input type="text" id="url1" name="headPic" class="input tips" style="width:25%; float:left;" value="${sessionScope.user.headPic }" data-toggle="hover" data-place="right" data-image="../${sessionScope.user.headPic }"  />-->
+                    <!--img便签不能带中文-->
+                    <img src="../upload/adminperson2017-09-18_105601.png " style="width: 60px;height: 50px;">
+                    <input type="file" id="file" name="file" style="display: none" onchange="fileChange(event);">
                     <input type="button" class="button bg-blue margin-left" id="image1" value="+ 浏览上传" >
                 </div>
             </div>
