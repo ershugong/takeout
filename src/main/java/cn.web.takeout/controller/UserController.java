@@ -72,12 +72,11 @@ public class UserController {
     @RequestMapping("/updateUser")
     @ResponseBody
     public User updateUser(@RequestParam("file") MultipartFile file,User user,HttpSession session) throws Exception{
+        User history = userService.selectUser(user.getId());
         String message;
         String userName = user.getUserName();
         String fileName = file.getOriginalFilename();
-        String subFileName = user.getHeadPic();
-        subFileName = subFileName.substring(7,subFileName.length());
-        if(!file.isEmpty() && !subFileName.equals(fileName)) {
+        if(!file.isEmpty()) {
             //获取文件后缀名
             String prefix=fileName.substring(fileName.lastIndexOf(".")+1);
             message = userName +"-"+ CommenUtil.getUUID32() + "." + prefix;//现在的文件名是时间戳加原文件名，出现图片相同时，读取不出来的bug
@@ -87,6 +86,7 @@ public class UserController {
             user.setHeadPic(message);
         }
         userService.updateUser(user);
+        user.setCreateTime(history.getCreateTime());
         session.setAttribute("user",user);
         return user;
     }

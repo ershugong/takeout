@@ -29,7 +29,7 @@
     <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
     <h2><span class="icon-user"></span>基本设置</h2>
     <ul style="display:block">
-        <li><a href=<%request.getContextPath();%>info.jsp target="right"><span class="icon-caret-right"></span>个人资料</a></li>
+        <li><a href="info.jsp" target="right"><span class="icon-caret-right"></span>个人资料</a></li>
         <li><a href="pass.jsp" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
         <li><a href="page.jsp" target="right"><span class="icon-caret-right"></span>单页管理</a></li>
         <li><a href="adv.jsp" target="right"><span class="icon-caret-right"></span>首页轮播</a></li>
@@ -50,7 +50,7 @@
             $(this).toggleClass("on");
         })
         $(".leftnav ul li a").click(function(){
-            $("#a_leader_txt").text($(this).text());
+            //$("#a_leader_txt").text($(this).text());
             $(".leftnav ul li a").removeClass("on");
             $(this).addClass("on");
         })

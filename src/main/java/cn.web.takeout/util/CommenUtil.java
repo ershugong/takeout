@@ -11,6 +11,10 @@ public class CommenUtil {
      * 用户
      */
     public final static Integer USER = 0;
+    /**
+     * 商品归类（初始化为0）
+     */
+    public final static Integer TYPE0_INT = 0;
 
     public static String getUUID32(){
         String uuid = UUID.randomUUID().toString();//转化为String对象

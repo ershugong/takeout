@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.web.takeout.dao.IShopDao">
+    <resultMap id="tb_shop" type="Shop">
+        <id column="id" property="id"/>
+        <result column="shop_name" property="shopName"></result>
+        <result column="shoper_id" property="shoperId"></result>
+        <result column="is_food" property="isFood"></result>
+        <result column="is_market" property="isMarket"></result>
+        <result column="is_fruit" property="isFruit"></result>
+        <result column="is_dessert" property="isDessert"></result>
+        <result column="is_major_send" property="isMajorSend"></result>
+        <result column="is_snack" property="isSnack"></result>
+        <result column="create_time" property="createTime"></result>
+    </resultMap>
+
+    <select id="selectShop" resultMap="tb_shop" parameterType="String">
+        SELECT * FROM tb_shop WHERE id = #{id}
+    </select>
+
+    <insert id="insertShop" parameterType="Shop">
+        INSERT INTO tb_shop VALUES (#{id},#{shopName},#{shoperId},#{logo},#{address},#{isFood},
+        #{isMarket},#{isFruit},#{isDessert},#{isMajorSend},#{isSupper},#{isSnack},#{createTime});
+    </insert>
+</mapper>

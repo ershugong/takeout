@@ -1,6 +1,8 @@
 package cn.web.takeout.service.impl;
 
+import cn.web.takeout.dao.IShopDao;
 import cn.web.takeout.dao.IUserDao;
+import cn.web.takeout.model.Shop;
 import cn.web.takeout.model.User;
 import cn.web.takeout.service.IUserService;
 import cn.web.takeout.util.CommenUtil;
@@ -17,6 +19,8 @@ import java.util.Map;
 public class UserServiceImpl implements IUserService{
     @Resource
     private IUserDao userDao;
+    @Resource
+    private IShopDao shopDao;
 
     public User selectUser(String userId) {
         return this.userDao.selectUser(userId);
@@ -38,6 +42,22 @@ public class UserServiceImpl implements IUserService{
         user.setHeadPic("upload/y.jpg");//在管理后台具体设置
         user.setCreateTime(new Date());
         user.setShopId(CommenUtil.getUUID32());
+
+        //同时创建此商户的商店
+        Shop shop = new Shop();
+        shop.setId(user.getShopId());
+        shop.setShoperId(user.getId());
+        shop.setCreateTime(new Date());
+        shop.setLogo("../upload/shop.jpg");
+        shop.setIsDessert(CommenUtil.TYPE0_INT);
+        shop.setIsFood(CommenUtil.TYPE0_INT);
+        shop.setIsFruit(CommenUtil.TYPE0_INT);
+        shop.setIsMajorSend(CommenUtil.TYPE0_INT);
+        shop.setIsMarket(CommenUtil.TYPE0_INT);
+        shop.setIsSupper(CommenUtil.TYPE0_INT);
+        shop.setIsSnack(CommenUtil.TYPE0_INT);
+        shopDao.insertShop(shop);
+
         return userDao.registerUser(user);
     }
 
