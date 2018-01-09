@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class UserServiceImpl implements IUserService{
         //需要补充的参数有，id，type，shopId，createTime
         user.setId(CommenUtil.getUUID32());
         user.setType(CommenUtil.SHOPER);
-        user.setHeadPic("images/platform/0.png");//在管理后台具体设置
+        user.setHeadPic("upload/y.jpg");//在管理后台具体设置
         user.setCreateTime(new Date());
         user.setShopId(CommenUtil.getUUID32());
         return userDao.registerUser(user);

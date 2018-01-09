@@ -28,65 +28,41 @@
                 $("#radioMan").attr("checked","checked");
             }
 
-            //点击提交按钮
-            /*$("#submit").click(function(){
-                var form = new FormData($("#formData")[0]);
-                alert(form);
-                //alert(form.password);$("#formData").serialize()
-                $.ajax({
-                    url:"/user/updateUser.do",
-                    type:"post",
-                    data:form,
-                    contentType:"",
-                    success:function(data){
-                        if(data == 1){
-                            alert("更新成功");
-                        }else{
-                            alert("更新失败");
-                        }
-                    }
-                });
-            });*/
-
             //头像和文本同时上传
             $("#submit").click(function(){
-                $("#formData").ajaxSubmit({
-                    url : "${pageContext.request.contextPath}/user/updateUser.do",
-                    type : "post",
-                    dataType : 'json',
-                    success : function(data) {
-                        alert("设置成功！");
+                var file = $("#file").val();
+                if(file == ""){//当头像没有修改，file为空
+                    $("#formData").ajaxSubmit({
+                        url : "${pageContext.request.contextPath}/user/updateUserNotFile.do",
+                        type : "post",
+                        dataType : "json",
+                        success : function(data){
+                            alert("设置成功！");
                         },
-                    error : function(data) {
-                        alert("error:" + data.responseText);
-                    }
-                });
-
+                        error : function(data){
+                            alert("error:" + data.responseText)
+                        }
+                    });
+                }else{
+                    $("#formData").ajaxSubmit({
+                        url : "${pageContext.request.contextPath}/user/updateUser.do",
+                        type : "post",
+                        dataType : "json",
+                        success : function(data) {
+                            $("#headPic",window.parent.document).attr("src","../"+data.headPic);
+                            alert("设置成功！");
+                        },
+                        error : function(data) {
+                            alert("error:" + data.responseText);
+                        }
+                    });
+                }
             });
 
             //点击图片的输入框-----上传图片
             $("#image1").click(function () {
                 $("#file").click();
             });
-
-            //点击上传图片按钮
-            /*$("#image1").click(function () {
-                var files = event.target.files;
-                $.ajaxFileUpload({
-                    url: "/takeout/user/imgUpload.do",
-                    data:files,
-                    dataType:'txt',
-                    secureuri : false,
-                    success: function (data){
-                        if(data != ""){
-                            alert("hello");
-                            $("#url1").val(data);
-                        }else{
-                            alert("上传失败")
-                        }
-                    }
-                });
-            });*/
         });
 
         //改变图片
@@ -115,7 +91,7 @@
 <div class="panel admin-panel">
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站信息</strong></div>
     <div class="body-content">
-        <form id="formData" method="post" class="form-x" action="" enctype="multipart/form-data">
+        <form id="formData" name = "user" method="post" class="form-x" action="" enctype="multipart/form-data">
             <div id="userId" class="form-group">
                 <div class="label">
                     <label>用户名：</label>
@@ -141,8 +117,9 @@
                 <div class="field">
                     <!--<input type="text" id="url1" name="headPic" class="input tips" style="width:25%; float:left;" value="" data-toggle="hover" data-place="right" data-image="../"  />-->
                     <!--img便签不能带中文-->
-                    <img id="img" src="../upload/adminperson2017-09-18_105601.png " style="width: 60px;height: 50px;">
-                    <input type="file" id="file" name="file" style="display: none" onchange="fileChange(event);">
+                    <img id="img" src="../${sessionScope.user.headPic} " style="width: 60px;height: 50px;">
+                    <input type="text" style="display: none" name="headPic" value="${sessionScope.user.headPic}">
+                    <input type="file" id="file" name = "file" style="display: none" onchange="fileChange(event);">
                     <input type="button" class="button bg-blue margin-left" id="image1" value="+ 浏览上传" >
                 </div>
             </div>
@@ -191,6 +168,8 @@
                 <div class="field">
                     <!--<textarea name="scopyright" class="input" style="height:120px;"></textarea>
                     <div class="tips"></div>-->
+                    <!--<input type="text" name="createTime" value="${sessionScope.user.createTime }" style="display: none" />补充user对象的信息（创建时间）-->
+                    <input type="text" name="shopId" value="${sessionScope.user.shopId}" style="display: none" /><!--补充user对象的信息（店铺id）-->
                     <label id="createTime" class="input">${sessionScope.user.createTime }</label>
                 </div>
             </div>

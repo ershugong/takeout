@@ -1,6 +1,8 @@
 package cn.web.takeout.controller;
 import cn.web.takeout.model.User;
 import cn.web.takeout.service.IUserService;
+import cn.web.takeout.util.CommenUtil;
+import net.sf.json.JSONObject;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,10 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -61,24 +64,40 @@ public class UserController {
     }
 
     /**
-     * 修改用户资料
+     * 修改用户资料(带头像)
      * @param user
      * @return
      * @throws Exception
      */
     @RequestMapping("/updateUser")
-    public void updateUser(@RequestParam("file") MultipartFile file,@RequestParam("form") User user
-            ,HttpSession session) throws Exception{
+    @ResponseBody
+    public User updateUser(@RequestParam("file") MultipartFile file,User user,HttpSession session) throws Exception{
         String message;
         String userName = user.getUserName();
-        if(!file.isEmpty()) {
-            message = userName+"-person";//现在的文件名是时间戳加原文件名，出现图片相同时，读取不出来的bug
+        String fileName = file.getOriginalFilename();
+        String subFileName = user.getHeadPic();
+        subFileName = subFileName.substring(7,subFileName.length());
+        if(!file.isEmpty() && !subFileName.equals(fileName)) {
+            //获取文件后缀名
+            String prefix=fileName.substring(fileName.lastIndexOf(".")+1);
+            message = userName +"-"+ CommenUtil.getUUID32() + "." + prefix;//现在的文件名是时间戳加原文件名，出现图片相同时，读取不出来的bug
             String realPath = session.getServletContext().getRealPath("/upload/");//将文件保存在当前工程下的一个upload文件
             FileUtils.copyInputStreamToFile(file.getInputStream(), new File(realPath, message));//将文件的输入流输出到一个新的文件
             message="upload/"+message;
             user.setHeadPic(message);
         }
         userService.updateUser(user);
+        session.setAttribute("user",user);
+        return user;
     }
 
+    @RequestMapping("/updateUserNotFile")
+    @ResponseBody
+    public User updateUserNotFile(User user,HttpSession session) throws Exception{
+        User history = userService.selectUser(user.getId());
+        userService.updateUser(user);
+        user.setCreateTime(history.getCreateTime());
+        session.setAttribute("user",user);
+        return user;
+    }
 }

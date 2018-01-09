@@ -14,7 +14,7 @@
         <result column="create_time" property="createTime"></result>
     </resultMap>
 
-    <select id="selectUser" resultType="User" parameterType="String">
+    <select id="selectUser" resultMap="tb_user" parameterType="String">
         SELECT * FROM tb_user WHERE id = #{id}
     </select>
 
