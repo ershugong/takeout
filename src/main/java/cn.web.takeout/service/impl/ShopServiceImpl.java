@@ -3,9 +3,11 @@ package cn.web.takeout.service.impl;
 import cn.web.takeout.dao.IShopDao;
 import cn.web.takeout.model.Shop;
 import cn.web.takeout.service.IShopService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+@Service("shopService")
 public class ShopServiceImpl implements IShopService{
     @Resource
     private IShopDao shopDao;
@@ -16,11 +18,11 @@ public class ShopServiceImpl implements IShopService{
 
     @Override
     public long insertShop(Shop shop) {
-        return 0;
+        return shopDao.insertShop(shop);
     }
 
     @Override
     public long updateShop(Shop shop) {
-        return 0;
+        return shopDao.updateShop(shop);
     }
 }

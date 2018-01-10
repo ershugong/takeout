@@ -18,6 +18,24 @@
     <link rel="stylesheet" href="../css/admin.css">
     <script src="../js/jquery.min.js"></script>
 </head>
+
+<script type="text/javascript">
+    //点击店铺资料
+    var keyPage = function () {
+        $.ajax({
+            url : "${pageContext.request.contextPath}/shop/selectShop.do",
+            type : "post",
+            data : {id : "${sessionScope.user.shopId}"},
+            dataType : "json",
+            success : function (data) {
+
+            },
+            error : function (data) {
+                alert(data);
+            }
+        });
+    }
+</script>
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
     <div class="logo margin-big-left fadein-top">
@@ -31,7 +49,7 @@
     <ul style="display:block">
         <li><a href="info.jsp" target="right"><span class="icon-caret-right"></span>个人资料</a></li>
         <li><a href="pass.jsp" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
-        <li><a href="page.jsp" target="right"><span class="icon-caret-right"></span>单页管理</a></li>
+        <li onclick="keyPage();"><a href="page.jsp" target="right"><span class="icon-caret-right"></span>店铺资料</a></li>
         <li><a href="adv.jsp" target="right"><span class="icon-caret-right"></span>首页轮播</a></li>
         <li><a href="book.jsp" target="right"><span class="icon-caret-right"></span>留言管理</a></li>
         <li><a href="column.jsp" target="right"><span class="icon-caret-right"></span>栏目管理</a></li>
@@ -48,13 +66,15 @@
         $(".leftnav h2").click(function(){
             $(this).next().slideToggle(200);
             $(this).toggleClass("on");
-        })
+        });
         $(".leftnav ul li a").click(function(){
             //$("#a_leader_txt").text($(this).text());
             $(".leftnav ul li a").removeClass("on");
             $(this).addClass("on");
-        })
+        });
     });
+
+
 </script>
 <ul class="bread">
     <li><a href="info.jsp" target="right" class="icon-home"> 首页</a></li><!--"{:U('Index/info')}"-->

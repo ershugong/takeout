@@ -24,4 +24,11 @@
         INSERT INTO tb_shop VALUES (#{id},#{shopName},#{shoperId},#{logo},#{address},#{isFood},
         #{isMarket},#{isFruit},#{isDessert},#{isMajorSend},#{isSupper},#{isSnack},#{createTime});
     </insert>
+
+    <update id="updateShop" parameterType="Shop">
+        UPDATE tb_shop SET shop_name = #{shopName},logo = #{logo},address = #{address},is_food = #{isFood},
+         is_market = #{isMarket},is_fruit = #{isFruit},is_dessert = #{isDessert},is_major_send = #{isMajorSend},
+         is_supper = #{isSupper},is_snack = #{isSnack}
+         WHERE id = #{id}
+    </update>
 </mapper>

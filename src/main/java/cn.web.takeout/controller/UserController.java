@@ -72,7 +72,6 @@ public class UserController {
     @RequestMapping("/updateUser")
     @ResponseBody
     public User updateUser(@RequestParam("file") MultipartFile file,User user,HttpSession session) throws Exception{
-        User history = userService.selectUser(user.getId());
         String message;
         String userName = user.getUserName();
         String fileName = file.getOriginalFilename();
@@ -86,7 +85,6 @@ public class UserController {
             user.setHeadPic(message);
         }
         userService.updateUser(user);
-        user.setCreateTime(history.getCreateTime());
         session.setAttribute("user",user);
         return user;
     }
