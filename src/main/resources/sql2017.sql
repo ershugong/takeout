@@ -79,3 +79,6 @@ CREATE TABLE `tb_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+alter table tb_menu add ext varchar(255) COMMENT '描述';
+

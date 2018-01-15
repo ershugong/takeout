@@ -7,6 +7,7 @@ import cn.web.takeout.service.IMenuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service("menuService")
@@ -21,6 +22,7 @@ public class MenuServiceImpl implements IMenuService{
 
     @Override
     public long insertMenu(Menu menu) {
+        menu.setCreateTime(new Date());
         return menuDao.insertMenu(menu);
     }
 

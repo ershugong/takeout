@@ -1,5 +1,7 @@
 package cn.web.takeout.model;
 
+import java.util.Date;
+
 public class Menu {
     private String id;
     private String name;
@@ -8,6 +10,8 @@ public class Menu {
     private int price;
     private int status;
     private int shopId;
+    private String ext;
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -63,5 +67,21 @@ public class Menu {
 
     public void setShopId(int shopId) {
         this.shopId = shopId;
+    }
+
+    public String getExt() {
+        return ext;
+    }
+
+    public void setExt(String ext) {
+        this.ext = ext;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

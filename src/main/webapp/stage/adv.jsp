@@ -5,7 +5,7 @@
   Time: 9:18
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html lang="zh-cn">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -24,14 +24,13 @@
             }
         }
         $(function () {
-            var shopId = ${sessionScope.user.shopId};
+            var shopId = "${sessionScope.user.shopId}";
             $.ajax({
                 url : "${pageContext.request.contextPath}/menu/getAllMenu.do",
                 type : "post",
                 data : {shopId : shopId},
                 dataType : "json",
                 success : function(data) {
-                    
                     $.each(data,function (index) {
                         var text = "<tr>" +
                             "<td>1</td>" +
@@ -116,7 +115,7 @@
                     <label>标题：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" value="" name="title" data-validate="required:请输入标题" />
+                    <input type="text" class="input w50" value="" name="name" data-validate="required:请输入标题" />
                     <div class="tips"></div>
                 </div>
             </div>
@@ -162,7 +161,7 @@
                     <label></label>
                 </div>
                 <div class="field">
-                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                    <button class="button bg-main icon-check-square-o" type="button"> 提交</button>
                 </div>
             </div>
         </form>

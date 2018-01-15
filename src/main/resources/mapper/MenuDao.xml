@@ -14,15 +14,16 @@
     </select>
 
     <insert id="insertMenu" parameterType="Menu">
-        INSERT INTO tb_menu VALUES (#{id},#{name},#{headPic},#{type},#{price},#{status},#{shopId});
+        INSERT INTO tb_menu VALUES (#{id},#{name},#{headPic},#{type},#{price},#{status},#{shopId},#{ext},create_time = #{createTime});
     </insert>
 
     <update id="updateMenu" parameterType="Menu">
         UPDATE tb_menu SET name = #{name},head_pic = #{headPic},type = #{type},price = #{price},
-        status = #{status},shop_id = #{shop_id}
+        status = #{status},shop_id = #{shop_id},ext = #{ext}
          WHERE id = #{id}
     </update>
+
     <select id="getAllMenu" parameterType="String" resultType="Menu">
-        SELECT * FROM tb_menu WHERE shop_id = #{shopId}
+        SELECT * FROM tb_menu WHERE shop_id = #{shopId} ORDER BY create_time
     </select>
 </mapper>
