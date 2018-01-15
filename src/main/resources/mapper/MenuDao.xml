@@ -22,4 +22,7 @@
         status = #{status},shop_id = #{shop_id}
          WHERE id = #{id}
     </update>
+    <select id="getAllMenu" parameterType="String" resultType="Menu">
+        SELECT * FROM tb_menu WHERE shop_id = #{shopId}
+    </select>
 </mapper>

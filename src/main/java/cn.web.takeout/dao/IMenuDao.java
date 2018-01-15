@@ -2,6 +2,8 @@ package cn.web.takeout.dao;
 
 import cn.web.takeout.model.Menu;
 
+import java.util.List;
+
 public interface IMenuDao {
     /**
      * 插入菜单
@@ -23,4 +25,11 @@ public interface IMenuDao {
      * @return
      */
     long updateMenu(Menu menu);
+
+    /**
+     *通过商店id查询所有的菜色
+     * @param shopId
+     * @return
+     */
+    List<Menu> getAllMenu(String shopId);
 }

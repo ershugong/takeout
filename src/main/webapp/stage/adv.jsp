@@ -15,8 +15,44 @@
     <title></title>
     <link rel="stylesheet" href="../css/pintuer.css">
     <link rel="stylesheet" href="../css/admin.css">
-    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery.min.js"></script>
     <script src="../js/pintuer.js"></script>
+    <script type="text/javascript">
+        function del(id,mid){
+            if(confirm("您确定要删除吗?")){
+
+            }
+        }
+        $(function () {
+            var shopId = ${sessionScope.user.shopId};
+            $.ajax({
+                url : "${pageContext.request.contextPath}/menu/getAllMenu.do",
+                type : "post",
+                data : {shopId : shopId},
+                dataType : "json",
+                success : function(data) {
+                    
+                    $.each(data,function (index) {
+                        var text = "<tr>" +
+                            "<td>1</td>" +
+                            "<td><img src='../images/platform/11.jpg\' alt='' width='120' height=\"50\" /></td>" +
+                            "<td>"+data[index].name+"</td>" +
+                            "<td>描述文字....</td>" +
+                            "<td>1</td>" +
+                            "<td><div class='button-group'>" +
+                            "<a class='button border-main' href='#add'><span class='icon-edit'></span> 修改</a>" +
+                            "<a class='button border-red' href='javascript:void(0)' onclick='return del(1,1)'><span class='icon-trash-o'></span> 删除</a>" +
+                            "</div></td>" +
+                            "</tr>";
+                        $("#tableData").append(text);
+                    });
+                },
+                error : function(data) {
+                    alert("error:" + data.responseText);
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="panel admin-panel">
@@ -24,7 +60,7 @@
     <div class="padding border-bottom">
         <button type="button" class="button border-yellow" onclick="window.location.href='#add'"><span class="icon-plus-square-o"></span> 添加内容</button>
     </div>
-    <table class="table table-hover text-center">
+    <table class="table table-hover text-center" id="tableData">
         <tr>
             <th width="10%">ID</th>
             <th width="20%">图片</th>
@@ -70,13 +106,7 @@
 
     </table>
 </div>
-<script type="text/javascript">
-    function del(id,mid){
-        if(confirm("您确定要删除吗?")){
 
-        }
-    }
-</script>
 <div class="panel admin-panel margin-top" id="add">
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加内容</strong></div>
     <div class="body-content">
