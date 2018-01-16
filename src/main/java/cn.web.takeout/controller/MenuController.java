@@ -64,12 +64,18 @@ public class MenuController {
 
     @ResponseBody
     @RequestMapping("/updateMenuNotFile")
-    public Menu updateShopNotFile(Menu menu) throws Exception{
+    public Menu updateMenuNotFile(Menu menu,HttpSession session) throws Exception{
         Menu history = menuService.selecMenu(menu.getId());
         if(history != null){
             menu.setId(history.getId());
+            menu.setHeadPic(history.getHeadPic());
+            menu.setCreateTime(history.getCreateTime());
+            menu.setStatus(history.getStatus());
+            menu.setShopId(history.getShopId());
             menuService.updateMenu(menu);
         }else{
+            User user = (User)session.getAttribute("user");
+            menu.setShopId(user.getShopId());
             menu.setId(CommenUtil.getUUID32());
             menuService.insertMenu(menu);
         }

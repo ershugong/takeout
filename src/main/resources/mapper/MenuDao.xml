@@ -7,6 +7,7 @@
         <id column="id" property="id"/>
         <result column="head_pic" property="headPic"></result>
         <result column="shop_id" property="shopId"></result>
+        <result column="create_time" property="createTime"></result>
     </resultMap>
 
     <select id="selectMenu" resultMap="tb_menu" parameterType="String">
@@ -19,11 +20,11 @@
 
     <update id="updateMenu" parameterType="Menu">
         UPDATE tb_menu SET name = #{name},head_pic = #{headPic},type = #{type},price = #{price},
-        status = #{status},shop_id = #{shop_id},ext = #{ext}
+        status = #{status},shop_id = #{shopId},ext = #{ext}
          WHERE id = #{id}
     </update>
 
-    <select id="getAllMenu" parameterType="String" resultType="Menu">
+    <select id="getAllMenu" parameterType="String" resultMap="tb_menu">
         SELECT * FROM tb_menu WHERE shop_id = #{shopId} ORDER BY create_time
     </select>
 </mapper>

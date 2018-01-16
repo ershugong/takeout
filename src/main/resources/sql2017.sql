@@ -81,4 +81,5 @@ CREATE TABLE `tb_user` (
 
 
 alter table tb_menu add ext varchar(255) COMMENT '描述';
+alter table tb_menu add create_time datetime DEFAULT NULL COMMENT '创建时间';
 

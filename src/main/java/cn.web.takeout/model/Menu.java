@@ -9,7 +9,7 @@ public class Menu {
     private Integer type;
     private int price;
     private int status;
-    private int shopId;
+    private String shopId;
     private String ext;
     private Date createTime;
 
@@ -61,11 +61,11 @@ public class Menu {
         this.status = status;
     }
 
-    public int getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(int shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 

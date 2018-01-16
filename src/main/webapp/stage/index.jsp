@@ -50,7 +50,7 @@
         <li><a href="info.jsp" target="right"><span class="icon-caret-right"></span>个人资料</a></li>
         <li><a href="pass.jsp" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
         <li onclick="keyPage();"><a href="page.jsp" target="right"><span class="icon-caret-right"></span>店铺资料</a></li>
-        <li><a href="adv.jsp" target="right"><span class="icon-caret-right"></span>菜单管理</a></li>
+        <li><a href="adv.jsp" target="right" id="menu"><span class="icon-caret-right"></span>菜单管理</a></li>
         <li><a href="book.jsp" target="right"><span class="icon-caret-right"></span>留言管理</a></li>
         <li><a href="column.jsp" target="right"><span class="icon-caret-right"></span>栏目管理</a></li>
     </ul>

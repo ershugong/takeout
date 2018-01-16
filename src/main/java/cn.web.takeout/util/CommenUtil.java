@@ -15,6 +15,10 @@ public class CommenUtil {
      * 商品归类（初始化为0）
      */
     public final static Integer TYPE0_INT = 0;
+    /**
+     * 菜单上架
+     */
+    public final static Integer MENU_UP_STATUS = 1;
 
     public static String getUUID32(){
         String uuid = UUID.randomUUID().toString();//转化为String对象

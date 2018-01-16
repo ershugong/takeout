@@ -4,6 +4,7 @@ package cn.web.takeout.service.impl;
 import cn.web.takeout.dao.IMenuDao;
 import cn.web.takeout.model.Menu;
 import cn.web.takeout.service.IMenuService;
+import cn.web.takeout.util.CommenUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +23,8 @@ public class MenuServiceImpl implements IMenuService{
 
     @Override
     public long insertMenu(Menu menu) {
+        menu.setHeadPic("upload/x.png");//初始化头像
+        menu.setStatus(CommenUtil.MENU_UP_STATUS);
         menu.setCreateTime(new Date());
         return menuDao.insertMenu(menu);
     }
