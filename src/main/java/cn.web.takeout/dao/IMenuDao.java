@@ -32,4 +32,11 @@ public interface IMenuDao {
      * @return
      */
     List<Menu> getAllMenu(String shopId);
+
+    /**
+     * 删除菜色
+     * @param id
+     * @return
+     */
+    long delMenu(String id);
 }

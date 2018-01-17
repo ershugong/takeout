@@ -9,4 +9,5 @@ public interface IMenuService {
     long insertMenu(Menu menu);
     long updateMenu(Menu menu);
     List<Menu> getAllMenu(String shopId);
+    long delMenu(String id);
 }

@@ -5,6 +5,7 @@ import cn.web.takeout.model.Shop;
 import cn.web.takeout.model.User;
 import cn.web.takeout.service.IMenuService;
 import cn.web.takeout.util.CommenUtil;
+import com.sun.deploy.net.HttpResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Controller
@@ -52,10 +55,16 @@ public class MenuController {
             menu.setHeadPic(message);
         }
         Menu history = menuService.selecMenu(menu.getId());
+
         if(history == null){
+            User user = (User)session.getAttribute("user");
+            menu.setShopId(user.getShopId());
             menu.setId(CommenUtil.getUUID32());
             menuService.insertMenu(menu);
         }else{
+            menu.setCreateTime(history.getCreateTime());
+            menu.setStatus(history.getStatus());
+            menu.setShopId(history.getShopId());
             menu.setId(history.getId());
             menuService.updateMenu(menu);
         }
@@ -80,6 +89,17 @@ public class MenuController {
             menuService.insertMenu(menu);
         }
         return menu;
+    }
+
+    @RequestMapping("/delMenu")
+    public void delMenu(String id, HttpServletResponse response)throws Exception{
+        long result = menuService.delMenu(id);
+        PrintWriter pw = response.getWriter();
+        if(result == 1){//删除成功
+            pw.write(1);
+        }else{
+            pw.write(0);
+        }
     }
 
 

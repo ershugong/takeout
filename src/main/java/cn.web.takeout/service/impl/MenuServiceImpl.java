@@ -38,4 +38,9 @@ public class MenuServiceImpl implements IMenuService{
     public List<Menu> getAllMenu(String shopId) {
         return menuDao.getAllMenu(shopId);
     }
+
+    @Override
+    public long delMenu(String id) {
+        return menuDao.delMenu(id);
+    }
 }

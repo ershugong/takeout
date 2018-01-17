@@ -15,7 +15,7 @@
     </select>
 
     <insert id="insertMenu" parameterType="Menu">
-        INSERT INTO tb_menu VALUES (#{id},#{name},#{headPic},#{type},#{price},#{status},#{shopId},#{ext},create_time = #{createTime});
+        INSERT INTO tb_menu VALUES (#{id},#{name},#{headPic},#{type},#{price},#{status},#{shopId},#{ext},#{createTime});
     </insert>
 
     <update id="updateMenu" parameterType="Menu">
@@ -27,4 +27,8 @@
     <select id="getAllMenu" parameterType="String" resultMap="tb_menu">
         SELECT * FROM tb_menu WHERE shop_id = #{shopId} ORDER BY create_time
     </select>
+
+    <delete id="delMenu" parameterType="String">
+        DELETE FROM tb_menu WHERE id = #{id}
+    </delete>
 </mapper>

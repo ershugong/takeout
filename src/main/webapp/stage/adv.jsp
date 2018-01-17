@@ -20,9 +20,20 @@
     <script src="../js/jquery-form.js"></script>
     <script type="text/javascript">
 
-        function del(id,mid){
+        function del(data){
             if(confirm("您确定要删除吗?")){
-
+                $.ajax({
+                    url:"${pageContext.request.contextPath}/menu/delMenu.do",
+                    type : "post",
+                    data : {id : data.id},
+                    dataType : "text",
+                    success : function (data) {
+                        alert("删除成功");
+                    },
+                    error : function (data) {
+                        alert(data);
+                    }
+                });
             }
         }
 
@@ -66,7 +77,7 @@
                             "<td>"+data[index].price+"</td>" +
                             "<td><div class='button-group'>" +
                             "<a class='button border-main' href='javascript:void(0)' onclick='updateSubmit("+xxxData+");'><span class='icon-edit'></span> 修改</a>" +
-                            "<a class='button border-red' href='javascript:void(0)' onclick='return del(1,1)'><span class='icon-trash-o'></span> 删除</a>" +
+                            "<a class='button border-red' href='javascript:void(0)' onclick='return del("+xxxData+")'><span class='icon-trash-o'></span> 删除</a>" +
                             "</div></td>" +
                             "</tr>";
 
@@ -107,7 +118,8 @@
                         dataType : "json",
                         success : function(data) {
                             //$("#headPic",window.parent.document).attr("src","../"+data.headPic);
-                            $("#menu",window.parent.document).click();
+                            $("#menu",window.parent.document).attr("src","../"+data.headPic);
+                            //window.navigate(location)//刷新页面
                             alert("操作成功！");
                         },
                         error : function(data) {
