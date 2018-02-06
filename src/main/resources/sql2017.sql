@@ -83,3 +83,10 @@ CREATE TABLE `tb_user` (
 alter table tb_menu add ext varchar(255) COMMENT '描述';
 alter table tb_menu add create_time datetime DEFAULT NULL COMMENT '创建时间';
 
+---添加地点经纬度，评分，起送，配送价
+alter table tb_shop
+add latitude int default NULL COMMENT "纬度，浮点数，范围为-90~90，负数表示南纬",
+add longitude int default NULL COMMENT "纬度，浮点数，范围为-90~90，负数表示南纬",
+add low_send TINYINT DEFAULT 0 COMMENT "多少元起送",
+add send_price TINYINT DEFAULT 0 COMMENT "配送价";
+
