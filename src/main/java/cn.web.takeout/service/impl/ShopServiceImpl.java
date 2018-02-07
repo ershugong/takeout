@@ -3,9 +3,12 @@ package cn.web.takeout.service.impl;
 import cn.web.takeout.dao.IShopDao;
 import cn.web.takeout.model.Shop;
 import cn.web.takeout.service.IShopService;
+import cn.web.takeout.util.GetLatAndLngByBaidu;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @Service("shopService")
 public class ShopServiceImpl implements IShopService{
@@ -23,6 +26,17 @@ public class ShopServiceImpl implements IShopService{
 
     @Override
     public long updateShop(Shop shop) {
+        String address = shop.getAddress();
+        Map<String,Double> place = GetLatAndLngByBaidu.getLngAndLat(address);
+        shop.setLatitude(place.get("lat"));//插入纬度
+        shop.setLongitude(place.get("lng"));//插入经度
         return shopDao.updateShop(shop);
     }
+
+    @Override
+    public List<Shop> getAllShop() {
+       return shopDao.getAllShop();
+    }
+
+
 }

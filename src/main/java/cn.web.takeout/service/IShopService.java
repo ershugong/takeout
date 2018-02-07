@@ -2,6 +2,8 @@ package cn.web.takeout.service;
 
 import cn.web.takeout.model.Shop;
 
+import java.util.List;
+
 public interface IShopService {
     /**
      * 通过主键选择
@@ -23,4 +25,10 @@ public interface IShopService {
      * @return
      */
     long updateShop(Shop shop);
+
+    /**
+     * 获取所有的商店
+     * @return
+     */
+    List<Shop> getAllShop();
 }

@@ -48,7 +48,7 @@ public class UserServiceImpl implements IUserService{
         shop.setId(user.getShopId());
         shop.setShoperId(user.getId());
         shop.setCreateTime(new Date());
-        shop.setLogo("../upload/shop.jpg");
+        shop.setLogo("upload/shop.jpg");//初始化商店的默认门面图片
         shop.setIsDessert(CommenUtil.TYPE0_INT);
         shop.setIsFood(CommenUtil.TYPE0_INT);
         shop.setIsFruit(CommenUtil.TYPE0_INT);

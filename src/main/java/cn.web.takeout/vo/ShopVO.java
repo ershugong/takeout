@@ -1,8 +1,8 @@
-package cn.web.takeout.model;
+package cn.web.takeout.vo;
 
 import java.util.Date;
 
-public class Shop {
+public class ShopVO {
     private String id;//商店id
     private String shopName;//商店名称
     private String shoperId;//店主id
@@ -20,6 +20,8 @@ public class Shop {
     private Double longitude;//经度
     private int lowSend;//多少元起配送
     private int sendPrice;//运送费
+
+    private double distance;//相对于顾客（当前）的距离
 
     public String getId() {
         return id;
@@ -155,5 +157,13 @@ public class Shop {
 
     public void setSendPrice(int sendPrice) {
         this.sendPrice = sendPrice;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 }

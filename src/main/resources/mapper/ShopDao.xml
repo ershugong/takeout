@@ -14,6 +14,8 @@
         <result column="is_major_send" property="isMajorSend"></result>
         <result column="is_snack" property="isSnack"></result>
         <result column="create_time" property="createTime"></result>
+        <result column="low_send" property="lowSend"></result>
+        <result column="send_price" property="sendPrice"></result>
     </resultMap>
 
     <select id="selectShop" resultMap="tb_shop" parameterType="String">
@@ -22,13 +24,18 @@
 
     <insert id="insertShop" parameterType="Shop">
         INSERT INTO tb_shop VALUES (#{id},#{shopName},#{shoperId},#{logo},#{address},#{isFood},
-        #{isMarket},#{isFruit},#{isDessert},#{isMajorSend},#{isSupper},#{isSnack},#{createTime});
+        #{isMarket},#{isFruit},#{isDessert},#{isMajorSend},#{isSupper},#{isSnack},#{createTime},
+        #{latitude},#{longitude},#{lowSend},#{sendPrice});
     </insert>
 
     <update id="updateShop" parameterType="Shop">
         UPDATE tb_shop SET shop_name = #{shopName},logo = #{logo},address = #{address},is_food = #{isFood},
          is_market = #{isMarket},is_fruit = #{isFruit},is_dessert = #{isDessert},is_major_send = #{isMajorSend},
-         is_supper = #{isSupper},is_snack = #{isSnack}
+         is_supper = #{isSupper},is_snack = #{isSnack},latitude = #{latitude},longitude = #{longitude}
          WHERE id = #{id}
     </update>
+
+    <select id="getAllShop" resultMap="tb_shop">
+        SELECT * FROM  tb_shop;
+    </select>
 </mapper>

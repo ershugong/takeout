@@ -5,7 +5,11 @@ import cn.web.takeout.model.User;
 import cn.web.takeout.service.IShopService;
 import cn.web.takeout.service.IUserService;
 import cn.web.takeout.util.CommenUtil;
+import cn.web.takeout.util.GetLatAndLngByBaidu;
+import cn.web.takeout.vo.ShopVO;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +20,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/shop")
@@ -61,5 +67,22 @@ public class ShopController {
         Shop shop = shopService.selectShop(id);
         session.setAttribute("shop",shop);
         return shop;
+    }
+
+    @ResponseBody
+    @RequestMapping("/getAllShop")
+    public List<ShopVO> getAllShop(@RequestParam("latitude")Double latitude,@RequestParam("longitude")Double longitude) throws Exception{
+        List<ShopVO> result = new ArrayList<ShopVO>();
+        ShopVO shopVO;
+        List<Shop> shops = shopService.getAllShop();
+        for(Shop shop : shops){
+            shopVO = new ShopVO();
+            BeanUtils.copyProperties(shopVO,shop);//转换
+            //计算距离
+            double distance = GetLatAndLngByBaidu.getDistance(shop.getLongitude(),shop.getLatitude(),longitude,latitude);
+            shopVO.setDistance(distance);
+            result.add(shopVO);
+        }
+       return result;
     }
 }
