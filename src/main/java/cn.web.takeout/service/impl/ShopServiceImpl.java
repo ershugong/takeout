@@ -38,5 +38,15 @@ public class ShopServiceImpl implements IShopService{
        return shopDao.getAllShop();
     }
 
+    @Override
+    public List<Shop> orderShop(String orderKey) {
+        return shopDao.orderShop(orderKey);
+    }
+
+    @Override
+    public List<Shop> termShop(String shopType) {
+        return shopDao.termShop(shopType);
+    }
+
 
 }

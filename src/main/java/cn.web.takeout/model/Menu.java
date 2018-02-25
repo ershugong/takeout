@@ -6,12 +6,15 @@ public class Menu {
     private String id;
     private String name;
     private String headPic;
-    private Integer type;
+    private String type;
     private int price;
     private int status;
     private String shopId;
     private String ext;
     private Date createTime;
+    private int laud;
+    private int rate;
+    private int numb;
 
     public String getId() {
         return id;
@@ -37,11 +40,11 @@ public class Menu {
         this.headPic = headPic;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -83,5 +86,29 @@ public class Menu {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public int getLaud() {
+        return laud;
+    }
+
+    public void setLaud(int laud) {
+        this.laud = laud;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
+    public int getNumb() {
+        return numb;
+    }
+
+    public void setNumb(int numb) {
+        this.numb = numb;
     }
 }

@@ -170,6 +170,19 @@
       <artifactId>commons-logging</artifactId>
       <version>1.2</version>
     </dependency>
+    <!-- 加密解密数据 -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.10</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk16 -->
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk16</artifactId>
+      <version>1.46</version>
+    </dependency>
+
     <dependency>
       <groupId>net.sf.ezmorph</groupId>
       <artifactId>ezmorph</artifactId>

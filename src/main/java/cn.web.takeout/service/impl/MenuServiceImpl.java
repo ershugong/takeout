@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service("menuService")
 public class MenuServiceImpl implements IMenuService{
@@ -23,9 +24,11 @@ public class MenuServiceImpl implements IMenuService{
 
     @Override
     public long insertMenu(Menu menu) {
-        menu.setHeadPic("upload/x.png");//初始化头像
-        menu.setStatus(CommenUtil.MENU_UP_STATUS);
+        if(menu.getHeadPic() == null){
+            menu.setHeadPic("upload/x.png");//初始化头像
+        }
         menu.setCreateTime(new Date());
+        menu.setNumb(CommenUtil.MENU_NUM);
         return menuDao.insertMenu(menu);
     }
 

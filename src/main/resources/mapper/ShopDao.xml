@@ -31,11 +31,43 @@
     <update id="updateShop" parameterType="Shop">
         UPDATE tb_shop SET shop_name = #{shopName},logo = #{logo},address = #{address},is_food = #{isFood},
          is_market = #{isMarket},is_fruit = #{isFruit},is_dessert = #{isDessert},is_major_send = #{isMajorSend},
-         is_supper = #{isSupper},is_snack = #{isSnack},latitude = #{latitude},longitude = #{longitude}
+         is_supper = #{isSupper},is_snack = #{isSnack},latitude = #{latitude},longitude = #{longitude},
+         low_send = #{lowSend},send_price = #{sendPrice}
          WHERE id = #{id}
     </update>
 
     <select id="getAllShop" resultMap="tb_shop">
         SELECT * FROM  tb_shop;
+    </select>
+
+    <select id="orderShop" resultMap="tb_shop">
+        SELECT  * FROM  tb_shop ORDER BY ${orderKey} ASC
+    </select>
+    
+    
+    <select id="termShop" parameterType="String" resultMap="tb_shop">
+        SELECT * FROM tb_shop WHERE 1 = 1
+        <if test="isFood != null">
+            AND isFood = 1
+        </if>
+        <if test="isMarket != null">
+            AND isMarket = 1
+        </if>
+        <if test="isFruit != null">
+            AND isFruit = 1
+        </if>
+        <if test="isDessert != null">
+            AND isDessert = 1
+        </if>
+        <if test="isMajorSend != null">
+            AND isMajorSend = 1
+        </if>
+        <if test="isSupper != null">
+            AND isSupper = 1
+        </if>
+        <if test="isSnack != null">
+            AND isSnack = 1
+        </if>
+
     </select>
 </mapper>

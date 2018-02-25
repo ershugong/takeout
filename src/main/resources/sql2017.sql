@@ -90,3 +90,46 @@ add longitude Double default NULL COMMENT "纬度，浮点数，范围为-90~90�
 add low_send TINYINT DEFAULT 0 COMMENT "多少元起送",
 add send_price TINYINT DEFAULT 0 COMMENT "配送价";
 
+---菜单表添加赞的数目以及月售量
+alter table tb_menu
+add laud INT default 0 COMMENT "赞的数目",
+add rate INT default 0 COMMENT "月售数目";
+
+---菜单表修改类型字段为字符串类型
+ALTER TABLE tb_menu MODIFY COLUMN `type` varchar(10) DEFAULT NULL COMMENT '类型';
+
+---菜单表添加当前被加入到购物车的数目
+alter table tb_menu
+add numb INT default 0 COMMENT "当前被加入到购物车的数目"
+
+---订单表添加创建时间，店铺名，订单结算价格，订单编号，菜名等字段
+alter table tb_order
+ADD `create_time` VARCHAR(60) DEFAULT NULL COMMENT '订单创建时间',
+ADD `shop_name` VARCHAR(60) DEFAULT NULL COMMENT '店铺名',
+ADD `price` INT DEFAULT 0 COMMENT '订单结算价格',
+ADD `order_id` VARCHAR(32) DEFAULT NULL COMMENT '订单编号',
+ADD `menu_name` VARCHAR(200) DEFAULT NULL COMMENT '菜名'
+
+---修改订单状态的字段类型为varchar
+ALTER TABLE tb_order MODIFY COLUMN `STATUS` varchar(20) DEFAULT NULL COMMENT '类型';
+
+---订单表添加数量字段
+alter table tb_order
+ADD `numb` INT DEFAULT 0 COMMENT '订单数量（对应的菜色）'
+
+---评价表添加订单的menuId
+alter table tb_comment
+ADD `menu_id` VARCHAR(32) DEFAULT NULL COMMENT '菜色id'
+
+---评价表添加评价的用户名
+alter table tb_comment
+ADD `user_name` VARCHAR(60) DEFAULT NULL COMMENT '评价的用户名'
+
+---评价表添加评价的创建时间
+alter table tb_comment
+ADD `create_time` datetime DEFAULT NULL COMMENT '评价的创建时间'
+
+---评价表添加评价类型（5好，3中，1差）
+alter table tb_comment
+ADD `comment_type` VARCHAR(10) DEFAULT NULL COMMENT '评价类型：BAD--差评，NOTBAD--中评，GOOD--好评'
+

@@ -28,7 +28,7 @@
                     data : {id : data.id},
                     dataType : "text",
                     success : function (data) {
-                        alert("删除成功");
+                        window.location.reload();
                     },
                     error : function (data) {
                         alert(data);
@@ -43,25 +43,29 @@
             $("#price").val(event.price);
             $("#ext").val(event.ext);
             $("#id").val(event.id);
-
-            if(event.type = 1){
+            $("#type").val(event.type);
+            /*if(event.type == 1){
                 $("#dessert").attr("checked","checked");
-            }else if(event.type = 2){
-                $("#price").attr("checked","checked");
-            }else if(event.type = 3){
+            }else if(event.type == "2"){
+                $("#rice").attr("checked","checked");
+            }else if(event.type == 3){
                 $("#congee").attr("checked","checked");
             }else{
                 $("#noodle").attr("checked","checked");
+            }*/
+            if(event.status == 1){
+                $("#isTrue").attr("checked","checked");
+            }else {
+                $("#isFlase").attr("checked", "checked");
             }
+        //菜色照片
+        $("#img").attr("src","../"+event.headPic);
+    }
 
-            //菜色照片
-            $("#img").attr("src","../"+event.headPic);
-        }
-
-        $(function () {
-            var shopId = "${sessionScope.user.shopId}";
+    $(function () {
+        var shopId = "${sessionScope.user.shopId}";
             $.ajax({
-                url : "${pageContext.request.contextPath}/menu/getAllMenu.do",
+                url : "${pageContext.request.contextPath}/menu/getAllMenusByShop.do",
                 type : "post",
                 data : {shopId : shopId},
                 dataType : "json",
@@ -105,7 +109,7 @@
                         type : "post",
                         dataType : "json",
                         success : function(data){
-                            alert("操作成功！");
+                            window.location.reload();
                         },
                         error : function(data){
                             alert("error:" + data.responseText)
@@ -117,10 +121,7 @@
                         type : "post",
                         dataType : "json",
                         success : function(data) {
-                            //$("#headPic",window.parent.document).attr("src","../"+data.headPic);
-                            $("#menu",window.parent.document).attr("src","../"+data.headPic);
-                            //window.navigate(location)//刷新页面
-                            alert("操作成功！");
+                            window.location.reload();//刷新页面
                         },
                         error : function(data) {
                             alert("error:" + data.responseText);
@@ -170,7 +171,7 @@
             <th width="15%">操作</th>
         </tr>
 
-        <tr>
+        <!--<tr>
             <td>1</td>
             <td><img src="../images/platform/11.jpg" alt="" width="120" height="50" /></td>
             <td>首页焦点图</td>
@@ -205,7 +206,7 @@
                 <a class="button border-main" href="#add"><span class="icon-edit"></span> 修改</a>
                 <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1)"><span class="icon-trash-o"></span> 删除</a>
             </div></td>
-        </tr>
+        </tr>-->
 
     </table>
 </div>
@@ -257,7 +258,7 @@
                     <div class="tips"></div>
                 </div>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <div class="label">
                     <label>类型：</label>
                 </div>
@@ -267,6 +268,27 @@
                     饭类:<input type="radio" id="rice" name="type" value="2">
                     粥类:<input type="radio" id="congee" name="type" value="3">
                     面/粉类:<input type="radio" id="noodle" name="type" value="4">
+                    <div class="tips"></div>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <div class="label">
+                    <label>上架：</label>
+                </div>
+                <div class="ffield">
+                    <%--<input type="text" class="input w50" name="sort" value="0"  data-validate="required:,number:排序必须为数字" />--%>
+                    是:<input type="radio" id="isTrue" name="status" value="1">
+                    否:<input type="radio" id="isFlase" name="status" value="0">
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>类型：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="type" value="" name="type" data-validate="required:请输入菜色类型" />
                     <div class="tips"></div>
                 </div>
             </div>

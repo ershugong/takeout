@@ -31,4 +31,17 @@ public interface IShopService {
      * @return
      */
     List<Shop> getAllShop();
+
+    /**
+     * 店铺排序
+     * @return
+     */
+    List<Shop> orderShop(String orderKey);
+
+    /**
+     * 通过类型筛选商店
+     * @param shopType
+     * @return
+     */
+    List<Shop> termShop(String shopType);
 }

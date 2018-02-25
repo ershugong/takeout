@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.web.takeout.dao.ICommentDao">
+    <resultMap id="tb_comment" type="Comment">
+        <id column="id" property="id"/>
+        <result column="shop_id" property="shopId"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="user_name" property="userName"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="comment_type" property="commentType"></result>
+        <result column="menu_id" property="menuId"></result>
+    </resultMap>
+
+    <select id="selectComment" resultMap="tb_comment" parameterType="String">
+        SELECT * FROM tb_comment WHERE id = #{id}
+    </select>
+
+    <insert id="insertComment" parameterType="Comment">
+        INSERT INTO tb_comment VALUES (#{id},#{content},#{userId},#{shopId},#{photo},#{menuId},#{userName},#{createTime},#{commentType})
+    </insert>
+
+    <select id="searchCommentByShopId" parameterType="String" resultMap="tb_comment">
+        SELECT * FROM tb_comment WHERE shop_id = #{shopId}
+    </select>
+
+</mapper>

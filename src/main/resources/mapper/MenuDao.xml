@@ -15,7 +15,7 @@
     </select>
 
     <insert id="insertMenu" parameterType="Menu">
-        INSERT INTO tb_menu VALUES (#{id},#{name},#{headPic},#{type},#{price},#{status},#{shopId},#{ext},#{createTime});
+        INSERT INTO tb_menu VALUES (#{id},#{name},#{headPic},#{type},#{price},#{status},#{shopId},#{ext},#{createTime},#{rate},#{laud},#{numb});
     </insert>
 
     <update id="updateMenu" parameterType="Menu">
@@ -31,4 +31,5 @@
     <delete id="delMenu" parameterType="String">
         DELETE FROM tb_menu WHERE id = #{id}
     </delete>
+
 </mapper>

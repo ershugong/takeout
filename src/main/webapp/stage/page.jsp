@@ -78,10 +78,10 @@
                         dataType : "json",
                         success : function(data){
                             alert("设置成功！");
-                        },
-                        error : function(data){
-                            alert("error:" + data.responseText)
                         }
+//                        error : function(data){
+//                            alert("error:" + data.responseText);
+//                        }
                     });
                 }else{
                     $("#formData").ajaxSubmit({
@@ -125,7 +125,7 @@
 <div class="panel admin-panel">
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 店铺资料</strong></div>
     <div class="body-content">
-        <form method="post" id="formData" class="form-x" action="" name="shop" enctype="multipart/form-data">
+        <form method="post" id="formData" class="form-x" name="shop" enctype="multipart/form-data">
             <div class="form-group">
                 <div class="label">
                     <label>店名：</label>
@@ -231,6 +231,26 @@
             <!---->
             <div class="form-group">
                 <div class="label">
+                    <label>起送价：</label>
+                </div>
+                <div class="field">
+                    <input type="number" style="height: 40px;" class="input" name="lowSend" value="${sessionScope.shop.lowSend}" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>配送价：</label>
+                </div>
+                <div class="field">
+                    <input type="number" style="height: 40px;" class="input" name="sendPrice" value="${sessionScope.shop.sendPrice}" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
                     <label>商店地址：</label>
                 </div>
                 <div class="field">
@@ -244,7 +264,7 @@
                     <label></label>
                 </div>
                 <div class="field">
-                    <button id="submit" class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                    <button id="submit" class="button bg-main icon-check-square-o" type="button"> 提交</button>
                 </div>
             </div>
         </form>

@@ -20,6 +20,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,10 +54,10 @@ public class ShopController {
         return shop;
     }
 
-    @ResponseBody
+
     @RequestMapping("/updateShopNotFile")
+    @ResponseBody
     public Shop updateShopNotFile(Shop shop,HttpSession session) throws Exception{
-        //Shop history = shopService.selectShop(shop.getId());
         shopService.updateShop(shop);
         session.setAttribute("shop",shop);
         return shop;
@@ -75,14 +77,63 @@ public class ShopController {
         List<ShopVO> result = new ArrayList<ShopVO>();
         ShopVO shopVO;
         List<Shop> shops = shopService.getAllShop();
+        result = addDistance(shops,latitude,longitude);
+       return result;
+    }
+
+    @ResponseBody
+    @RequestMapping("/orderShop")
+    public List<ShopVO> orderShop(@RequestParam("orderKey") String orderKey,
+                                  @RequestParam("latitude")Double latitude,@RequestParam("longitude")Double longitude) throws Exception{
+        if("3".equals(orderKey)){//起送价最低
+            orderKey = CommenUtil.SHOP_LOW_SEND;
+        }else if("4".equals(orderKey)){//配送费最低
+            orderKey = CommenUtil.SHOP_SEND_PRICE;
+        }else if("2".equals(orderKey)){//评分最高
+
+        }else if("1".equals(orderKey)){//速度最快
+
+        }else{//综合排序
+
+        }
+
+        List<Shop> shopList = shopService.orderShop(orderKey);
+        List<ShopVO> shopVOS = addDistance(shopList,latitude,longitude);//添加距离的参数
+        return shopVOS;
+    }
+
+    @ResponseBody
+    @RequestMapping("/termShop")
+    public List<ShopVO> termShop(@RequestParam("shopType")String shopType,
+                                 @RequestParam("latitude")Double latitude,@RequestParam("longitude")Double longitude) throws Exception{
+        List<Shop> shopList = shopService.termShop(shopType);
+        List<ShopVO> result = addDistance(shopList,latitude,longitude);
+        return result;
+    }
+
+
+    /**
+     * 给商店添加距离的信息
+     * @param shops
+     * @param latitude
+     * @param longitude
+     * @return
+     * @throws Exception
+     */
+    private List<ShopVO> addDistance(List<Shop> shops,Double latitude,Double longitude) throws Exception{
+        List<ShopVO> result = new ArrayList<ShopVO>();
+        ShopVO shopVO;
         for(Shop shop : shops){
             shopVO = new ShopVO();
             BeanUtils.copyProperties(shopVO,shop);//转换
             //计算距离
             double distance = GetLatAndLngByBaidu.getDistance(shop.getLongitude(),shop.getLatitude(),longitude,latitude);
+            BigDecimal b   =   new   BigDecimal(distance/1000);
+            distance  =   b.setScale(1,   BigDecimal.ROUND_HALF_UP).doubleValue();
             shopVO.setDistance(distance);
             result.add(shopVO);
         }
-       return result;
+        return  result;
     }
+
 }

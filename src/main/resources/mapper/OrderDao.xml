@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.web.takeout.dao.IOrderDao">
+    <resultMap id="tb_order" type="Order">
+        <id column="id" property="id"/>
+        <result column="shop_id" property="shopId"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="shop_name" property="shopName"></result>
+        <result column="order_id" property="orderId"></result>
+        <result column="menu_name" property="menuName"></result>
+        <result column="menu_id" property="menuId"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="address_id" property="addressId"></result>
+    </resultMap>
+
+    <select id="selectOrder" resultMap="tb_order" parameterType="String">
+        SELECT * FROM tb_order WHERE user_id = #{userId}
+    </select>
+
+    <select id="getNotBuyOrder" parameterType="Map" resultMap="tb_order">
+        SELECT * FROM tb_order WHERE status = #{status} AND user_id = #{userId}
+    </select>
+
+    <delete id="delOrder" parameterType="String">
+        DELETE FROM tb_order WHERE id = #{id}
+    </delete>
+
+    <update id="updateOrderNumb" parameterType="Map">
+        UPDATE tb_order SET numb = #{numb},price = #{price} WHERE  id = #{id}
+    </update>
+
+    <insert id="insertOrder" parameterType="Order">
+        INSERT  INTO tb_order VALUES (#{id},#{userId},#{shopId},#{menuId},#{status},#{createTime},#{shopName},#{price},#{orderId},#{menuName},#{numb},#{addressId},#{ext})
+    </insert>
+
+    <update id="updateNotBuyOrder" parameterType="Map">
+        UPDATE tb_order SET status = #{targetStatus} WHERE status = #{status} AND user_id = #{userId}
+    </update>
+
+    <select id="getAllOrders" parameterType="Map" resultMap="tb_order">
+        SELECT * FROM tb_order WHERE user_id = #{userId} AND status &lt;&gt; #{status} ORDER BY create_time DESC
+    </select>
+
+    <select id="getDetailOrders" parameterType="Map" resultMap="tb_order">
+        SELECT * FROM tb_order WHERE order_id = #{orderId} AND status = #{status}
+    </select>
+    
+    <delete id="delOrderAccount" parameterType="Map">
+        DELETE FROM tb_order WHERE user_id = #{userId} AND status = #{status} AND shop_id = #{shopId} AND menu_id = #{menuId}
+    </delete>
+</mapper>

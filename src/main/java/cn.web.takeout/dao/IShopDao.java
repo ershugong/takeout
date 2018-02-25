@@ -1,6 +1,7 @@
 package cn.web.takeout.dao;
 
 import cn.web.takeout.model.Shop;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -29,6 +30,19 @@ public interface IShopDao {
      * 获取所有的商店
      * @return
      */
-    public List<Shop> getAllShop();
+     List<Shop> getAllShop();
+
+    /**
+     * 店铺排序
+     * @return
+     */
+     List<Shop> orderShop(@Param("orderKey") String orderKey);
+
+    /**
+     * 通过类型筛选商店
+     * @param shopType
+     * @return
+     */
+     List<Shop> termShop(String shopType);
 
 }

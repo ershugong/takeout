@@ -1,13 +1,14 @@
 package cn.web.takeout.controller;
 
-import cn.web.takeout.model.Menu;
-import cn.web.takeout.model.Shop;
-import cn.web.takeout.model.User;
+import cn.web.takeout.model.*;
 import cn.web.takeout.service.IMenuService;
+import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.util.CommenUtil;
+import cn.web.takeout.vo.MenuListVO;
 import com.sun.deploy.net.HttpResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,13 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
     @Resource
     private IMenuService menuService;
+    @Resource
+    private IOrderService orderService;
 
     @RequestMapping("/selectMenu")
     public Menu selectMenu(String id, HttpSession session) throws Exception{
@@ -34,10 +37,52 @@ public class MenuController {
     }
 
     @ResponseBody
-    @RequestMapping("/getAllMenu")
-    public List<Menu> getAllMenu(String shopId) throws Exception{
+    @RequestMapping("/getAllMenusByShop")
+    public List<Menu> getAllMenusByShop(String shopId) throws Exception{
         List<Menu> menus = menuService.getAllMenu(shopId);//获取菜单
         return menus;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/getAllMenu")
+    public List<MenuListVO> getAllMenu(@RequestParam("shopId") String shopId,String userId) throws Exception{
+        List<MenuListVO> result = new ArrayList<MenuListVO>();
+        List<Menu> menus = menuService.getAllMenu(shopId);//获取菜单
+        Map<String,List<Menu>> menuMap = new HashMap<>();
+        List<Menu> singleMenu;
+        for(Menu menu : menus){
+            if(menuMap.containsKey(menu.getType())){
+                menuMap.get(menu.getType()).add(menu);
+            }else{
+                singleMenu = new ArrayList<>();
+                singleMenu.add(menu);
+                menuMap.put(menu.getType(),singleMenu);
+            }
+        }
+
+        for(String key : menuMap.keySet()){
+            MenuListVO menuListVO = new MenuListVO();
+            menuListVO.setTypeName(key);
+            menuListVO.setMenuContent(menuMap.get(key));
+            result.add(menuListVO);
+        }
+
+        //获取当前用户待结算的订单
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("status",CommenUtil.NOT_BUY);
+        List<Order> NotPayOrders = orderService.getNotBuyMenus(map);
+        if(NotPayOrders != null){
+            Integer cost = 0;
+            for (Order order : NotPayOrders){
+                cost += order.getPrice();
+            }
+            result.get(0).setCost(cost);
+        }else{
+            result.get(0).setCost(0);
+        }
+        return result;
     }
 
     @ResponseBody
