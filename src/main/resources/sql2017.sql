@@ -133,3 +133,13 @@ ADD `create_time` datetime DEFAULT NULL COMMENT '评价的创建时间'
 alter table tb_comment
 ADD `comment_type` VARCHAR(10) DEFAULT NULL COMMENT '评价类型：BAD--差评，NOTBAD--中评，GOOD--好评'
 
+---地址表添加用户id，创建时间
+alter table tb_address
+ADD `create_time` datetime DEFAULT NULL COMMENT '地址的创建时间',
+ADD `user_id` VARCHAR(32) DEFAULT NULL COMMENT '用户id',
+ADD `user_name` VARCHAR(32) DEFAULT NULL COMMENT '用户名',
+ADD `phone` VARCHAR(32) DEFAULT NULL COMMENT '用户电话号码'
+
+---订单表添加备注字段
+alter table tb_order add ext varchar(255) COMMENT '描述';
+

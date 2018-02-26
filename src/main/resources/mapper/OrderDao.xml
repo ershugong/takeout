@@ -50,4 +50,12 @@
     <delete id="delOrderAccount" parameterType="Map">
         DELETE FROM tb_order WHERE user_id = #{userId} AND status = #{status} AND shop_id = #{shopId} AND menu_id = #{menuId}
     </delete>
+
+    <select id="getOrderByshopId" parameterType="String" resultMap="tb_order">
+        SELECT  * FROM  tb_order WHERE shop_id = #{shopId} AND status = '已付款' ORDER BY create_time
+    </select>
+
+    <update id="updateOrderStatusByShop" parameterType="Map">
+        UPDATE tb_order SET status = #{status} WHERE id = #{orderId}
+    </update>
 </mapper>

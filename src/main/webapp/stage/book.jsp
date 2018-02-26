@@ -21,7 +21,7 @@
     <script type="text/javascript">
         var shopId = "${sessionScope.user.shopId}";
         $.ajax({
-            url: "http://localhost:8080/takeout/comment/getCommentListForPC.do",
+            url: "${pageContext.request.contextPath}/comment/getCommentListForPC.do",
             method: "post",
             dataType: "json",
             data: {

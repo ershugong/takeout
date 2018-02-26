@@ -1,6 +1,7 @@
 package cn.web.takeout.service;
 
 import cn.web.takeout.model.Order;
+import cn.web.takeout.vo.OrderForShopVO;
 import cn.web.takeout.vo.OrderListVO;
 
 import java.util.List;
@@ -64,4 +65,20 @@ public interface IOrderService {
      * @throws Exception
      */
     long delOrderAccount(Map<String,Object> map) throws Exception;
+
+    /**
+     * 获取该商店的所有订单
+     * @param shopId
+     * @return
+     * @throws Exception
+     */
+    List<OrderForShopVO> getOrderByShopId(String shopId) throws Exception;
+
+    /**
+     * 商家派送/取消订单
+     * @param orderId
+     * @return
+     * @throws Exception
+     */
+    long updateOrderStatusByShop(String orderId,String status) throws Exception;
 }

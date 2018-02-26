@@ -46,6 +46,14 @@ public class CommenUtil {
      */
     public final static String ALREADLY_BUY = "已付款";
     /**
+     * 已取消
+     */
+    public final static String ORDER_CANCEL = "已取消";
+    /**
+     * 已派送
+     */
+    public final static String ORDER_SEND = "已派送";
+    /**
      * 初始化订单数量1
      */
     public final static Integer MENU_NUMB_INIT1 = 1;

@@ -65,4 +65,20 @@ public interface IOrderDao {
      * @throws Exception
      */
     long delOrderAccount(Map<String,Object> map) throws Exception;
+
+    /**
+     * 获取该商店的所有订单
+     * @param shopId
+     * @return
+     * @throws Exception
+     */
+    List<Order> getOrderByshopId(String shopId) throws Exception;
+
+    /**
+     * 商家派送/取消订单
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    long updateOrderStatusByShop(Map<String,Object> map) throws Exception;
 }

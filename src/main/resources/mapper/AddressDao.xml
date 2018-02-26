@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.web.takeout.dao.IAddressDao">
+    
+    <resultMap id="tb_address" type="Address">
+        <id column="id" property="id"></id>
+        <result column="detail_place" property="detailPlace"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="user_id" property="userId"></result>
+    </resultMap>
+
+    <select id="getAddressByUserId" resultMap="tb_address" parameterType="String">
+        SELECT * FROM tb_address WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insertAddress" parameterType="Address">
+        INSERT INTO tb_address VALUES (#{id},#{province},#{city},#{area},#{detailPlace},#{createTime},#{userId},#{userName},#{phone})
+    </insert>
+
+    <update id="updateAddress" parameterType="User">
+        UPDATE tb_address SET province = #{province},city = #{city},
+        area = #{area},detail_place = #{detailPlace},create_time = #{createTime},user_id = #{userId},user_name = #{userName},phone = #{phone}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

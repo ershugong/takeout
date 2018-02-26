@@ -145,4 +145,32 @@ public class OrderController {
         return new ArrayList();
     }
 
+    /**
+     * 获取该商店的所有订单
+     * @param shopId
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("getOrderByShopId")
+    public List getOrderByShopId(String shopId) throws Exception{
+        return orderService.getOrderByShopId(shopId);
+    }
+
+    /**
+     * 商家派送/取消订单
+     */
+    @ResponseBody
+    @RequestMapping("/updateOrderStatusByShop")
+    public List updateOrderStatusByShop(String orderId,String type) throws Exception{
+        String status;
+        if("1".equals(type)){
+            status = CommenUtil.ORDER_SEND;
+        }else{
+            status = CommenUtil.ORDER_CANCEL;
+        }
+        orderService.updateOrderStatusByShop(orderId,status);
+        return new ArrayList();
+    }
+
 }

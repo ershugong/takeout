@@ -11,6 +11,7 @@ import cn.web.takeout.model.User;
 import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.vo.DetailSingleOrderVO;
+import cn.web.takeout.vo.OrderForShopVO;
 import cn.web.takeout.vo.OrderListVO;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import org.springframework.stereotype.Service;
@@ -131,6 +132,34 @@ public class IOrderServiceImpl implements IOrderService {
     @Override
     public long delOrderAccount(Map<String, Object> map) throws Exception {
         return orderDao.delOrderAccount(map);
+    }
+
+    @Override
+    public List<OrderForShopVO> getOrderByShopId(String shopId) throws Exception {
+        List<Order> orderList = orderDao.getOrderByshopId(shopId);
+        List<OrderForShopVO> result = new ArrayList<>();
+        if(null != orderList){
+            OrderForShopVO vo;
+            for(Order order : orderList){
+                vo = new OrderForShopVO();
+                vo.setId(order.getId());
+                vo.setExt(order.getExt());
+                Menu menu = menuDao.selectMenu(order.getMenuId());
+                vo.setMenuHeadPic(menu.getHeadPic());
+                vo.setMenuName(menu.getName());
+                vo.setNumb(order.getNumb());
+                result.add(vo);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public long updateOrderStatusByShop(String orderId,String status) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("status",status);
+        map.put("orderId",orderId);
+        return orderDao.updateOrderStatusByShop(map);
     }
 
 
