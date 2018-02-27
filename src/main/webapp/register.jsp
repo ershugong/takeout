@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
 <html>
 <head>
     <title>餐厅登录后台</title>
@@ -38,7 +38,7 @@
                         <div class="shuaxin"><a href="#"><img src="images/zc_25.jpg" width="13" height="14"></a></div>
                     </div>-->
                     <div>
-                        <input name="" type="checkbox" value=""><span>已阅读并同意<a href="#" target="_blank"><span class="lan">《XXXXX使用协议》</span></a></span>
+                        <input name="" type="checkbox" value=""><span>已阅读并同意<a href="contract.html" target="_blank"><span class="lan">《商家入驻平台协议》</span></a></span>
                     </div>
                     <input id="tb_register" name="注册" type="submit" class="btn_zhuce" value="注册">
 

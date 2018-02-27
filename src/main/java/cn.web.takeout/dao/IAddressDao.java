@@ -3,15 +3,16 @@ package cn.web.takeout.dao;
 import cn.web.takeout.model.Address;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IAddressDao {
     /**
      * 根据用户id查找其相关的地址
-     * @param userId
+     * @param map
      * @return
      * @throws Exception
      */
-    List<Address> getAddressByUserId(String userId) throws Exception;
+    List<Address> getAddressByUserId(Map<String,Object> map) throws Exception;
 
     /**
      * 插入新地址
@@ -28,4 +29,12 @@ public interface IAddressDao {
      * @throws Exception
      */
     long updateAddress(Address address) throws Exception;
+
+    /**
+     * 删除地址
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    long delAddress(String id) throws Exception;
 }

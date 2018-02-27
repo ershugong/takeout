@@ -143,3 +143,6 @@ ADD `phone` VARCHAR(32) DEFAULT NULL COMMENT '用户电话号码'
 ---订单表添加备注字段
 alter table tb_order add ext varchar(255) COMMENT '描述';
 
+---地址表中添加是否为默认地址的字段
+alter table tb_address add is_default TINYINT COMMENT '是否为默认的地址（0:否,1:是）';
+
