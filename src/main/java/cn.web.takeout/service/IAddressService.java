@@ -37,4 +37,12 @@ public interface IAddressService {
      * @throws Exception
      */
     long delAddress(String id) throws Exception;
+
+    /**
+     * 通过id查询
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Address selectAddress(String id) throws Exception;
 }

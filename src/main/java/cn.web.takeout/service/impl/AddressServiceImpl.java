@@ -54,4 +54,9 @@ public class AddressServiceImpl implements IAddressService{
     public long delAddress(String id) throws Exception {
         return addressDao.delAddress(id);
     }
+
+    @Override
+    public Address selectAddress(String id) throws Exception {
+        return addressDao.selectAddress(id);
+    }
 }

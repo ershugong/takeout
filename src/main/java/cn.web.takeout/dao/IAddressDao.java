@@ -37,4 +37,12 @@ public interface IAddressDao {
      * @throws Exception
      */
     long delAddress(String id) throws Exception;
+
+    /**
+     * 通过id查询地址
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Address selectAddress(String id) throws Exception;
 }

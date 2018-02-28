@@ -50,21 +50,7 @@ public class AddressController {
 
     @ResponseBody
     @RequestMapping("/updateAddress")
-    public List updateAddress(String id,String province,String city,String area,
-                              String detailPlace,String userId,String userName,
-                              String phone,Integer isDefault) throws Exception{
-        userName = new String(userName.getBytes("iso8859-1"),"UTF-8");//GET请求参数包含中文需要转码
-        Address address = new Address();
-        address.setId(id);
-        address.setArea(area);
-        address.setCity(city);
-        address.setDetailPlace(detailPlace);
-        address.setProvince(province);
-        address.setCreateTime(new Date());
-        address.setPhone(phone);
-        address.setUserId(userId);
-        address.setUserName(userName);
-        address.setIsDefault(isDefault);
+    public List updateAddress(@ModelAttribute("form") Address address) throws Exception{
         addressService.updateAddress(address);
         return new ArrayList();
     }
@@ -74,6 +60,12 @@ public class AddressController {
     public List delAddress(String id) throws Exception{
         addressService.delAddress(id);
         return new ArrayList();
+    }
+
+    @ResponseBody
+    @RequestMapping("/selectAddress")
+    public Address selectAddress(String id) throws Exception{
+        return addressService.selectAddress(id);
     }
 
 
