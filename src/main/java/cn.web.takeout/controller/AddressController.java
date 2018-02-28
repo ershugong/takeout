@@ -5,6 +5,7 @@ import cn.web.takeout.service.IAddressService;
 import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.vo.AddressVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,34 +22,15 @@ public class AddressController {
 
     /**
      * 添加地址
-     * @param province
-     * @param city
-     * @param area
-     * @param detailPlace
-     * @param userId
-     * @param userName
-     * @param phone
-     * @param isDefault
+     * @param address
      * @return
      * @throws Exception
      */
     @ResponseBody
     @RequestMapping("/insertAddress")
-    public List insertAddress(String province,String city,String area,
-                              String detailPlace,String userId,String userName,
-                              String phone,Integer isDefault) throws Exception{
-        userName = new String(userName.getBytes("iso8859-1"),"UTF-8");//GET请求参数包含中文需要转码
-        Address address = new Address();
+    public List insertAddress(@ModelAttribute("form") Address address) throws Exception{
         address.setId(CommenUtil.getUUID32());
-        address.setArea(area);
-        address.setCity(city);
-        address.setDetailPlace(detailPlace);
-        address.setProvince(province);
         address.setCreateTime(new Date());
-        address.setPhone(phone);
-        address.setUserId(userId);
-        address.setUserName(userName);
-        address.setIsDefault(isDefault);
         addressService.insertAddress(address);
         return new ArrayList();
     }
