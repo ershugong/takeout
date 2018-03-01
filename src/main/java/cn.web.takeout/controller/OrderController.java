@@ -3,10 +3,13 @@ package cn.web.takeout.controller;
 import cn.web.takeout.model.Menu;
 import cn.web.takeout.model.Order;
 import cn.web.takeout.model.Shop;
+import cn.web.takeout.service.IAddressService;
 import cn.web.takeout.service.IMenuService;
 import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.service.IShopService;
 import cn.web.takeout.util.CommenUtil;
+import cn.web.takeout.vo.AddressAndMenu;
+import cn.web.takeout.vo.AddressVO;
 import cn.web.takeout.vo.DetailSingleOrderVO;
 import cn.web.takeout.vo.OrderListVO;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,8 @@ public class OrderController {
     private IMenuService menuService;
     @Resource
     private IShopService shopService;
+    @Resource
+    private IAddressService addressService;
 
     /**
      * 结算
@@ -171,6 +176,20 @@ public class OrderController {
         }
         orderService.updateOrderStatusByShop(orderId,status);
         return new ArrayList();
+    }
+
+    @ResponseBody
+    @RequestMapping("/getDefaultAddressAndOrders")
+    public AddressAndMenu getDefaultAddressAndOrders(String userId) throws Exception{
+        AddressAndMenu result = new AddressAndMenu();
+        AddressVO defaultAddress = addressService.getAddressByUserId(userId,CommenUtil.DEFAULT_ADDRESS).get(0);
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("status", CommenUtil.NOT_BUY);
+        List<Order> orderList = orderService.getNotBuyMenus(map);
+        result.setAddressVO(defaultAddress);
+        result.setOrderList(orderList);
+        return result;
     }
 
 }

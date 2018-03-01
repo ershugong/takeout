@@ -1,9 +1,11 @@
 package cn.web.takeout.controller;
 
 import cn.web.takeout.model.*;
+import cn.web.takeout.service.IAddressService;
 import cn.web.takeout.service.IMenuService;
 import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.util.CommenUtil;
+import cn.web.takeout.vo.AddressVO;
 import cn.web.takeout.vo.MenuListVO;
 import com.sun.deploy.net.HttpResponse;
 import org.apache.commons.io.FileUtils;
@@ -76,7 +78,7 @@ public class MenuController {
         if(NotPayOrders != null){
             Integer cost = 0;
             for (Order order : NotPayOrders){
-                cost += order.getPrice();
+                cost += order.getPrice()*order.getNumb();
             }
             result.get(0).setCost(cost);
         }else{

@@ -6,6 +6,7 @@ import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.vo.AddressVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -66,6 +67,19 @@ public class AddressController {
     @RequestMapping("/selectAddress")
     public Address selectAddress(String id) throws Exception{
         return addressService.selectAddress(id);
+    }
+
+    @ResponseBody
+    @RequestMapping("/setDefaultAddress")
+    public List setDefaultAddress(String id) throws Exception{
+        Address address = addressService.selectAddress(id);
+        AddressVO defaultAddress = addressService.getAddressByUserId(address.getUserId(),CommenUtil.DEFAULT_ADDRESS).get(0);
+        Address addressTemp = selectAddress(defaultAddress.getId());
+        addressTemp.setIsDefault(CommenUtil.COMMON_ADDRESS);
+        this.updateAddress(addressTemp);
+        address.setIsDefault(CommenUtil.DEFAULT_ADDRESS);
+        this.updateAddress(address);
+        return new ArrayList();
     }
 
 

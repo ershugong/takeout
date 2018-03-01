@@ -70,6 +70,14 @@ public class CommenUtil {
      */
     public final static String BAD_TYPE = "BAD";
 
+    /**
+     * 默认地址
+     */
+    public final static Integer DEFAULT_ADDRESS = 1;
+    /**
+     * 普通地址
+     */
+    public final static Integer COMMON_ADDRESS = 0;
 
     public static String getUUID32(){
         String uuid = UUID.randomUUID().toString();//转化为String对象
