@@ -5,6 +5,7 @@ public class OrderForShopVO {
     private String menuName;
     private String menuHeadPic;
     private String ext;//备注
+    private String detailPlace;//地址
     private Integer numb;
 
     public String getId() {
@@ -45,5 +46,13 @@ public class OrderForShopVO {
 
     public void setNumb(Integer numb) {
         this.numb = numb;
+    }
+
+    public String getDetailPlace() {
+        return detailPlace;
+    }
+
+    public void setDetailPlace(String detailPlace) {
+        this.detailPlace = detailPlace;
     }
 }

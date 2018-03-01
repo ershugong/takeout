@@ -92,12 +92,13 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping("/toBuy")
-    public List toBuy(String userId) throws Exception{
+    public List toBuy(String userId,String addressId) throws Exception{
         //获取未结算的订单，修改金额
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("status",CommenUtil.NOT_BUY);
         map.put("targetStatus",CommenUtil.ALREADLY_BUY);
+        map.put("addressId",addressId);
         orderService.updateNotBuyOrder(map);
 
         //发送通知到商家派送

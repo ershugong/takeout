@@ -36,7 +36,12 @@
     </insert>
 
     <update id="updateNotBuyOrder" parameterType="Map">
-        UPDATE tb_order SET status = #{targetStatus} WHERE status = #{status} AND user_id = #{userId}
+        UPDATE tb_order SET status = #{targetStatus}
+        <if test="addressId != null">
+            ,address_id = #{addressId}
+        </if>
+         WHERE status = #{status} AND user_id = #{userId}
+
     </update>
 
     <select id="getAllOrders" parameterType="Map" resultMap="tb_order">

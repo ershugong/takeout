@@ -1,13 +1,7 @@
 package cn.web.takeout.service.impl;
 
-import cn.web.takeout.dao.IMenuDao;
-import cn.web.takeout.dao.IOrderDao;
-import cn.web.takeout.dao.IShopDao;
-import cn.web.takeout.dao.IUserDao;
-import cn.web.takeout.model.Menu;
-import cn.web.takeout.model.Order;
-import cn.web.takeout.model.Shop;
-import cn.web.takeout.model.User;
+import cn.web.takeout.dao.*;
+import cn.web.takeout.model.*;
 import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.vo.DetailSingleOrderVO;
@@ -29,6 +23,8 @@ public class IOrderServiceImpl implements IOrderService {
     private IShopDao shopDao;
     @Resource
     private IUserDao userDao;
+    @Resource
+    private IAddressDao addressDao;
 
 
     @Override
@@ -148,6 +144,8 @@ public class IOrderServiceImpl implements IOrderService {
                 vo.setMenuHeadPic(menu.getHeadPic());
                 vo.setMenuName(menu.getName());
                 vo.setNumb(order.getNumb());
+                Address address = addressDao.selectAddress(order.getAddressId());
+                vo.setDetailPlace(address.getProvince()+address.getCity()+address.getArea()+address.getDetailPlace());
                 result.add(vo);
             }
         }
