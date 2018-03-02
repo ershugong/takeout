@@ -40,6 +40,9 @@
         <if test="addressId != null">
             ,address_id = #{addressId}
         </if>
+        <if test="ext != null">
+            ,ext = #{ext}
+        </if>
          WHERE status = #{status} AND user_id = #{userId}
 
     </update>
