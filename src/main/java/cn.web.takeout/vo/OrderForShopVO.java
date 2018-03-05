@@ -5,8 +5,8 @@ public class OrderForShopVO {
     private String menuName;
     private String menuHeadPic;
     private String ext;//备注
-    private String detailPlace;//地址
     private Integer numb;
+    private String detailPlace;//详细地址
 
     public String getId() {
         return id;

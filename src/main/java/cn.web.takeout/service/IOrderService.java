@@ -1,5 +1,6 @@
 package cn.web.takeout.service;
 
+import cn.web.takeout.model.Menu;
 import cn.web.takeout.model.Order;
 import cn.web.takeout.vo.OrderForShopVO;
 import cn.web.takeout.vo.OrderListVO;
@@ -81,4 +82,12 @@ public interface IOrderService {
      * @throws Exception
      */
     long updateOrderStatusByShop(String orderId,String status) throws Exception;
+
+    /**
+     * 购物车
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    List<Menu> getCart(Map<String,Object> map) throws Exception;
 }

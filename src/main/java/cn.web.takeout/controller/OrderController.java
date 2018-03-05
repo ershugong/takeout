@@ -12,6 +12,7 @@ import cn.web.takeout.vo.AddressAndMenu;
 import cn.web.takeout.vo.AddressVO;
 import cn.web.takeout.vo.DetailSingleOrderVO;
 import cn.web.takeout.vo.OrderListVO;
+import org.apache.commons.collections.map.AbstractMapDecorator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -194,4 +195,18 @@ public class OrderController {
         return result;
     }
 
+    /**
+     * 获取购物车列表
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("/getCart")
+    public List<Menu> getCart(String userId) throws Exception{
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("status",CommenUtil.NOT_BUY);
+        return orderService.getCart(map);
+        }
 }

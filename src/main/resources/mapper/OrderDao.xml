@@ -66,4 +66,8 @@
     <update id="updateOrderStatusByShop" parameterType="Map">
         UPDATE tb_order SET status = #{status} WHERE id = #{orderId}
     </update>
+
+    <select id="getCart" parameterType="Map" resultMap="tb_order">
+        SELECT * FROM tb_order WHERE user_id = #{userId} AND status = #{status}
+    </select>
 </mapper>

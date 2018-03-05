@@ -81,4 +81,12 @@ public interface IOrderDao {
      * @throws Exception
      */
     long updateOrderStatusByShop(Map<String,Object> map) throws Exception;
+
+    /**
+     * 购物车
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    List<Menu> getCart(Map<String,Object> map) throws Exception;
 }

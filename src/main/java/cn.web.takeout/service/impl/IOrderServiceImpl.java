@@ -160,5 +160,10 @@ public class IOrderServiceImpl implements IOrderService {
         return orderDao.updateOrderStatusByShop(map);
     }
 
+    @Override
+    public List<Menu> getCart(Map<String, Object> map) throws Exception {
+        return orderDao.getCart(map);
+    }
+
 
 }
