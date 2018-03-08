@@ -94,6 +94,7 @@ public class OrderController {
     @ResponseBody
     @RequestMapping("/toBuy")
     public List toBuy(String userId,String addressId,String ext) throws Exception{
+        ext = new String(ext.getBytes("iso8859-1"),"UTF-8");//GET请求参数包含中文需要转码
         //获取未结算的订单，修改金额
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
@@ -203,10 +204,31 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping("/getCart")
-    public List<Menu> getCart(String userId) throws Exception{
+    public List<Menu> getCart(String userId,String shopId) throws Exception{
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("status",CommenUtil.NOT_BUY);
+        map.put("shopId",shopId);
         return orderService.getCart(map);
         }
+
+    @ResponseBody
+    @RequestMapping("/addCart")
+    public List addCart(String userId,String menuId) throws Exception{
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("menuId",menuId);
+        orderService.addCart(map);
+        return new ArrayList();
+    }
+
+    @ResponseBody
+    @RequestMapping("/removeCart")
+    public List removeCart(String userId,String menuId) throws Exception{
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("menuId",menuId);
+        orderService.removeCart(map);
+        return new ArrayList();
+    }
 }

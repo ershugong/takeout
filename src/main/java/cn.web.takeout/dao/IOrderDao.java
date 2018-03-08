@@ -16,6 +16,14 @@ public interface IOrderDao {
     List<Order> selectOrder(String userId);
 
     /**
+     * 删除订单
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    long delOrder(String id) throws Exception;
+
+    /**
      * 获取未结算的订单
      * @param map
      * @return
@@ -88,5 +96,29 @@ public interface IOrderDao {
      * @return
      * @throws Exception
      */
-    List<Menu> getCart(Map<String,Object> map) throws Exception;
+    List<Order> getCart(Map<String,Object> map) throws Exception;
+
+    /**
+     * 购物车添加
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    long addCart(Map<String,Object> map) throws Exception;
+
+    /**
+     * 购物车删除
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    long removeCart(Map<String,Object> map) throws Exception;
+
+    /**
+     * 通过用户id和菜色id获取订单
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    Order getOrderByUserIdAndMenuId(Map<String,Object> map) throws Exception;
 }

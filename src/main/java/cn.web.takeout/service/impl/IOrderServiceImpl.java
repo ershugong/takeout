@@ -145,6 +145,7 @@ public class IOrderServiceImpl implements IOrderService {
                 vo.setMenuName(menu.getName());
                 vo.setNumb(order.getNumb());
                 Address address = addressDao.selectAddress(order.getAddressId());
+                vo.setUserName(address.getUserName());
                 vo.setDetailPlace(address.getProvince()+address.getCity()+address.getArea()+address.getDetailPlace());
                 result.add(vo);
             }
@@ -162,7 +163,44 @@ public class IOrderServiceImpl implements IOrderService {
 
     @Override
     public List<Menu> getCart(Map<String, Object> map) throws Exception {
-        return orderDao.getCart(map);
+        List<Order> orderList = orderDao.getCart(map);
+        List<Menu> result = new ArrayList<>();
+        if(orderList != null){
+            Menu menu;
+            for(Order order : orderList){
+               menu  = new Menu();
+               menu.setId(order.getMenuId());
+               Menu temp = menuDao.selectMenu(order.getMenuId());
+               menu.setHeadPic(temp.getHeadPic());
+               menu.setName(order.getMenuName());
+               menu.setNumb(order.getNumb());
+               menu.setPrice(temp.getPrice());
+               menu.setShopId(temp.getShopId());
+               result.add(menu);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public long addCart(Map<String, Object> map) throws Exception {
+        return orderDao.addCart(map);
+    }
+
+    @Override
+    public long removeCart(Map<String, Object> map) throws Exception {
+        Order order = orderDao.getOrderByUserIdAndMenuId(map);
+        if(order.getNumb() == 1){//删除
+            orderDao.delOrder(order.getId());
+        }else{
+            orderDao.removeCart(map);
+        }
+        return 1;
+    }
+
+    @Override
+    public Order getOrderByUserIdAndMenuId(Map<String, Object> map) throws Exception {
+        return null;
     }
 
 

@@ -90,4 +90,28 @@ public interface IOrderService {
      * @throws Exception
      */
     List<Menu> getCart(Map<String,Object> map) throws Exception;
+
+    /**
+     * 购物车添加
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    long addCart(Map<String,Object> map) throws Exception;
+
+    /**
+     * 购物车删除
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    long removeCart(Map<String,Object> map) throws Exception;
+
+    /**
+     * 通过用户id和菜色id获取订单
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    Order getOrderByUserIdAndMenuId(Map<String,Object> map) throws Exception;
 }

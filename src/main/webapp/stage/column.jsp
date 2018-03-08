@@ -33,7 +33,7 @@
                         var srcUrl = '../'+data[index].menuHeadPic;
                         $("#tableData").append("<tr><td>"+data[index].id+"</td>" +
                             "<td>"+data[index].menuName+"</td><td><img style='height: 30px;width: 80px' src = '"+srcUrl+"'/></td>" +
-                            "<td>"+data[index].numb+"</td><td>"+data[index].ext+"</td>" +
+                            "<td>"+data[index].numb+"</td><td>"+data[index].ext+"</td><td>"+data[index].userName+"</td><td>"+data[index].detailPlace+"</td>" +
                             "<td> <div class='button-group'><a type='button' class='button border-main' href='javascript:void(0)' onclick='send(1,"+xxxData+")'><span class='icon-edit'></span>派送</a>" +
                             "<a class='button border-red' href='javascript:void(0)' onclick='send(2,"+xxxData+")'><span class='icon-trash-o'></span> 取消</a>" +
                             "</div></td></tr>");
@@ -82,10 +82,12 @@
     <table class="table table-hover text-center" id="tableData">
         <tr>
             <th width="15%">订单ID</th>
-            <th>菜名</th>
-            <th>样图</th>
-            <th>数量</th>
-            <th>备注</th>
+            <th width="10%">菜名</th>
+            <th width="10%">样图</th>
+            <th width="10%">数量</th>
+            <th width="10%">备注</th>
+            <th width="10%">用户名</th>
+            <th>地址</th>
             <th width="250">操作</th>
         </tr>
 

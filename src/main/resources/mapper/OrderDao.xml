@@ -68,6 +68,19 @@
     </update>
 
     <select id="getCart" parameterType="Map" resultMap="tb_order">
-        SELECT * FROM tb_order WHERE user_id = #{userId} AND status = #{status}
+        SELECT * FROM tb_order WHERE user_id = #{userId} AND status = #{status} AND shop_id = #{shopId}
     </select>
+
+    <update id="addCart" parameterType="Map">
+        UPDATE tb_order SET numb = numb+1 WHERE user_id = #{userId} AND menu_id = #{menuId} AND status = '待结算'
+    </update>
+
+    <update id="removeCart" parameterType="Map">
+        UPDATE tb_order SET numb = numb-1 WHERE user_id = #{userId} AND menu_id = #{menuId} AND status = '待结算'
+    </update>
+
+    <select id="getOrderByUserIdAndMenuId" parameterType="Map" resultMap="tb_order">
+        SELECT  * FROM  tb_order WHERE user_id = #{userId} AND menu_id = #{menuId} AND status = '待结算'
+    </select>
+
 </mapper>

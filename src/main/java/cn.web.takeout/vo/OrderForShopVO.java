@@ -5,8 +5,9 @@ public class OrderForShopVO {
     private String menuName;
     private String menuHeadPic;
     private String ext;//备注
+    private String detailPlace;//地址
     private Integer numb;
-    private String detailPlace;//详细地址
+    private String userName;
 
     public String getId() {
         return id;
@@ -54,5 +55,13 @@ public class OrderForShopVO {
 
     public void setDetailPlace(String detailPlace) {
         this.detailPlace = detailPlace;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
