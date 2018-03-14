@@ -19,6 +19,10 @@
     <script src="../js/jquery-form.js"></script>
     <script src="../js/pintuer.js"></script>
     <script type="text/javascript">
+        var reLoadWindow = function(){
+            window.location.reload();//刷新页面
+        }
+        setTimeout(reLoadWindow,5000);
         $(function () {
             $.ajax({
                 url : "${pageContext.request.contextPath}/order/getOrderByShopId.do",
@@ -38,6 +42,15 @@
                             "<a class='button border-red' href='javascript:void(0)' onclick='send(2,"+xxxData+")'><span class='icon-trash-o'></span> 取消</a>" +
                             "</div></td></tr>");
                     });
+
+                    if(data[0].isRemind == 1){
+                        var a=document.getElementById("audio");
+                        if(a.paused){
+                            a.play();
+                        }else{
+                            a.pause();
+                        }
+                    }
 
                 },
                 error: function(data){
@@ -74,6 +87,7 @@
     </script>
 </head>
 <body>
+<audio id="audio" src="../music/lingsheng.mp3"></audio>
 <div class="panel admin-panel">
     <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
     <div class="padding border-bottom">

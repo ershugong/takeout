@@ -14,6 +14,7 @@ public class Order {
     private Integer numb;
     private String addressId;
     private String ext;
+    private Integer remind;
 
     public String getId() {
         return id;
@@ -117,5 +118,13 @@ public class Order {
 
     public void setExt(String ext) {
         this.ext = ext;
+    }
+
+    public Integer getRemind() {
+        return remind;
+    }
+
+    public void setRemind(Integer remind) {
+        this.remind = remind;
     }
 }

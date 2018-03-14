@@ -8,6 +8,7 @@ public class OrderForShopVO {
     private String detailPlace;//地址
     private Integer numb;
     private String userName;
+    private Integer isRemind;
 
     public String getId() {
         return id;
@@ -63,5 +64,13 @@ public class OrderForShopVO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Integer getIsRemind() {
+        return isRemind;
+    }
+
+    public void setIsRemind(Integer isRemind) {
+        this.isRemind = isRemind;
     }
 }

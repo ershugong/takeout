@@ -149,6 +149,14 @@ public class IOrderServiceImpl implements IOrderService {
                 vo.setDetailPlace(address.getProvince()+address.getCity()+address.getArea()+address.getDetailPlace());
                 result.add(vo);
             }
+            //获取又未提醒的订单
+            Map<String,Object> remindMap = new HashMap<>();
+            remindMap.put("shopId",shopId);
+            remindMap.put("remind",CommenUtil.NOT_REMIND);
+            List<Order> list = this.getNotRemindOrder(remindMap);
+            if(list != null && list.size() > 0){
+                result.get(0).setIsRemind(1);
+            }
         }
         return result;
     }
@@ -200,7 +208,21 @@ public class IOrderServiceImpl implements IOrderService {
 
     @Override
     public Order getOrderByUserIdAndMenuId(Map<String, Object> map) throws Exception {
-        return null;
+        return orderDao.getOrderByUserIdAndMenuId(map);
+    }
+
+    @Override
+    public List<Order> getNotRemindOrder(Map<String, Object> map) throws Exception {
+        List<Order> orderList =  orderDao.getNotRemindOrder(map);//返回参数以后 就把状态改成已提醒
+        if(orderList!=null){
+            for (Order order : orderList){
+                Map<String,Object> orderMap = new HashMap<>();
+                orderMap.put("id",order.getId());
+                orderMap.put("remind",CommenUtil.IS_REMIND);
+                orderDao.updateOrderRemind(orderMap);
+            }
+        }
+        return orderList;
     }
 
 

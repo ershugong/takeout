@@ -78,6 +78,14 @@ public class CommenUtil {
      * 普通地址
      */
     public final static Integer COMMON_ADDRESS = 0;
+    /**
+     * 订单未被提醒
+     */
+    public final static Integer NOT_REMIND = 0;
+    /**
+     * 订单已被提醒
+     */
+    public final static Integer IS_REMIND = 1;
 
     public static String getUUID32(){
         String uuid = UUID.randomUUID().toString();//转化为String对象

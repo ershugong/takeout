@@ -121,4 +121,20 @@ public interface IOrderDao {
      * @throws Exception
      */
     Order getOrderByUserIdAndMenuId(Map<String,Object> map) throws Exception;
+
+    /***
+     * 查询店铺未提醒的订单
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    List<Order> getNotRemindOrder(Map<String,Object> map) throws Exception;
+
+    /**
+     * 更新订单的提醒状态
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    long updateOrderRemind(Map<String,Object> map) throws Exception;
 }

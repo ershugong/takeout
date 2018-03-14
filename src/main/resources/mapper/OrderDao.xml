@@ -32,7 +32,7 @@
     </update>
 
     <insert id="insertOrder" parameterType="Order">
-        INSERT  INTO tb_order VALUES (#{id},#{userId},#{shopId},#{menuId},#{status},#{createTime},#{shopName},#{price},#{orderId},#{menuName},#{numb},#{addressId},#{ext})
+        INSERT  INTO tb_order VALUES (#{id},#{userId},#{shopId},#{menuId},#{status},#{createTime},#{shopName},#{price},#{orderId},#{menuName},#{numb},#{addressId},#{ext},#{remind})
     </insert>
 
     <update id="updateNotBuyOrder" parameterType="Map">
@@ -82,5 +82,13 @@
     <select id="getOrderByUserIdAndMenuId" parameterType="Map" resultMap="tb_order">
         SELECT  * FROM  tb_order WHERE user_id = #{userId} AND menu_id = #{menuId} AND status = '待结算'
     </select>
+
+    <select id="getNotRemindOrder" parameterType="Map" resultMap="tb_order">
+        SELECT * FROM  tb_order WHERE shop_id = #{shopId} AND remind = #{remind} AND status = '已付款'
+    </select>
+
+    <update id="updateOrderRemind" parameterType="Map">
+        UPDATE tb_order SET remind = #{remind} WHERE id = #{id}
+    </update>
 
 </mapper>

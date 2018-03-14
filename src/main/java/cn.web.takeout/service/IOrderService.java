@@ -114,4 +114,12 @@ public interface IOrderService {
      * @throws Exception
      */
     Order getOrderByUserIdAndMenuId(Map<String,Object> map) throws Exception;
+
+    /***
+     * 查询店铺未提醒的订单
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    List<Order> getNotRemindOrder(Map<String,Object> map) throws Exception;
 }

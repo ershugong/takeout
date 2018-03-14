@@ -81,6 +81,7 @@ public class OrderController {
         order.setPrice(menu.getPrice());
         order.setOrderId(OrderId);
         order.setMenuName(menu.getName());
+        order.setRemind(CommenUtil.NOT_REMIND);
         order.setNumb(CommenUtil.MENU_NUMB_INIT1);
         orderService.insertOrder(order);
         return new ArrayList();

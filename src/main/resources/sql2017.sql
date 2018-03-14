@@ -146,3 +146,6 @@ alter table tb_order add ext varchar(255) COMMENT '描述';
 ---地址表中添加是否为默认地址的字段
 alter table tb_address add is_default TINYINT COMMENT '是否为默认的地址（0:否,1:是）';
 
+--订单表中添加是否已经提醒商家的字段
+alter table tb_order add remind TINYINT COMMENT '是否已经提醒商家';
+
