@@ -34,5 +34,5 @@ public interface ICommentService {
      * @return
      * @throws Exception
      */
-    public List getCommentListForPC(String shopId) throws Exception;
+    public List getCommentListForPC(String shopId,Integer page) throws Exception;
 }

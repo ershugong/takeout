@@ -3,6 +3,7 @@ package cn.web.takeout.dao;
 import cn.web.takeout.model.Comment;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ICommentDao {
     /**
@@ -23,9 +24,17 @@ public interface ICommentDao {
 
     /**
      * 通过商店获取其所有的评价
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    List<Comment> searchCommentByShopId (Map<String,Object> map) throws Exception;
+
+    /**
+     * 获取商店的评论数目
      * @param shopId
      * @return
      * @throws Exception
      */
-    List<Comment> searchCommentByShopId (String shopId) throws Exception;
+    Integer getCommentPageNum(String shopId) throws Exception;
 }

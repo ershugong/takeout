@@ -10,9 +10,7 @@ import cn.web.takeout.vo.CommentVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service("commentService")
 public class CommentServiveImpl implements ICommentService{
@@ -43,16 +41,24 @@ public class CommentServiveImpl implements ICommentService{
 
     @Override
     public List<Comment> searchCommentByShopId(String shopId) throws Exception {
-        return commentDao.searchCommentByShopId(shopId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("shopId",shopId);
+        return commentDao.searchCommentByShopId(map);
     }
 
     @Override
-    public List getCommentListForPC(String shopId) throws Exception {
-        List<Comment> commentList = commentDao.searchCommentByShopId(shopId);
+    public List getCommentListForPC(String shopId,Integer page) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("shopId",shopId);
+        map.put("start",(page-1)*CommenUtil.COMMENT_PAGE5);
+        map.put("num",5);
+        List<Comment> commentList = commentDao.searchCommentByShopId(map);
         List<CommentVO> result = new ArrayList<>();
         if(null != commentList){
             CommentVO vo;
+            int index = 0;
             for (Comment comment : commentList){
+                index +=1;
                 vo = new CommentVO();
                 vo.setCommentType(comment.getCommentType());
                 vo.setCreateTime(CommenUtil.FormatDate(comment.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
@@ -63,6 +69,7 @@ public class CommentServiveImpl implements ICommentService{
                 vo.setContent(comment.getContent());
                 result.add(vo);
             }
+            result.get(0).setNum(commentDao.getCommentPageNum(shopId));//总共的数目
         }
         return result;
     }

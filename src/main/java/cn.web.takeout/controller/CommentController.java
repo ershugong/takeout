@@ -46,8 +46,8 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping("/getCommentListForPC")
-    public List getCommentListForPC(String shopId) throws Exception{
-       List list = commentService.getCommentListForPC(shopId);
+    public List getCommentListForPC(String shopId,Integer page) throws Exception{
+       List list = commentService.getCommentListForPC(shopId,page);
        return list;
     }
 

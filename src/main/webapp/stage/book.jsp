@@ -20,35 +20,67 @@
     <script src="../js/jquery-form.js"></script>
     <script type="text/javascript">
         var shopId = "${sessionScope.user.shopId}";
-        $.ajax({
-            url: "${pageContext.request.contextPath}/comment/getCommentListForPC.do",
-            method: "post",
-            dataType: "json",
-            data: {
-                shopId: shopId
-            },
-            success:function(data){
-                var container = $("#container");
-                $.each(data,function(i){
-                    var srcUrl = '../'+data[i].menuHeadPic;
-                    container.append("<tr><td><img style='height: 30px;width: 80px' src = '"+srcUrl+"'/></td><td>"+data[i].menuName+"</td><td>"+data[i].userName+"</td><td>"+data[i].content+"</td><td>"+data[i].commentType+"</td><td>"+data[i].createTime+"</td></tr>");
-                })
+        var index = 1;
+        var addPage = function(event){
+            index = index + 1;
+            getComments(index,event);
+        }
 
-//            <tr>
-//            <td><input type="checkbox" name="id[]" value="1" />
-//            1</td>
-//            <td>神夜</td>
-//            <td>13420925611</td>
-//            <td>564379992@qq.com</td>
-//            <td>深圳市民治街道</td>
-//            <td>这是一套后台UI，喜欢的朋友请多多支持谢谢。</td>
-//            <td>2016-07-01</td>
-//            </tr>
-            },
-            error: function(data){
-                alert("error:" + data.responseText);
+        var removePage = function(event){
+            index = index - 1;
+            getComments(index,event);
+        }
+
+        var getComments = function(page,cc){
+            var temp = "a" + page;
+
+            $.ajax({
+                url: "${pageContext.request.contextPath}/comment/getCommentListForPC.do",
+                method: "post",
+                dataType: "json",
+                data: {
+                    shopId: shopId,
+                    page : page
+                },
+                success:function(data){
+                    var container = $("#container");
+                    container.html("");
+                    $.each(data,function(i){
+                        var srcUrl = '../'+data[i].menuHeadPic;
+                        container.append("<tr><td><img style='height: 50px;width: 80px' src = '"+srcUrl+"'/></td><td>"+data[i].menuName+"</td><td>"+data[i].userName+"</td><td>"+data[i].content+"</td><td>"+data[i].commentType+"</td><td>"+data[i].createTime+"</td></tr>");
+                    })
+
+                    var index = data[0].num / 5;//页数，一页5条记录
+                    container.append("<tr><td colspan='8'><div id='pageNum' class='pagelist'>  <a onclick='removePage(this)'>上一页</a><a onclick='addPage(this)'>下一页</a><a onclick='getComments(index,this)'>尾页</a> <span id='one' class='' onclick='getComments(1,this)'>1</span> </div></td></tr>");
+                    for(var i=1;i<index;i++){
+                        var j = i+1;
+//                    if(i == 0){
+//                        $("#pageNum").append("<span class='current'>"+(i+1)+"</span>");//默认选中第一页
+//                    }else{
+                        $("#pageNum").append("<span onclick='getComments("+ j +",this)'>"+ (i+1) +"</span>");
+                        //}
+                        //<span class="current">1</span><a href="">3</a>
+                    }
+
+                },
+                error: function(data){
+                    alert("error:" + data.responseText);
+                }
+            })
+
+
+            if(page != 1){//选定转换
+                $("#one").css("class","");
+                cc.setAttribute("class","current");
+            }else{
+                $("#one").css("class","current");
             }
-        })
+        }
+
+
+
+        getComments(1,this);
+
     </script>
 </head>
 <body>
@@ -126,10 +158,7 @@
                 <%--<td>这是一套后台UI，喜欢的朋友请多多支持谢谢。</td>--%>
                 <%--<td>2016-07-01</td>--%>
                 <%--<td><div class="button-group"> <a class="button border-red" href="javascript:void(0)" onclick="return del(1)"><span class="icon-trash-o"></span> 删除</a> </div></td>--%>
-            <%--</tr>--%>
-            <%--<tr>--%>
-                <%--<td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--%>
-            <%--</tr>--%>
+            <%--</tr> <a href="">2</a><a href="">3</a>--%>
         </table>
     </div>
 </form>

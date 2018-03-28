@@ -51,8 +51,8 @@
         <li><a href="pass.jsp" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
         <li onclick="keyPage();"><a href="page.jsp" target="right"><span class="icon-caret-right"></span>店铺资料</a></li>
         <li id="menu"><a href="adv.jsp" target="right"><span class="icon-caret-right"></span>菜单管理</a></li>
-        <li><a href="book.jsp" target="right"><span class="icon-caret-right"></span>留言管理</a></li>
-        <li><a href="column.jsp" target="right"><span class="icon-caret-right"></span>栏目管理</a></li>
+        <li><a href="book.jsp" target="right"><span class="icon-caret-right"></span>评价管理</a></li>
+        <li><a href="column.jsp" target="right"><span class="icon-caret-right"></span>订单管理</a></li>
     </ul>
     <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
     <ul>

@@ -7,6 +7,7 @@ public class CommentVO {
     private String createTime;
     private String commentType;
     private String content;
+    private Integer num;
 
     public String getMenuHeadPic() {
         return menuHeadPic;
@@ -54,5 +55,13 @@ public class CommentVO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
     }
 }

@@ -21,8 +21,16 @@
         INSERT INTO tb_comment VALUES (#{id},#{content},#{userId},#{shopId},#{photo},#{menuId},#{userName},#{createTime},#{commentType})
     </insert>
 
-    <select id="searchCommentByShopId" parameterType="String" resultMap="tb_comment">
+    <select id="searchCommentByShopId" parameterType="Map" resultMap="tb_comment">
         SELECT * FROM tb_comment WHERE shop_id = #{shopId}
+        <if test="start != null">
+           LIMIT #{start},#{num}
+        </if>
+
+    </select>
+
+    <select id="getCommentPageNum" parameterType="String" resultType="Integer">
+        SELECT count(1) FROM  tb_comment WHERE shop_id = #{shopId}
     </select>
 
 </mapper>
