@@ -20,8 +20,10 @@ public class ShopVO {
     private Double longitude;//经度
     private int lowSend;//多少元起配送
     private int sendPrice;//运送费
+    private int sales;//月售
 
     private double distance;//相对于顾客（当前）的距离
+    private int time;//送餐到达时间
 
     public String getId() {
         return id;
@@ -165,5 +167,21 @@ public class ShopVO {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getSales() {
+        return sales;
+    }
+
+    public void setSales(int sales) {
+        this.sales = sales;
     }
 }

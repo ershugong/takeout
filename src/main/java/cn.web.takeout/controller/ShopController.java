@@ -2,6 +2,7 @@ package cn.web.takeout.controller;
 
 import cn.web.takeout.model.Shop;
 import cn.web.takeout.model.User;
+import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.service.IShopService;
 import cn.web.takeout.service.IUserService;
 import cn.web.takeout.util.CommenUtil;
@@ -22,8 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/shop")
@@ -32,6 +32,8 @@ public class ShopController {
     private IShopService shopService;
     @Resource
     private IUserService userService;
+    @Resource
+    private IOrderService orderService;
 
     @ResponseBody
     @RequestMapping("/updateShop")
@@ -75,7 +77,6 @@ public class ShopController {
     @RequestMapping("/getAllShop")
     public List<ShopVO> getAllShop(@RequestParam("latitude")Double latitude,@RequestParam("longitude")Double longitude) throws Exception{
         List<ShopVO> result = new ArrayList<ShopVO>();
-        ShopVO shopVO;
         List<Shop> shops = shopService.getAllShop();
         result = addDistance(shops,latitude,longitude);
        return result;
@@ -131,6 +132,26 @@ public class ShopController {
             BigDecimal b   =   new   BigDecimal(distance/1000);
             distance  =   b.setScale(1,   BigDecimal.ROUND_HALF_UP).doubleValue();
             shopVO.setDistance(distance);
+            //计算菜餐到达时间是按 配餐30分钟固定，餐送员按40km/h的骑行速度
+            Double tempTime = 30 + distance/40000*60;
+            int time = tempTime.intValue();
+            shopVO.setTime(time);
+
+            //添加月售数目
+            Date date  = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.set(Calendar.MONTH,1);//本月开始第一天
+            Date startTime = calendar.getTime();
+            calendar.setTime(startTime);
+            calendar.add(Calendar.MONTH,1);
+            Date endTime = calendar.getTime();
+            Map<String,Object> map = new HashMap<>();
+            map.put("startTime",startTime);
+            map.put("endTime",endTime);
+            map.put("shopId",shop.getId());
+            int sales = orderService.countOrderNumByShopForMonth(map);
+            shopVO.setSales(sales);
             result.add(shopVO);
         }
         return  result;

@@ -32,11 +32,11 @@
         }
 
         var getComments = function(page,cc){
-            var temp = "a" + page;
 
             $.ajax({
                 url: "${pageContext.request.contextPath}/comment/getCommentListForPC.do",
                 method: "post",
+                async:true,
                 dataType: "json",
                 data: {
                     shopId: shopId,
@@ -45,6 +45,14 @@
                 success:function(data){
                     var container = $("#container");
                     container.html("");
+                    container.append("            <tr>\n" +
+                        "                <th width=\"120\">菜图</th>\n" +
+                        "                <th>菜名</th>\n" +
+                        "                <th>用户名</th>\n" +
+                        "                <th width=\"25%\">评价</th>\n" +
+                        "                <th>态度</th>\n" +
+                        "                <th width=\"120\">评价时间</th>\n" +
+                        "            </tr>");
                     $.each(data,function(i){
                         var srcUrl = '../'+data[i].menuHeadPic;
                         container.append("<tr><td><img style='height: 50px;width: 80px' src = '"+srcUrl+"'/></td><td>"+data[i].menuName+"</td><td>"+data[i].userName+"</td><td>"+data[i].content+"</td><td>"+data[i].commentType+"</td><td>"+data[i].createTime+"</td></tr>");
@@ -54,27 +62,27 @@
                     container.append("<tr><td colspan='8'><div id='pageNum' class='pagelist'>  <a onclick='removePage(this)'>上一页</a><a onclick='addPage(this)'>下一页</a><a onclick='getComments(index,this)'>尾页</a> <span id='one' class='' onclick='getComments(1,this)'>1</span> </div></td></tr>");
                     for(var i=1;i<index;i++){
                         var j = i+1;
-//                    if(i == 0){
-//                        $("#pageNum").append("<span class='current'>"+(i+1)+"</span>");//默认选中第一页
-//                    }else{
-                        $("#pageNum").append("<span onclick='getComments("+ j +",this)'>"+ (i+1) +"</span>");
-                        //}
-                        //<span class="current">1</span><a href="">3</a>
+
+                        $("#pageNum").append("<span onclick='getComments("+ j +",this)' >"+ j +"</span>");
+
                     }
+
 
                 },
                 error: function(data){
                     alert("error:" + data.responseText);
                 }
             })
-
-
             if(page != 1){//选定转换
-                $("#one").css("class","");
-                cc.setAttribute("class","current");
+                $(cc).addClass('current');
+                /*$("#one").css("class","");
+                cc.className = "current";
+                cc.setAttribute("class","current");*/
             }else{
-                $("#one").css("class","current");
+                $(cc).addClass('current');
             }
+                console.log(cc)
+
         }
 
 
@@ -96,14 +104,6 @@
             </ul>
         </div>
         <table class="table table-hover text-center" id="container">
-            <tr>
-                <th width="120">菜图</th>
-                <th>菜名</th>
-                <th>用户名</th>
-                <th width="25%">评价</th>
-                <th>态度</th>
-                <th width="120">评价时间</th>
-            </tr>
             <%--<tr>--%>
                 <%--<td><input type="checkbox" name="id[]" value="1" />--%>
                     <%--1</td>--%>

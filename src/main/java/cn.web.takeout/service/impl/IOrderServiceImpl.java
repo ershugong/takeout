@@ -225,5 +225,10 @@ public class IOrderServiceImpl implements IOrderService {
         return orderList;
     }
 
+    @Override
+    public int countOrderNumByShopForMonth(Map<String, Object> map) throws Exception {
+        return orderDao.countOrderNumByShopForMonth(map);
+    }
+
 
 }

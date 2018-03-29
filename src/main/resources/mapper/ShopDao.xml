@@ -45,28 +45,28 @@
     </select>
     
     
-    <select id="termShop" parameterType="String" resultMap="tb_shop">
+    <select id="termShop" parameterType="Map" resultMap="tb_shop">
         SELECT * FROM tb_shop WHERE 1 = 1
         <if test="isFood != null">
-            AND isFood = 1
+            AND is_food = 1
         </if>
         <if test="isMarket != null">
-            AND isMarket = 1
+            AND is_market = 1
         </if>
         <if test="isFruit != null">
-            AND isFruit = 1
+            AND is_fruit = 1
         </if>
         <if test="isDessert != null">
-            AND isDessert = 1
+            AND is_dessert = 1
         </if>
         <if test="isMajorSend != null">
-            AND isMajorSend = 1
+            AND is_major_send = 1
         </if>
         <if test="isSupper != null">
-            AND isSupper = 1
+            AND is_supper = 1
         </if>
         <if test="isSnack != null">
-            AND isSnack = 1
+            AND is_snack = 1
         </if>
 
     </select>

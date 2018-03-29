@@ -122,4 +122,13 @@ public interface IOrderService {
      * @throws Exception
      */
     List<Order> getNotRemindOrder(Map<String,Object> map) throws Exception;
+
+
+    /**
+     * 获取商店的月售额
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    int countOrderNumByShopForMonth(Map<String,Object> map) throws Exception;
 }

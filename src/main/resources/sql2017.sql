@@ -149,3 +149,6 @@ alter table tb_address add is_default TINYINT COMMENT '是否为默认的地址�
 --订单表中添加是否已经提醒商家的字段
 alter table tb_order add remind TINYINT COMMENT '是否已经提醒商家';
 
+--订单表中添加对应的地址id字段
+alter table tb_order add address_id VARCHAR(32) COMMENT '地址id';
+

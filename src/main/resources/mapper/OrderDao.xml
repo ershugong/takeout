@@ -91,4 +91,8 @@
         UPDATE tb_order SET remind = #{remind} WHERE id = #{id}
     </update>
 
+    <select id="countOrderNumByShopForMonth" parameterType="Map" resultType="Integer">
+        SELECT COUNT(1) FROM tb_order WHERE shop_id = #{shopId} AND create_time  &gt; #{startTime} AND create_time &lt; #{endTime} AND status = '已付款'
+    </select>
+
 </mapper>

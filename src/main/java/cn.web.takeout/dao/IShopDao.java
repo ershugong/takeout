@@ -4,6 +4,7 @@ import cn.web.takeout.model.Shop;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IShopDao {
     /**
@@ -40,9 +41,9 @@ public interface IShopDao {
 
     /**
      * 通过类型筛选商店
-     * @param shopType
+     * @param map
      * @return
      */
-     List<Shop> termShop(String shopType);
+     List<Shop> termShop(Map<String,Object> map);
 
 }

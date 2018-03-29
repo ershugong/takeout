@@ -18,7 +18,7 @@
 </head>
 <body class="login_bj" >
 <div class="zhuce_body">
-    <div class="logo"><a href="#"><img src="images/logo.png" width="114" height="54" border="0"></a></div>
+    <div class="logo"><a href="#"><img src="images/logo.png" width="228" height="108" border="0"></a></div>
     <div class="zhuce_kong login_kuang">
         <div class="zc">
             <div class="bj_bai">

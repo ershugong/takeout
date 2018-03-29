@@ -7,6 +7,7 @@ import cn.web.takeout.util.GetLatAndLngByBaidu;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,11 @@ public class ShopServiceImpl implements IShopService{
 
     @Override
     public List<Shop> termShop(String shopType) {
-        return shopDao.termShop(shopType);
+        Map<String,Object> map = new HashMap<>();
+        if(shopType != null){
+            map.put(shopType,1);
+        }
+        return shopDao.termShop(map);
     }
 
 

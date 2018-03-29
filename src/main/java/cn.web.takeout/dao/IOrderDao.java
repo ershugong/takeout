@@ -137,4 +137,12 @@ public interface IOrderDao {
      * @throws Exception
      */
     long updateOrderRemind(Map<String,Object> map) throws Exception;
+
+    /**
+     * 获取商店的月售额
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    int countOrderNumByShopForMonth(Map<String,Object> map) throws Exception;
 }

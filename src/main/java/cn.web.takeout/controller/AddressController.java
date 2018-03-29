@@ -73,10 +73,13 @@ public class AddressController {
     @RequestMapping("/setDefaultAddress")
     public List setDefaultAddress(String id) throws Exception{
         Address address = addressService.selectAddress(id);
-        AddressVO defaultAddress = addressService.getAddressByUserId(address.getUserId(),CommenUtil.DEFAULT_ADDRESS).get(0);
-        Address addressTemp = selectAddress(defaultAddress.getId());
-        addressTemp.setIsDefault(CommenUtil.COMMON_ADDRESS);
-        this.updateAddress(addressTemp);
+        List<AddressVO> defaultList = addressService.getAddressByUserId(address.getUserId(),CommenUtil.DEFAULT_ADDRESS);
+        if(defaultList.size() > 0){
+            AddressVO defaultAddress = defaultList.get(0);
+            Address addressTemp = selectAddress(defaultAddress.getId());
+            addressTemp.setIsDefault(CommenUtil.COMMON_ADDRESS);
+            this.updateAddress(addressTemp);
+        }
         address.setIsDefault(CommenUtil.DEFAULT_ADDRESS);
         this.updateAddress(address);
         return new ArrayList();

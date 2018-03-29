@@ -74,7 +74,7 @@
                         var xxxData = JSON.stringify(data[index]);
                         var text = "<tr>" +
                             "<td>"+(index+1)+"</td>" +
-                            "<td><img src='"+"../"+data[index].headPic+"' alt='' width='120' height=\"50\" /></td>" +
+                            "<td><img src='"+"../"+data[index].headPic+"' alt='' width='100' height='70' /></td>" +
                             "<td>"+data[index].name+"</td>" +
                             "<td>"+data[index].ext+"</td>" +
                             "<td>"+data[index].type+"</td>" +
