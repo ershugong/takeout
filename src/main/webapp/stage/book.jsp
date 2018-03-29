@@ -21,6 +21,13 @@
     <script type="text/javascript">
         var shopId = "${sessionScope.user.shopId}";
         var index = 1;
+
+        var changeCurrent = function(cc){
+            $(".current").removeClass("current");
+            $(cc).addClass('current');
+
+        }
+
         var addPage = function(event){
             index = index + 1;
             getComments(index,event);
@@ -67,24 +74,21 @@
 
                     }
 
+                    changeCurrent(this);
 
                 },
                 error: function(data){
                     alert("error:" + data.responseText);
                 }
             })
-            if(page != 1){//选定转换
-                $(cc).addClass('current');
-                /*$("#one").css("class","");
-                cc.className = "current";
-                cc.setAttribute("class","current");*/
-            }else{
-                $(cc).addClass('current');
-            }
-                console.log(cc)
+//            if(page != 1){//选定转换
+//                $(cc).addClass('current');
+//            }else{
+//                $(cc).addClass('current');
+//            }
+                //console.log(cc)
 
         }
-
 
 
         getComments(1,this);

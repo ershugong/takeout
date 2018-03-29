@@ -152,3 +152,7 @@ alter table tb_order add remind TINYINT COMMENT '是否已经提醒商家';
 --订单表中添加对应的地址id字段
 alter table tb_order add address_id VARCHAR(32) COMMENT '地址id';
 
+--活动表添加活动类型，活动对应的图片
+alter table tb_activity add type TINYINT(4) COMMENT '活动类型',
+add type_photo varchar(200) COMMENT '活动图片';
+
