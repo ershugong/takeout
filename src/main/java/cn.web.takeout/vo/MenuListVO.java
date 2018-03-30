@@ -8,6 +8,7 @@ public class MenuListVO {
     private String typeName;
     private List<Menu> menuContent;
     private Integer cost;
+    private ShopVO shopVO;
 
     public String getTypeName() {
         return typeName;
@@ -31,5 +32,13 @@ public class MenuListVO {
 
     public void setCost(Integer cost) {
         this.cost = cost;
+    }
+
+    public ShopVO getShopVO() {
+        return shopVO;
+    }
+
+    public void setShopVO(ShopVO shopVO) {
+        this.shopVO = shopVO;
     }
 }

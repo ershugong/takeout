@@ -1,6 +1,7 @@
 package cn.web.takeout.service;
 
 import cn.web.takeout.model.Shop;
+import cn.web.takeout.vo.ShopVO;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public interface IShopService {
      * 店铺排序
      * @return
      */
-    List<Shop> orderShop(String orderKey);
+    List<Shop> orderShop(String orderKey, List<ShopVO> shopVOList);
 
     /**
      * 通过类型筛选商店

@@ -8,6 +8,9 @@ import cn.web.takeout.service.IUserService;
 import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.util.GetLatAndLngByBaidu;
 import cn.web.takeout.vo.ShopVO;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
@@ -85,20 +88,13 @@ public class ShopController {
     @ResponseBody
     @RequestMapping("/orderShop")
     public List<ShopVO> orderShop(@RequestParam("orderKey") String orderKey,
-                                  @RequestParam("latitude")Double latitude,@RequestParam("longitude")Double longitude) throws Exception{
-        if("3".equals(orderKey)){//起送价最低
-            orderKey = CommenUtil.SHOP_LOW_SEND;
-        }else if("4".equals(orderKey)){//配送费最低
-            orderKey = CommenUtil.SHOP_SEND_PRICE;
-        }else if("2".equals(orderKey)){//评分最高
+                                  @RequestParam("latitude")Double latitude,@RequestParam("longitude")Double longitude
+                                    ,@RequestParam("shops") String shops) throws Exception{
 
-        }else if("1".equals(orderKey)){//速度最快
+        JSONArray array = JSONArray.fromObject(shops);
+        List<ShopVO> shopVOList = (List<ShopVO>)JSONArray.toList(array,new ShopVO(),new JsonConfig());
 
-        }else{//综合排序
-
-        }
-
-        List<Shop> shopList = shopService.orderShop(orderKey);
+        List<Shop> shopList = shopService.orderShop(orderKey,shopVOList);
         List<ShopVO> shopVOS = addDistance(shopList,latitude,longitude);//添加距离的参数
         return shopVOS;
     }
@@ -111,6 +107,18 @@ public class ShopController {
         List<ShopVO> result = addDistance(shopList,latitude,longitude);
         return result;
     }
+
+    /**
+     * 筛选商家（距离，销量）
+     * @param shops
+     * @param type
+     * @return
+     */
+//    @ResponseBody
+//    @RequestMapping("/orderShop")
+//    public List<ShopVO> orderShop(@RequestParam("shops") List<ShopVO> shops,Integer type){
+//        return new ArrayList<>();
+//    }
 
 
     /**

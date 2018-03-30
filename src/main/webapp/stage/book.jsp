@@ -18,10 +18,11 @@
     <script src="../js/jquery.min.js"></script>
     <script src="../js/pintuer.js"></script>
     <script src="../js/jquery-form.js"></script>
+    <script src="../js/layer.js"></script>
     <script type="text/javascript">
         var shopId = "${sessionScope.user.shopId}";
         var index = 1;
-
+        var maxIndex;
         var changeCurrent = function(cc){
             $(".current").removeClass("current");
             $(cc).addClass('current');
@@ -29,11 +30,20 @@
         }
 
         var addPage = function(event){
+            if(index == maxIndex){
+                layer.msg('已经最后一页了');
+                return;
+            }
+
             index = index + 1;
             getComments(index,event);
         }
 
         var removePage = function(event){
+            if(index == 1){
+                layer.msg("没有上一页了");
+                return;
+            }
             index = index - 1;
             getComments(index,event);
         }
@@ -65,28 +75,20 @@
                         container.append("<tr><td><img style='height: 50px;width: 80px' src = '"+srcUrl+"'/></td><td>"+data[i].menuName+"</td><td>"+data[i].userName+"</td><td>"+data[i].content+"</td><td>"+data[i].commentType+"</td><td>"+data[i].createTime+"</td></tr>");
                     })
 
-                    var index = data[0].num / 5;//页数，一页5条记录
-                    container.append("<tr><td colspan='8'><div id='pageNum' class='pagelist'>  <a onclick='removePage(this)'>上一页</a><a onclick='addPage(this)'>下一页</a><a onclick='getComments(index,this)'>尾页</a> <span id='one' class='' onclick='getComments(1,this)'>1</span> </div></td></tr>");
-                    for(var i=1;i<index;i++){
+                    var index = Math.ceil(data[0].num / 5);//页数，一页5条记录(取整)
+                    maxIndex = index;
+                    container.append("<tr><td colspan='8'><div id='pageNum' class='pagelist'>  <a onclick='removePage(this)'>上一页</a><a onclick='addPage(this)'>下一页</a><a onclick='getComments(index,this)'>尾页</a> </div></td></tr>");
+                    for(var i=0;i<index;i++){
                         var j = i+1;
-
-                        $("#pageNum").append("<span onclick='getComments("+ j +",this)' >"+ j +"</span>");
-
+                        $("#pageNum").append("<span onclick='getComments("+ j +",this)' class='page"+j+"'>"+ j +"</span>");
                     }
-
-                    changeCurrent(this);
+                    $("#pageNum").find('.page'+page).addClass('current');
 
                 },
                 error: function(data){
                     alert("error:" + data.responseText);
                 }
             })
-//            if(page != 1){//选定转换
-//                $(cc).addClass('current');
-//            }else{
-//                $(cc).addClass('current');
-//            }
-                //console.log(cc)
 
         }
 
@@ -167,6 +169,8 @@
     </div>
 </form>
 <script type="text/javascript">
+
+
 
 
     function del(id){
