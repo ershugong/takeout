@@ -82,20 +82,25 @@ public class ShopController {
         List<ShopVO> result = new ArrayList<ShopVO>();
         List<Shop> shops = shopService.getAllShop();
         result = addDistance(shops,latitude,longitude);
+        for(int i=0;i<result.size()-1;i++){
+            for(int j=0;j<result.size()-1-i;j++){
+                if(result.get(j).getSales()<result.get(j+1).getSales()){
+                    ShopVO temp = result.get(j);
+                    result.set(j,result.get(j+1));
+                    result.set(j+1,temp);
+                }
+            }
+        }
        return result;
     }
 
     @ResponseBody
     @RequestMapping("/orderShop")
-    public List<ShopVO> orderShop(@RequestParam("orderKey") String orderKey,
-                                  @RequestParam("latitude")Double latitude,@RequestParam("longitude")Double longitude
-                                    ,@RequestParam("shops") String shops) throws Exception{
+    public List<ShopVO> orderShop(@RequestParam("orderKey") String orderKey, @RequestParam("shops") String shops) throws Exception{
 
         JSONArray array = JSONArray.fromObject(shops);
         List<ShopVO> shopVOList = (List<ShopVO>)JSONArray.toList(array,new ShopVO(),new JsonConfig());
-
-        List<Shop> shopList = shopService.orderShop(orderKey,shopVOList);
-        List<ShopVO> shopVOS = addDistance(shopList,latitude,longitude);//添加距离的参数
+        List<ShopVO> shopVOS = shopService.orderShop(orderKey,shopVOList);
         return shopVOS;
     }
 
@@ -105,6 +110,15 @@ public class ShopController {
                                  @RequestParam("latitude")Double latitude,@RequestParam("longitude")Double longitude) throws Exception{
         List<Shop> shopList = shopService.termShop(shopType);
         List<ShopVO> result = addDistance(shopList,latitude,longitude);
+        for(int i=0;i<result.size()-1;i++){
+            for(int j=0;j<result.size()-1-i;j++){
+                if(result.get(j).getSales()<result.get(j+1).getSales()){
+                    ShopVO temp = result.get(j);
+                    result.set(j,result.get(j+1));
+                    result.set(j+1,temp);
+                }
+            }
+        }
         return result;
     }
 

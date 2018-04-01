@@ -44,25 +44,64 @@ public class ShopServiceImpl implements IShopService{
     }
 
     @Override
-    public List<Shop> orderShop(String orderKey, List<ShopVO> shopVOList) {
+    public List<ShopVO> orderShop(String orderKey, List<ShopVO> shopVOList) {
         if("3".equals(orderKey)){//起送价最低
-            orderKey = CommenUtil.SHOP_LOW_SEND;
+            for(int i=0;i<shopVOList.size()-1;i++){
+                for(int j=0;j<shopVOList.size()-1-i;j++){
+                    if(shopVOList.get(j).getLowSend()>shopVOList.get(j+1).getLowSend()){
+                        ShopVO temp = shopVOList.get(j);
+                        shopVOList.set(j,shopVOList.get(j+1));
+                        shopVOList.set(j+1,temp);
+                    }
+                }
+            }
         }else if("4".equals(orderKey)){//配送费最低
-            orderKey = CommenUtil.SHOP_SEND_PRICE;
+            for(int i=0;i<shopVOList.size()-1;i++){
+                for(int j=0;j<shopVOList.size()-1-i;j++){
+                    if(shopVOList.get(j).getSendPrice()>shopVOList.get(j+1).getSendPrice()){
+                        ShopVO temp = shopVOList.get(j);
+                        shopVOList.set(j,shopVOList.get(j+1));
+                        shopVOList.set(j+1,temp);
+                    }
+                }
+            }
         }else if("2".equals(orderKey)){//评分最高
 
         }else if("1".equals(orderKey)){//速度最快
-
-        }else if("5".equals(orderKey)){//销量
-
+            for(int i=0;i<shopVOList.size()-1;i++){
+                for(int j=0;j<shopVOList.size()-1-i;j++){
+                    if(shopVOList.get(j).getTime()>shopVOList.get(j+1).getTime()){
+                        ShopVO temp = shopVOList.get(j);
+                        shopVOList.set(j,shopVOList.get(j+1));
+                        shopVOList.set(j+1,temp);
+                    }
+                }
+            }
+        }else if("5".equals(orderKey)){//销量最高
+            for(int i=0;i<shopVOList.size()-1;i++){
+                for(int j=0;j<shopVOList.size()-1-i;j++){
+                    if(shopVOList.get(j).getSales()<shopVOList.get(j+1).getSales()){
+                        ShopVO temp = shopVOList.get(j);
+                        shopVOList.set(j,shopVOList.get(j+1));
+                        shopVOList.set(j+1,temp);
+                    }
+                }
+            }
         }else if("6".equals(orderKey)){//距离
-
-
+            for(int i=0;i<shopVOList.size()-1;i++){
+                for(int j=0;j<shopVOList.size()-1-i;j++){
+                    if(shopVOList.get(j).getDistance()>shopVOList.get(j+1).getDistance()){
+                        ShopVO temp = shopVOList.get(j);
+                        shopVOList.set(j,shopVOList.get(j+1));
+                        shopVOList.set(j+1,temp);
+                    }
+                }
+            }
         }
         else{//综合排序
 
         }
-        return shopDao.orderShop(orderKey);
+        return shopVOList;
     }
 
     @Override
