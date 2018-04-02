@@ -157,6 +157,7 @@ public class IOrderServiceImpl implements IOrderService {
             if(list != null && list.size() > 0){
                 result.get(0).setIsRemind(1);
             }
+            result.get(0).setPages(orderList.size());
         }
         return result;
     }

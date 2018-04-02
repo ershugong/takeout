@@ -18,12 +18,36 @@
     <script src="../js/jquery.min.js"></script>
     <script src="../js/jquery-form.js"></script>
     <script src="../js/pintuer.js"></script>
+    <script src="../js/layer.js"></script>
     <script type="text/javascript">
+        var index = 1;
+        var maxIndex;
+
+        var addPage = function(){
+            if(index == maxIndex){
+                layer.msg('已经最后一页了');
+                return;
+            }
+
+            index = index + 1;
+            getOrders(index);
+        }
+
+        var removePage = function(){
+            if(index == 1){
+                layer.msg("没有上一页了");
+                return;
+            }
+            index = index - 1;
+            getOrders(index);
+        }
+
         var reLoadWindow = function(){
             window.location.reload();//刷新页面
         }
         setTimeout(reLoadWindow,5000);
-        $(function () {
+
+        var getOrders = function(page){
             $.ajax({
                 url : "${pageContext.request.contextPath}/order/getOrderByShopId.do",
                 data : {
@@ -32,10 +56,16 @@
                 dataType : "json",
                 method : "POST",
                 success : function(data){
+                    var container = $("#tableData");
+                    container.html("");
+                    if(data.length == 0){
+                        layer.msg("暂无任何订单数据！");
+                        return;
+                    }
                     $.each(data,function(index){
                         var xxxData = JSON.stringify(data[index]);
                         var srcUrl = '../'+data[index].menuHeadPic;
-                        $("#tableData").append("<tr><td>"+data[index].id+"</td>" +
+                        container.append("<tr><td>"+data[index].id+"</td>" +
                             "<td>"+data[index].menuName+"</td><td><img style='height: 30px;width: 80px' src = '"+srcUrl+"'/></td>" +
                             "<td>"+data[index].numb+"</td><td>"+data[index].ext+"</td><td>"+data[index].userName+"</td><td>"+data[index].detailPlace+"</td>" +
                             "<td> <div class='button-group'><a type='button' class='button border-main' href='javascript:void(0)' onclick='send(1,"+xxxData+")'><span class='icon-edit'></span>派送</a>" +
@@ -43,7 +73,16 @@
                             "</div></td></tr>");
                     });
 
-                    if(data[0].isRemind == 1){
+                    var index = Math.ceil(data[0].pages / 5);//页数，一页5条记录(取整)
+                    maxIndex = index;
+                    container.append("<tr><td colspan='8'><div id='pageNum' class='pagelist'>  <a onclick='removePage(this)'>上一页</a><a onclick='addPage(this)'>下一页</a><a onclick='getOrders(maxIndex)'>尾页</a> </div></td></tr>");
+                    for(var i=0;i<index;i++){
+                        var j = i+1;
+                        $("#pageNum").append("<span onclick='getComments("+ j +",this)' class='page"+j+"'>"+ j +"</span>");
+                    }
+                    $("#pageNum").find('.page'+page).addClass('current');
+
+                    if(data[0].isRemind == 1){//是否提示外卖接单铃声
                         var a=document.getElementById("audio");
                         if(a.paused){
                             a.play();
@@ -57,6 +96,10 @@
                     alert("error:" + data.responseText);
                 }
             });
+        }
+
+        $(function () {
+            getOrders(1);
         });
 
         //接单

@@ -9,6 +9,7 @@ public class OrderForShopVO {
     private Integer numb;
     private String userName;
     private Integer isRemind;
+    private Integer pages;
 
     public String getId() {
         return id;
@@ -72,5 +73,13 @@ public class OrderForShopVO {
 
     public void setIsRemind(Integer isRemind) {
         this.isRemind = isRemind;
+    }
+
+    public Integer getPages() {
+        return pages;
+    }
+
+    public void setPages(Integer pages) {
+        this.pages = pages;
     }
 }

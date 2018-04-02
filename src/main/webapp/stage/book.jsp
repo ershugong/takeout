@@ -70,6 +70,10 @@
                         "                <th>态度</th>\n" +
                         "                <th width=\"120\">评价时间</th>\n" +
                         "            </tr>");
+                    if(data.length == 0){
+                        layer.msg("暂无任何评论数据！");
+                        return;
+                    }
                     $.each(data,function(i){
                         var srcUrl = '../'+data[i].menuHeadPic;
                         container.append("<tr><td><img style='height: 50px;width: 80px' src = '"+srcUrl+"'/></td><td>"+data[i].menuName+"</td><td>"+data[i].userName+"</td><td>"+data[i].content+"</td><td>"+data[i].commentType+"</td><td>"+data[i].createTime+"</td></tr>");
@@ -77,7 +81,7 @@
 
                     var index = Math.ceil(data[0].num / 5);//页数，一页5条记录(取整)
                     maxIndex = index;
-                    container.append("<tr><td colspan='8'><div id='pageNum' class='pagelist'>  <a onclick='removePage(this)'>上一页</a><a onclick='addPage(this)'>下一页</a><a onclick='getComments(index,this)'>尾页</a> </div></td></tr>");
+                    container.append("<tr><td colspan='8'><div id='pageNum' class='pagelist'>  <a onclick='removePage(this)'>上一页</a><a onclick='addPage(this)'>下一页</a><a onclick='getComments(maxIndex,this)'>尾页</a> </div></td></tr>");
                     for(var i=0;i<index;i++){
                         var j = i+1;
                         $("#pageNum").append("<span onclick='getComments("+ j +",this)' class='page"+j+"'>"+ j +"</span>");
