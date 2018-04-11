@@ -50,5 +50,4 @@ public class CommentController {
        List list = commentService.getCommentListForPC(shopId,page);
        return list;
     }
-
 }

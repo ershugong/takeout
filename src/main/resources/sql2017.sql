@@ -156,3 +156,6 @@ alter table tb_order add address_id VARCHAR(32) COMMENT '地址id';
 alter table tb_activity add type TINYINT(4) COMMENT '活动类型',
 add type_photo varchar(200) COMMENT '活动图片';
 
+--商店表添加活动以及商店自我介绍
+ALTER TABLE tb_shop ADD `activity_type` VARCHAR(20) DEFAULT NULL COMMENT '活动类型';
+ALTER TABLE tb_shop ADD `remark` VARCHAR(500) DEFAULT NULL COMMENT '商店自我介绍';

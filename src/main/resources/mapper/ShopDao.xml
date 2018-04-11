@@ -16,6 +16,7 @@
         <result column="create_time" property="createTime"></result>
         <result column="low_send" property="lowSend"></result>
         <result column="send_price" property="sendPrice"></result>
+        <result column="activity_type" property="activityType"></result>
     </resultMap>
 
     <select id="selectShop" resultMap="tb_shop" parameterType="String">
@@ -25,14 +26,14 @@
     <insert id="insertShop" parameterType="Shop">
         INSERT INTO tb_shop VALUES (#{id},#{shopName},#{shoperId},#{logo},#{address},#{isFood},
         #{isMarket},#{isFruit},#{isDessert},#{isMajorSend},#{isSupper},#{isSnack},#{createTime},
-        #{latitude},#{longitude},#{lowSend},#{sendPrice});
+        #{latitude},#{longitude},#{lowSend},#{sendPrice},#{remark},#{activityType});
     </insert>
 
     <update id="updateShop" parameterType="Shop">
         UPDATE tb_shop SET shop_name = #{shopName},logo = #{logo},address = #{address},is_food = #{isFood},
          is_market = #{isMarket},is_fruit = #{isFruit},is_dessert = #{isDessert},is_major_send = #{isMajorSend},
          is_supper = #{isSupper},is_snack = #{isSnack},latitude = #{latitude},longitude = #{longitude},
-         low_send = #{lowSend},send_price = #{sendPrice}
+         low_send = #{lowSend},send_price = #{sendPrice},remark = #{remark},activity_type = #{activityType}
          WHERE id = #{id}
     </update>
 

@@ -20,6 +20,8 @@ public class Shop {
     private Double longitude;//经度
     private int lowSend;//多少元起配送
     private int sendPrice;//运送费
+    private String remark;//自我介绍
+    private String activityType;//包含的商店
 
     public String getId() {
         return id;
@@ -155,5 +157,21 @@ public class Shop {
 
     public void setSendPrice(int sendPrice) {
         this.sendPrice = sendPrice;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(String activityType) {
+        this.activityType = activityType;
     }
 }

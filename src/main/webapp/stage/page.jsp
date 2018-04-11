@@ -18,6 +18,7 @@
     <script src="../js/jquery.min.js"></script>
     <script src="../js/jquery-form.js"></script>
     <script src="../js/pintuer.js"></script>
+    <script src="../js/layer.js"></script>
     <script type="text/javascript">
         $(function () {
             //初始化八种类型
@@ -96,6 +97,18 @@
                         }
                     });
                 }
+            });
+
+            //点击活动的按钮
+            $("#activity").click(function(){
+                //页面层
+                layer.open({
+                    title:"活动设置",
+                    type: 2,
+                    skin: 'layui-layer-molv', //加上边框
+                    area: ['420px', '240px'], //宽高
+                    content: 'activity.html'
+                });
             });
         });
 
@@ -265,6 +278,7 @@
                 </div>
                 <div class="field">
                     <button id="submit" class="button bg-main icon-check-square-o" type="button"> 提交</button>
+                    <button id="activity" class="button bg-main icon-check-square-o" style="margin-left: 30px;background-color:#F7CC4F;border-color:#F7CC4F;" type="button"> 活动</button>
                 </div>
             </div>
         </form>
