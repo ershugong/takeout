@@ -33,7 +33,7 @@
         UPDATE tb_shop SET shop_name = #{shopName},logo = #{logo},address = #{address},is_food = #{isFood},
          is_market = #{isMarket},is_fruit = #{isFruit},is_dessert = #{isDessert},is_major_send = #{isMajorSend},
          is_supper = #{isSupper},is_snack = #{isSnack},latitude = #{latitude},longitude = #{longitude},
-         low_send = #{lowSend},send_price = #{sendPrice},remark = #{remark},activity_type = #{activityType}
+         low_send = #{lowSend},send_price = #{sendPrice},remark = #{remark}
          WHERE id = #{id}
     </update>
 

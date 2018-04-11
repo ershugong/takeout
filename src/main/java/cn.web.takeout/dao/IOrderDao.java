@@ -76,11 +76,11 @@ public interface IOrderDao {
 
     /**
      * 获取该商店的所有订单
-     * @param shopId
+     * @param map
      * @return
      * @throws Exception
      */
-    List<Order> getOrderByshopId(String shopId) throws Exception;
+    List<Order> getOrderByshopId(Map<String,Object> map) throws Exception;
 
     /**
      * 商家派送/取消订单
@@ -145,4 +145,12 @@ public interface IOrderDao {
      * @throws Exception
      */
     int countOrderNumByShopForMonth(Map<String,Object> map) throws Exception;
+
+    /**
+     * 获取订单条目
+     * @param shopId
+     * @return
+     * @throws Exception
+     */
+    int getOrderPageNum(String shopId) throws Exception;
 }

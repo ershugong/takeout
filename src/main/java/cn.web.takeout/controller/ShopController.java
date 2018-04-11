@@ -1,7 +1,9 @@
 package cn.web.takeout.controller;
 
+import cn.web.takeout.model.Activity;
 import cn.web.takeout.model.Shop;
 import cn.web.takeout.model.User;
+import cn.web.takeout.service.IActivityService;
 import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.service.IShopService;
 import cn.web.takeout.service.IUserService;
@@ -14,6 +16,7 @@ import net.sf.json.JsonConfig;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.executor.BaseExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +40,8 @@ public class ShopController {
     private IUserService userService;
     @Resource
     private IOrderService orderService;
+    @Resource
+    private IActivityService activityService;
 
     @ResponseBody
     @RequestMapping("/updateShop")
@@ -174,9 +179,35 @@ public class ShopController {
             map.put("shopId",shop.getId());
             int sales = orderService.countOrderNumByShopForMonth(map);
             shopVO.setSales(sales);
+
+            //店主头像，店主名
+            User user = userService.selectUser(shop.getShoperId());
+            shopVO.setUserHeadPic(user.getHeadPic());
+            shopVO.setShoperName(user.getUserName());
             result.add(shopVO);
         }
         return  result;
+    }
+
+    @ResponseBody
+    @RequestMapping("/getShopAndShoper")
+    public List getShopAndShoper(String shopId) throws Exception{
+        return shopService.getShopAndShoper(shopId);
+    }
+
+    /**分段---------活动的接口*/
+    @ResponseBody
+    @RequestMapping("/getShopActivity")
+    public List getShopActivity(String shopId) throws Exception{
+        return activityService.getShopActivity(shopId);
+    }
+
+    @ResponseBody
+    @RequestMapping("/insertShopActivity")
+    public List insertShopActivity(String typeOne,String typeTwo,String typeThree,Integer discount,String shopId) throws Exception{
+        String lowSend = typeOne+","+typeTwo+","+typeThree;
+        activityService.insertActivity("",lowSend,discount,shopId);
+        return new ArrayList();
     }
 
 }

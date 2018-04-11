@@ -21,9 +21,13 @@ public class ShopVO {
     private int lowSend;//多少元起配送
     private int sendPrice;//运送费
     private int sales;//月售
+    private String detailPlace;
 
     private double distance;//相对于顾客（当前）的距离
     private int time;//送餐到达时间
+
+    private String userHeadPic;
+    private String shoperName;
 
     public String getId() {
         return id;
@@ -183,5 +187,29 @@ public class ShopVO {
 
     public void setSales(int sales) {
         this.sales = sales;
+    }
+
+    public String getDetailPlace() {
+        return detailPlace;
+    }
+
+    public void setDetailPlace(String detailPlace) {
+        this.detailPlace = detailPlace;
+    }
+
+    public String getUserHeadPic() {
+        return userHeadPic;
+    }
+
+    public void setUserHeadPic(String userHeadPic) {
+        this.userHeadPic = userHeadPic;
+    }
+
+    public String getShoperName() {
+        return shoperName;
+    }
+
+    public void setShoperName(String shoperName) {
+        this.shoperName = shoperName;
     }
 }

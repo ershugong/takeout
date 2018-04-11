@@ -61,6 +61,9 @@
 
     <select id="getOrderByshopId" parameterType="String" resultMap="tb_order">
         SELECT  * FROM  tb_order WHERE shop_id = #{shopId} AND status = '已付款' ORDER BY create_time
+        <if test="start != null">
+            LIMIT #{start},#{num}
+        </if>
     </select>
 
     <update id="updateOrderStatusByShop" parameterType="Map">
@@ -95,4 +98,7 @@
         SELECT COUNT(1) FROM tb_order WHERE shop_id = #{shopId} AND create_time  &gt; #{startTime} AND create_time &lt; #{endTime} AND status = '已付款'
     </select>
 
+    <select id="getOrderPageNum" parameterType="String" resultType="Integer">
+        SELECT count(1) FROM  tb_order WHERE shop_id = #{shopId}
+    </select>
 </mapper>

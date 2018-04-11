@@ -1,13 +1,16 @@
 package cn.web.takeout.model;
 
+import java.util.Date;
+
 public class Activity {
     private String id;
     private String name;
-    private Integer lowLine;
+    private String lowLine;
     private Integer discount;
     private String shopId;
     private Integer type;
     private String typePhoto;
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -25,11 +28,11 @@ public class Activity {
         this.name = name;
     }
 
-    public Integer getLowLine() {
+    public String getLowLine() {
         return lowLine;
     }
 
-    public void setLowLine(Integer lowLine) {
+    public void setLowLine(String lowLine) {
         this.lowLine = lowLine;
     }
 
@@ -63,5 +66,13 @@ public class Activity {
 
     public void setTypePhoto(String typePhoto) {
         this.typePhoto = typePhoto;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

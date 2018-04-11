@@ -1,16 +1,22 @@
 package cn.web.takeout.service.impl;
 
 import cn.web.takeout.dao.IShopDao;
+import cn.web.takeout.dao.IUserDao;
+import cn.web.takeout.model.Address;
 import cn.web.takeout.model.Shop;
+import cn.web.takeout.model.User;
 import cn.web.takeout.service.IShopService;
 import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.util.GetLatAndLngByBaidu;
+import cn.web.takeout.vo.ShopDetailVO;
 import cn.web.takeout.vo.ShopVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +25,8 @@ import java.util.Map;
 public class ShopServiceImpl implements IShopService{
     @Resource
     private IShopDao shopDao;
+    @Resource
+    private IUserDao userDao;
     @Override
     public Shop selectShop(String id) {
         return shopDao.selectShop(id);
@@ -111,6 +119,22 @@ public class ShopServiceImpl implements IShopService{
             map.put(shopType,1);
         }
         return shopDao.termShop(map);
+    }
+
+    @Override
+    public List getShopAndShoper(String shopId) throws Exception {
+        List<ShopDetailVO> result = new ArrayList<>();
+        ShopDetailVO shopDetailVO = new ShopDetailVO();
+        Shop shop = shopDao.selectShop(shopId);
+        User user = userDao.selectUser(shop.getShoperId());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        shopDetailVO.setCreateTime(sdf.format(shop.getCreateTime()));
+        shopDetailVO.setDetailAddress(shop.getAddress());
+        shopDetailVO.setExt(shop.getRemark());
+        shopDetailVO.setHeadPic(user.getHeadPic());
+        shopDetailVO.setUserName(user.getUserName());
+        result.add(shopDetailVO);
+        return result;
     }
 
 

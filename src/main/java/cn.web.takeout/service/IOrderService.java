@@ -73,7 +73,7 @@ public interface IOrderService {
      * @return
      * @throws Exception
      */
-    List<OrderForShopVO> getOrderByShopId(String shopId) throws Exception;
+    List<OrderForShopVO> getOrderByShopId(String shopId,Integer page) throws Exception;
 
     /**
      * 商家派送/取消订单

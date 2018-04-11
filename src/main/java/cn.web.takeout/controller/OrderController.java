@@ -163,8 +163,8 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping("getOrderByShopId")
-    public List getOrderByShopId(String shopId) throws Exception{
-        return orderService.getOrderByShopId(shopId);
+    public List getOrderByShopId(String shopId,Integer page) throws Exception{
+        return orderService.getOrderByShopId(shopId,page);
     }
 
     /**

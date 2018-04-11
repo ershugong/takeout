@@ -78,7 +78,7 @@
                         type : "post",
                         dataType : "json",
                         success : function(data){
-                            alert("设置成功！");
+                            layer.msg("更新成功！");
                         }
 //                        error : function(data){
 //                            alert("error:" + data.responseText);
@@ -90,7 +90,7 @@
                         type : "post",
                         dataType : "json",
                         success : function(data) {
-                            alert("设置成功！");
+                            layer.msg("更新成功！");
                         },
                         error : function(data) {
                             alert("error:" + data.responseText);
@@ -106,8 +106,8 @@
                     title:"活动设置",
                     type: 2,
                     skin: 'layui-layer-molv', //加上边框
-                    area: ['420px', '240px'], //宽高
-                    content: 'activity.html'
+                    area: ['420px', '280px'], //宽高
+                    content: 'activity.jsp'
                 });
             });
         });
@@ -269,6 +269,15 @@
                 <div class="field">
                     <%--<textarea name="content"></textarea>--%>
                     <input type="text" style="height: 40px;" class="input" name="address" value="${sessionScope.shop.address}" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>商店描述：</label>
+                </div>
+                <div class="field">
+                    <textarea type="text" class="input" id="remark" name="remark" style="height:120px;">${sessionScope.shop.remark}</textarea>
                     <div class="tips"></div>
                 </div>
             </div>

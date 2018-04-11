@@ -46,4 +46,12 @@ public interface IShopService {
      * @return
      */
     List<Shop> termShop(String shopType);
+
+    /**
+     * 获取商家和商店信息
+     * @param shopId
+     * @return
+     * @throws Exception
+     */
+    List getShopAndShoper(String shopId) throws Exception;
 }

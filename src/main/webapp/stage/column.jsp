@@ -45,13 +45,15 @@
         var reLoadWindow = function(){
             window.location.reload();//刷新页面
         }
-        setTimeout(reLoadWindow,5000);
+        setTimeout(reLoadWindow,10000);
 
         var getOrders = function(page){
+            index = page;
             $.ajax({
                 url : "${pageContext.request.contextPath}/order/getOrderByShopId.do",
                 data : {
-                    shopId : "${sessionScope.user.shopId}"
+                    shopId : "${sessionScope.user.shopId}",
+                    page : page
                 },
                 dataType : "json",
                 method : "POST",
@@ -78,7 +80,7 @@
                     container.append("<tr><td colspan='8'><div id='pageNum' class='pagelist'>  <a onclick='removePage(this)'>上一页</a><a onclick='addPage(this)'>下一页</a><a onclick='getOrders(maxIndex)'>尾页</a> </div></td></tr>");
                     for(var i=0;i<index;i++){
                         var j = i+1;
-                        $("#pageNum").append("<span onclick='getComments("+ j +",this)' class='page"+j+"'>"+ j +"</span>");
+                        $("#pageNum").append("<span onclick='getOrders("+ j +")' class='page"+j+"'>"+ j +"</span>");
                     }
                     $("#pageNum").find('.page'+page).addClass('current');
 

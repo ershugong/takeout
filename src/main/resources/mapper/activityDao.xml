@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.web.takeout.dao.IActivityDao">
+    <resultMap id="tb_activity" type="Activity">
+        <id column="id" property="id"/>
+        <result column="shop_id" property="shopId"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="low_line" property="lowLine"></result>
+        <result column="type_photo" property="typePhoto"></result>
+    </resultMap>
+
+    <select id="selectActivity" resultMap="tb_activity" parameterType="String">
+        SELECT * FROM tb_activity WHERE id = #{id}
+    </select>
+
+    <insert id="insertActivity" parameterType="Activity">
+        INSERT INTO tb_activity VALUES (#{id},#{name},#{lowLine},#{discount},#{shopId},#{createTime},#{type},#{typePhoto})
+    </insert>
+
+    <select id="getShopActivity" parameterType="String" resultMap="tb_activity">
+        SELECT * FROM tb_activity WHERE shop_id = #{shopId}
+    </select>
+
+    <update id="updateShopActivity" parameterType="Activity">
+        UPDATE tb_activity SET low_line = #{lowLine},discount = #{discount},create_time = #{createTime} WHERE shop_id = #{shopId}
+    </update>
+</mapper>

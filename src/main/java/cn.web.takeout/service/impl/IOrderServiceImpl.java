@@ -131,8 +131,13 @@ public class IOrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public List<OrderForShopVO> getOrderByShopId(String shopId) throws Exception {
-        List<Order> orderList = orderDao.getOrderByshopId(shopId);
+    public List<OrderForShopVO> getOrderByShopId(String shopId,Integer page) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("shopId",shopId);
+        map.put("start",(page-1)*CommenUtil.COMMENT_PAGE5);
+        map.put("num",5);
+        List<Order> orderList = orderDao.getOrderByshopId(map);
+        int pages = orderDao.getOrderPageNum(shopId);
         List<OrderForShopVO> result = new ArrayList<>();
         if(null != orderList){
             OrderForShopVO vo;
@@ -157,7 +162,7 @@ public class IOrderServiceImpl implements IOrderService {
             if(list != null && list.size() > 0){
                 result.get(0).setIsRemind(1);
             }
-            result.get(0).setPages(orderList.size());
+            result.get(0).setPages(pages);
         }
         return result;
     }
