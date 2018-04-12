@@ -13,6 +13,7 @@ import cn.web.takeout.service.ICommentService;
 import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.vo.ActivityVO;
 import cn.web.takeout.vo.CommentVO;
+import cn.web.takeout.vo.ShopVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -49,16 +50,7 @@ public class ActivityServiveImpl implements IActivityService{
 
 
         //处理商店的类型总结
-        String [] type = lowLine.split(",");
-        if(type[0].equals("0") && type[1].equals("0") && type[2].equals("0")){
-            shop.setActivityType("0");
-        } else if(type[2].equals("0")){//没有免邮活动
-            shop.setActivityType("1");
-        }else if(type[0].equals("0") || type[1].equals("0")){//没有满减活动
-            shop.setActivityType("2");
-        }else{
-            shop.setActivityType("1,2");
-        }
+        setShopAcitityType(shop,lowLine);
         shopDao.updateShopActivityType(shop);
 
         if(activityTemp != null){
@@ -82,5 +74,35 @@ public class ActivityServiveImpl implements IActivityService{
             result.add(activityVO);
         }
         return result;
+    }
+
+    @Override
+    public Shop setShopAcitityType(Shop shop, String lowLine) throws Exception {
+        String [] type = lowLine.split(",");
+        if(type[0].equals("0") && type[1].equals("0") && type[2].equals("0")){
+            shop.setActivityType("0");
+        } else if(type[2].equals("0")){//没有免邮活动
+            shop.setActivityType("1");
+        }else if(type[0].equals("0") || type[1].equals("0")){//没有满减活动
+            shop.setActivityType("2");
+        }else{
+            shop.setActivityType("1,2");
+        }
+        return shop;
+    }
+
+    @Override
+    public ShopVO setShopAcitityType(ShopVO shop, String lowLine) throws Exception {
+        String [] type = lowLine.split(",");
+        if(type[0].equals("0") && type[1].equals("0") && type[2].equals("0")){
+            shop.setActivityType("0");
+        } else if(type[2].equals("0")){//没有免邮活动
+            shop.setActivityType("1");
+        }else if(type[0].equals("0") || type[1].equals("0")){//没有满减活动
+            shop.setActivityType("2");
+        }else{
+            shop.setActivityType("1,2");
+        }
+        return shop;
     }
 }

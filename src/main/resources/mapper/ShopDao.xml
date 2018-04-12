@@ -26,7 +26,7 @@
     <insert id="insertShop" parameterType="Shop">
         INSERT INTO tb_shop VALUES (#{id},#{shopName},#{shoperId},#{logo},#{address},#{isFood},
         #{isMarket},#{isFruit},#{isDessert},#{isMajorSend},#{isSupper},#{isSnack},#{createTime},
-        #{latitude},#{longitude},#{lowSend},#{sendPrice},#{remark},#{activityType});
+        #{latitude},#{longitude},#{lowSend},#{sendPrice},#{remark},#{activityType})
     </insert>
 
     <update id="updateShop" parameterType="Shop">

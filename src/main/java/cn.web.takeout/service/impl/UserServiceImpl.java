@@ -56,6 +56,8 @@ public class UserServiceImpl implements IUserService{
         shop.setIsMarket(CommenUtil.TYPE0_INT);
         shop.setIsSupper(CommenUtil.TYPE0_INT);
         shop.setIsSnack(CommenUtil.TYPE0_INT);
+        shop.setActivityType("");
+        shop.setRemark("");
         shopDao.insertShop(shop);
 
         return userDao.registerUser(user);

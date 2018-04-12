@@ -140,7 +140,8 @@ public class ShopController {
         List<ShopVO> shopVOList = (List<ShopVO>)JSONArray.toList(array,new ShopVO(),new JsonConfig());
         List<ShopVO> result = new ArrayList<>();
         for(ShopVO shopVO : shopVOList){
-            if (shopVO.getActivityType().indexOf(type)>0 && hasDiscount == shopVO.getHasDiscount()){
+            int temp = shopVO.getActivityType().indexOf(type);
+            if ((temp>-1) && hasDiscount.equals(shopVO.getHasDiscount())){
                 result.add(shopVO);
             }
         }
@@ -197,13 +198,15 @@ public class ShopController {
             List<ActivityVO> activitys = activityService.getShopActivity(shop.getId());
             if(activitys.size() > 0){
                 ActivityVO activityVO = activitys.get(0);//只有一个
-                shopVO.setActivityType(activityVO.getType1()+","+activityVO.getType2()+","+activityVO.getType3()+",");
-                shopVO.setHasDiscount(1);
-                if(activityVO.getDiscount() == 0){
+                String lowLine = activityVO.getType1()+","+activityVO.getType2()+","+activityVO.getType3();
+                activityService.setShopAcitityType(shopVO,lowLine);
+                if(activityVO.getDiscount()>0){
+                    shopVO.setHasDiscount(1);
+                }else{
                     shopVO.setHasDiscount(0);
                 }
             }else{
-                shopVO.setActivityType("0,0,0");
+                shopVO.setActivityType("");
                 shopVO.setHasDiscount(0);
             }
 
