@@ -28,6 +28,8 @@ public class ShopVO {
 
     private String userHeadPic;
     private String shoperName;
+    private String activityType;//活动类型
+    private Integer hasDiscount;//是否有折扣
 
     public String getId() {
         return id;
@@ -211,5 +213,21 @@ public class ShopVO {
 
     public void setShoperName(String shoperName) {
         this.shoperName = shoperName;
+    }
+
+    public String getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(String activityType) {
+        this.activityType = activityType;
+    }
+
+    public Integer getHasDiscount() {
+        return hasDiscount;
+    }
+
+    public void setHasDiscount(Integer hasDiscount) {
+        this.hasDiscount = hasDiscount;
     }
 }

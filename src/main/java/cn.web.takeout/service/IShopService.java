@@ -54,4 +54,12 @@ public interface IShopService {
      * @throws Exception
      */
     List getShopAndShoper(String shopId) throws Exception;
+
+    /**
+     * 筛选活动的商店
+     * @param type
+     * @return
+     * @throws Exception
+     */
+    List<Shop> getActivityShop(String type) throws Exception;
 }

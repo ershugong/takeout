@@ -46,4 +46,20 @@ public interface IShopDao {
      */
      List<Shop> termShop(Map<String,Object> map);
 
+    /**
+     * 更新商店的活动类型
+     * @param shop
+     * @return
+     * @throws Exception
+     */
+    long updateShopActivityType(Shop shop) throws Exception;
+
+    /**
+     * 筛选活动的商店
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    List<Shop> getActivityShop(Map<String,Object> map) throws Exception;
+
 }

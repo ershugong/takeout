@@ -71,4 +71,12 @@
         </if>
 
     </select>
+
+    <update id="updateShopActivityType" parameterType="Shop">
+        UPDATE tb_shop SET activity_type = #{activityType} WHERE id = #{id}
+    </update>
+
+    <select id="getActivityShop" parameterType="Map" resultMap="tb_shop">
+        SELECT * FROM tb_shop WHERE activity_type like #{type}
+    </select>
 </mapper>

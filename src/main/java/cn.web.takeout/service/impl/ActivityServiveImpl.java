@@ -3,9 +3,11 @@ package cn.web.takeout.service.impl;
 import cn.web.takeout.dao.IActivityDao;
 import cn.web.takeout.dao.ICommentDao;
 import cn.web.takeout.dao.IMenuDao;
+import cn.web.takeout.dao.IShopDao;
 import cn.web.takeout.model.Activity;
 import cn.web.takeout.model.Comment;
 import cn.web.takeout.model.Menu;
+import cn.web.takeout.model.Shop;
 import cn.web.takeout.service.IActivityService;
 import cn.web.takeout.service.ICommentService;
 import cn.web.takeout.util.CommenUtil;
@@ -20,6 +22,9 @@ import java.util.*;
 public class ActivityServiveImpl implements IActivityService{
     @Resource
     private IActivityDao activityDao;
+
+    @Resource
+    private IShopDao shopDao;
 
     @Override
     public Activity selectActivity(String id) throws Exception {
@@ -38,6 +43,24 @@ public class ActivityServiveImpl implements IActivityService{
         activity.setCreateTime(new Date());
         activity.setType(0);
         activity.setTypePhoto("");
+
+        Shop shop = new Shop();
+        shop.setId(shopId);
+
+
+        //处理商店的类型总结
+        String [] type = lowLine.split(",");
+        if(type[0].equals("0") && type[1].equals("0") && type[2].equals("0")){
+            shop.setActivityType("0");
+        } else if(type[2].equals("0")){//没有免邮活动
+            shop.setActivityType("1");
+        }else if(type[0].equals("0") || type[1].equals("0")){//没有满减活动
+            shop.setActivityType("2");
+        }else{
+            shop.setActivityType("1,2");
+        }
+        shopDao.updateShopActivityType(shop);
+
         if(activityTemp != null){
             return activityDao.updateShopActivity(activity);
         }else{

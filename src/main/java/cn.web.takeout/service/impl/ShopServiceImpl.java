@@ -137,5 +137,12 @@ public class ShopServiceImpl implements IShopService{
         return result;
     }
 
+    @Override
+    public List<Shop> getActivityShop(String type) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("type",type);
+        return shopDao.getActivityShop(map);
+    }
+
 
 }

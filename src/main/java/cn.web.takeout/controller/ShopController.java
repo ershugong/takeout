@@ -9,6 +9,7 @@ import cn.web.takeout.service.IShopService;
 import cn.web.takeout.service.IUserService;
 import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.util.GetLatAndLngByBaidu;
+import cn.web.takeout.vo.ActivityVO;
 import cn.web.takeout.vo.ShopVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -128,16 +129,23 @@ public class ShopController {
     }
 
     /**
-     * 筛选商家（距离，销量）
-     * @param shops
+     * 筛选商家（活动类型）
      * @param type
      * @return
      */
-//    @ResponseBody
-//    @RequestMapping("/orderShop")
-//    public List<ShopVO> orderShop(@RequestParam("shops") List<ShopVO> shops,Integer type){
-//        return new ArrayList<>();
-//    }
+    @ResponseBody
+    @RequestMapping("/getActivityShop")
+    public List<ShopVO> getActivityShop(@RequestParam("type") String type, @RequestParam("shops") String shops,@RequestParam("hasDiscount") Integer hasDiscount){
+        JSONArray array = JSONArray.fromObject(shops);
+        List<ShopVO> shopVOList = (List<ShopVO>)JSONArray.toList(array,new ShopVO(),new JsonConfig());
+        List<ShopVO> result = new ArrayList<>();
+        for(ShopVO shopVO : shopVOList){
+            if (shopVO.getActivityType().indexOf(type)>0 && hasDiscount == shopVO.getHasDiscount()){
+                result.add(shopVO);
+            }
+        }
+        return result;
+    }
 
 
     /**
@@ -184,6 +192,21 @@ public class ShopController {
             User user = userService.selectUser(shop.getShoperId());
             shopVO.setUserHeadPic(user.getHeadPic());
             shopVO.setShoperName(user.getUserName());
+
+            //添加活动信息
+            List<ActivityVO> activitys = activityService.getShopActivity(shop.getId());
+            if(activitys.size() > 0){
+                ActivityVO activityVO = activitys.get(0);//只有一个
+                shopVO.setActivityType(activityVO.getType1()+","+activityVO.getType2()+","+activityVO.getType3()+",");
+                shopVO.setHasDiscount(1);
+                if(activityVO.getDiscount() == 0){
+                    shopVO.setHasDiscount(0);
+                }
+            }else{
+                shopVO.setActivityType("0,0,0");
+                shopVO.setHasDiscount(0);
+            }
+
             result.add(shopVO);
         }
         return  result;
