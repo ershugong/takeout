@@ -199,7 +199,7 @@ public class ShopController {
             if(activitys.size() > 0){
                 ActivityVO activityVO = activitys.get(0);//只有一个
                 String lowLine = activityVO.getType1()+","+activityVO.getType2()+","+activityVO.getType3();
-                activityService.setShopAcitityType(shopVO,lowLine);
+                activityService.setShopAcitityType(shopVO,lowLine,activityVO.getDiscount());
                 if(activityVO.getDiscount()>0){
                     shopVO.setHasDiscount(1);
                 }else{

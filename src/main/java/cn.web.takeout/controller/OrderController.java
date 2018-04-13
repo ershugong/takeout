@@ -8,10 +8,7 @@ import cn.web.takeout.service.IMenuService;
 import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.service.IShopService;
 import cn.web.takeout.util.CommenUtil;
-import cn.web.takeout.vo.AddressAndMenu;
-import cn.web.takeout.vo.AddressVO;
-import cn.web.takeout.vo.DetailSingleOrderVO;
-import cn.web.takeout.vo.OrderListVO;
+import cn.web.takeout.vo.*;
 import org.apache.commons.collections.map.AbstractMapDecorator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +50,7 @@ public class OrderController {
         map.put("userId",userId);
         map.put("status", CommenUtil.NOT_BUY);
 
-        List<Order> previousOrders = orderService.getNotBuyMenus(map);
+        List<Order> previousOrders = orderService.getNotBuyMenus(map).getOrders();
         if(previousOrders != null){
             for (Order order : previousOrders){
                 OrderId = order.getOrderId();
@@ -191,7 +188,7 @@ public class OrderController {
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("status", CommenUtil.NOT_BUY);
-        List<Order> orderList = orderService.getNotBuyMenus(map);
+        OrderVO orderList = orderService.getNotBuyMenus(map);
         result.setAddressVO(defaultAddress);
         result.setOrderList(orderList);
         return result;

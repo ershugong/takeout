@@ -92,17 +92,27 @@ public class ActivityServiveImpl implements IActivityService{
     }
 
     @Override
-    public ShopVO setShopAcitityType(ShopVO shop, String lowLine) throws Exception {
+    public ShopVO setShopAcitityType(ShopVO shop, String lowLine,Integer discount) throws Exception {
         String [] type = lowLine.split(",");
+        List<Integer> tempActivities = new ArrayList<>();
         if(type[0].equals("0") && type[1].equals("0") && type[2].equals("0")){
             shop.setActivityType("0");
         } else if(type[2].equals("0")){//没有免邮活动
             shop.setActivityType("1");
+            tempActivities.add(0);
         }else if(type[0].equals("0") || type[1].equals("0")){//没有满减活动
             shop.setActivityType("2");
+            tempActivities.add(1);
         }else{
             shop.setActivityType("1,2");
+            tempActivities.add(0);
+            tempActivities.add(1);
         }
+
+        if(!discount.equals(0)){
+            tempActivities.add(2);//添加折扣
+        }
+        shop.setActivitys(tempActivities);
         return shop;
     }
 }

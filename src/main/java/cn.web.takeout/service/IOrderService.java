@@ -4,6 +4,7 @@ import cn.web.takeout.model.Menu;
 import cn.web.takeout.model.Order;
 import cn.web.takeout.vo.OrderForShopVO;
 import cn.web.takeout.vo.OrderListVO;
+import cn.web.takeout.vo.OrderVO;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public interface IOrderService {
      * @param map
      * @return
      */
-    List<Order> getNotBuyMenus(Map<String,Object> map);
+    OrderVO getNotBuyMenus(Map<String,Object> map) throws Exception;
 
     /**
      * 更新订单数量

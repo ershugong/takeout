@@ -74,7 +74,7 @@ public class MenuController {
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("status",CommenUtil.NOT_BUY);
-        List<Order> NotPayOrders = orderService.getNotBuyMenus(map);
+        List<Order> NotPayOrders = orderService.getNotBuyMenus(map).getOrders();
         if(NotPayOrders != null){
             Integer cost = 0;
             for (Order order : NotPayOrders){

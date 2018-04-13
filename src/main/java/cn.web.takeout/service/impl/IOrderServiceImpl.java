@@ -2,11 +2,10 @@ package cn.web.takeout.service.impl;
 
 import cn.web.takeout.dao.*;
 import cn.web.takeout.model.*;
+import cn.web.takeout.service.IActivityService;
 import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.util.CommenUtil;
-import cn.web.takeout.vo.DetailSingleOrderVO;
-import cn.web.takeout.vo.OrderForShopVO;
-import cn.web.takeout.vo.OrderListVO;
+import cn.web.takeout.vo.*;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +24,8 @@ public class IOrderServiceImpl implements IOrderService {
     private IUserDao userDao;
     @Resource
     private IAddressDao addressDao;
+    @Resource
+    private IActivityService activityService;
 
 
     @Override
@@ -33,8 +34,52 @@ public class IOrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public List<Order> getNotBuyMenus(Map<String, Object> map) {
-        return orderDao.getNotBuyOrder(map);
+    public OrderVO getNotBuyMenus(Map<String, Object> map) throws Exception{
+        OrderVO orderVO = new OrderVO();
+        int totalPrice = 0;
+        int sendPrice = 0;
+        List<Order> orderList = orderDao.getNotBuyOrder(map);
+        for(Order order : orderList){
+            totalPrice = totalPrice+order.getPrice()*order.getNumb();//计算总价
+        }
+
+
+        //计算活动
+        List<ActivityVO> activityVOList = activityService.getShopActivity(orderList.get(0).getShopId());
+        Shop shop = shopDao.selectShop(orderList.get(0).getShopId());
+        if(activityVOList.size() > 0){
+            ActivityVO activityVO = activityVOList.get(0);//只有一个
+            String lowLine = activityVO.getType1()+","+activityVO.getType2()+","+activityVO.getType3();
+            ShopVO shopVO = new ShopVO();
+            activityService.setShopAcitityType(shopVO,lowLine,activityVO.getDiscount());
+
+            //通过活动计算总价
+            if(shopVO.getActivitys().contains(0)){//满减
+                if(totalPrice > Integer.parseInt(activityVO.getType1())){
+                    totalPrice -= Integer.parseInt(activityVO.getType2());
+                }
+            }
+
+            if(!"0".equals(activityVO.getType3()) && totalPrice > Integer.parseInt(activityVO.getType3())){//有免邮活动
+
+            }else{
+                totalPrice += shop.getSendPrice();
+                sendPrice = shop.getSendPrice();
+            }
+
+            if(shopVO.getActivitys().contains(2)){//折扣
+                totalPrice = totalPrice * 9 / 10;
+            }
+
+            orderVO.setActivities(shopVO.getActivitys());
+        }else{
+            orderVO.setActivities(new ArrayList<>());
+        }
+
+        orderVO.setTotalPrice(totalPrice);
+        orderVO.setOrders(orderList);
+        orderVO.setSendPrice(sendPrice);
+        return orderVO;
     }
 
     @Override
@@ -162,7 +207,9 @@ public class IOrderServiceImpl implements IOrderService {
             if(list != null && list.size() > 0){
                 result.get(0).setIsRemind(1);
             }
-            result.get(0).setPages(pages);
+            if(result.size()>0){
+                result.get(0).setPages(pages);
+            }
         }
         return result;
     }

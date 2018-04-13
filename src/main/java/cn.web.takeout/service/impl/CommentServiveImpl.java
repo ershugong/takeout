@@ -69,7 +69,9 @@ public class CommentServiveImpl implements ICommentService{
                 vo.setContent(comment.getContent());
                 result.add(vo);
             }
-            result.get(0).setNum(commentDao.getCommentPageNum(shopId));//总共的数目
+            if(result.size()>0){
+                result.get(0).setNum(commentDao.getCommentPageNum(shopId));//总共的数目
+            }
         }
         return result;
     }

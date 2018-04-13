@@ -47,6 +47,6 @@ public interface IActivityService {
      * @return
      * @throws Exception
      */
-    ShopVO setShopAcitityType(ShopVO shop, String type) throws Exception;
+    ShopVO setShopAcitityType(ShopVO shop, String type,Integer discount) throws Exception;
 
 }

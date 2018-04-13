@@ -1,6 +1,7 @@
 package cn.web.takeout.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class ShopVO {
     private String id;//商店id
@@ -30,6 +31,7 @@ public class ShopVO {
     private String shoperName;
     private String activityType;//活动类型
     private Integer hasDiscount;//是否有折扣
+    private List<Integer> activitys;//活动类型所对应数组的下标
 
     public String getId() {
         return id;
@@ -229,5 +231,13 @@ public class ShopVO {
 
     public void setHasDiscount(Integer hasDiscount) {
         this.hasDiscount = hasDiscount;
+    }
+
+    public List<Integer> getActivitys() {
+        return activitys;
+    }
+
+    public void setActivitys(List<Integer> activitys) {
+        this.activitys = activitys;
     }
 }
