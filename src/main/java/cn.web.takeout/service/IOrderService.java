@@ -25,6 +25,14 @@ public interface IOrderService {
     OrderVO getNotBuyMenus(Map<String,Object> map) throws Exception;
 
     /**
+     * 获取未结算的订单（只获取）
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    List<Order> getOnlyNotBuyMenus(Map<String,Object> map) throws Exception;
+
+    /**
      * 更新订单数量
      * @param map
      * @return

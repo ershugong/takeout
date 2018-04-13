@@ -50,7 +50,7 @@ public class OrderController {
         map.put("userId",userId);
         map.put("status", CommenUtil.NOT_BUY);
 
-        List<Order> previousOrders = orderService.getNotBuyMenus(map).getOrders();
+        List<Order> previousOrders = orderService.getOnlyNotBuyMenus(map);
         if(previousOrders != null){
             for (Order order : previousOrders){
                 OrderId = order.getOrderId();

@@ -83,6 +83,11 @@ public class IOrderServiceImpl implements IOrderService {
     }
 
     @Override
+    public List<Order> getOnlyNotBuyMenus(Map<String, Object> map) throws Exception {
+        return orderDao.getNotBuyOrder(map);
+    }
+
+    @Override
     public long updateOrderNumb(Map<String, Object> map) {
         return orderDao.updateOrderNumb(map);
     }
