@@ -37,7 +37,7 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping("/settleAccouts")
-    public List settleAccouts(String userId,String menuId) throws Exception{
+    public List settleAccouts(String userId,String menuId,String shopId) throws Exception{
         /**
          * 购物车功能
          * 1.先获取当前没有结算的订单，如果菜色相同，则删除
@@ -49,7 +49,7 @@ public class OrderController {
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("status", CommenUtil.NOT_BUY);
-
+        map.put("shopId",shopId);
         List<Order> previousOrders = orderService.getOnlyNotBuyMenus(map);
         if(previousOrders != null){
             for (Order order : previousOrders){
@@ -182,12 +182,13 @@ public class OrderController {
 
     @ResponseBody
     @RequestMapping("/getDefaultAddressAndOrders")
-    public AddressAndMenu getDefaultAddressAndOrders(String userId) throws Exception{
+    public AddressAndMenu getDefaultAddressAndOrders(String userId,String shopId) throws Exception{
         AddressAndMenu result = new AddressAndMenu();
         AddressVO defaultAddress = addressService.getAddressByUserId(userId,CommenUtil.DEFAULT_ADDRESS).get(0);
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("status", CommenUtil.NOT_BUY);
+        map.put("shopId",shopId);
         OrderVO orderList = orderService.getNotBuyMenus(map);
         result.setAddressVO(defaultAddress);
         result.setOrderList(orderList);

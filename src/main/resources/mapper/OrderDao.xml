@@ -20,7 +20,7 @@
     </select>
 
     <select id="getNotBuyOrder" parameterType="Map" resultMap="tb_order">
-        SELECT * FROM tb_order WHERE status = #{status} AND user_id = #{userId}
+        SELECT * FROM tb_order WHERE status = #{status} AND user_id = #{userId} AND shop_id = #{shopId}
     </select>
 
     <delete id="delOrder" parameterType="String">

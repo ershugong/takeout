@@ -140,10 +140,17 @@ public class ShopController {
         List<ShopVO> shopVOList = (List<ShopVO>)JSONArray.toList(array,new ShopVO(),new JsonConfig());
         List<ShopVO> result = new ArrayList<>();
         for(ShopVO shopVO : shopVOList){
-            int temp = shopVO.getActivityType().indexOf(type);
-            if ((temp>-1) && hasDiscount.equals(shopVO.getHasDiscount())){
-                result.add(shopVO);
+            if("".equals(type)){
+                if (hasDiscount.equals(shopVO.getHasDiscount())){
+                    result.add(shopVO);
+                }
+            }else{
+                int temp = shopVO.getActivityType().indexOf(type);
+                if(temp > -1){
+                    result.add(shopVO);
+                }
             }
+
         }
         return result;
     }

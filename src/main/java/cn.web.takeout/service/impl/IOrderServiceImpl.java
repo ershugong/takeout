@@ -43,7 +43,6 @@ public class IOrderServiceImpl implements IOrderService {
             totalPrice = totalPrice+order.getPrice()*order.getNumb();//计算总价
         }
 
-
         //计算活动
         List<ActivityVO> activityVOList = activityService.getShopActivity(orderList.get(0).getShopId());
         Shop shop = shopDao.selectShop(orderList.get(0).getShopId());
