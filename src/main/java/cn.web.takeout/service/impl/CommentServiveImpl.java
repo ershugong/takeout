@@ -75,4 +75,30 @@ public class CommentServiveImpl implements ICommentService{
         }
         return result;
     }
+
+    @Override
+    public List getShopAllComments(String shopId) throws Exception {
+        List<Comment> comments = searchCommentByShopId(shopId);
+        List<CommentVO> result = new ArrayList<>();
+        if(comments != null){
+            for(Comment comment : comments){
+                CommentVO commentVO = new CommentVO();
+                commentVO.setUserName(comment.getUserName());
+                commentVO.setContent(comment.getContent());
+                commentVO.setUserHeadPic(comment.getUserHeadPic());
+                long hoursNum = 1000*60*60;//一小时的毫秒数
+                long hour = (new Date().getTime() - comment.getCreateTime().getTime())/hoursNum;
+                if(hour == 0){
+                    hour = 1;
+                }else if(hour > 24){
+                    hour = 24;
+                }else{
+                    hour += 1;
+                }
+                commentVO.setHours(hour);
+                result.add(commentVO);
+            }
+        }
+        return result;
+    }
 }

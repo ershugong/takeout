@@ -11,6 +11,7 @@
         <result column="create_time" property="createTime"></result>
         <result column="comment_type" property="commentType"></result>
         <result column="menu_id" property="menuId"></result>
+        <result column="user_head_pic" property="userHeadPic"></result>
     </resultMap>
 
     <select id="selectComment" resultMap="tb_comment" parameterType="String">
@@ -18,7 +19,8 @@
     </select>
 
     <insert id="insertComment" parameterType="Comment">
-        INSERT INTO tb_comment VALUES (#{id},#{content},#{userId},#{shopId},#{photo},#{menuId},#{userName},#{createTime},#{commentType})
+        INSERT INTO tb_comment VALUES (#{id},#{content},#{userId},#{shopId},#{photo},#{menuId},#{userName},
+        #{createTime},#{commentType},#{userHeadPic})
     </insert>
 
     <select id="searchCommentByShopId" parameterType="Map" resultMap="tb_comment">

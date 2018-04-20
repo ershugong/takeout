@@ -159,3 +159,9 @@ add type_photo varchar(200) COMMENT '活动图片';
 --商店表添加活动以及商店自我介绍
 ALTER TABLE tb_shop ADD `activity_type` VARCHAR(20) DEFAULT NULL COMMENT '活动类型';
 ALTER TABLE tb_shop ADD `remark` VARCHAR(500) DEFAULT NULL COMMENT '商店自我介绍';
+
+--评论表添加用户头像字段
+ALTER TABLE tb_comment ADD `user_head_pic` VARCHAR(500) DEFAULT NULL COMMENT '评论用户头像';
+
+--地址表添加显示状态字段
+ALTER TABLE tb_address ADD `status` tinyint(4) DEFAULT 1 COMMENT '显示状态0：不显示，1：显示';

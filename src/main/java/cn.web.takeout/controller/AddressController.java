@@ -32,6 +32,7 @@ public class AddressController {
     public List insertAddress(@ModelAttribute("form") Address address) throws Exception{
         address.setId(CommenUtil.getUUID32());
         address.setCreateTime(new Date());
+        address.setStatus(CommenUtil.ADDRESS_ON);
         addressService.insertAddress(address);
         return new ArrayList();
     }

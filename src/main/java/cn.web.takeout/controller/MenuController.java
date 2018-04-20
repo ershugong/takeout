@@ -2,6 +2,7 @@ package cn.web.takeout.controller;
 
 import cn.web.takeout.model.*;
 import cn.web.takeout.service.IAddressService;
+import cn.web.takeout.service.ICommentService;
 import cn.web.takeout.service.IMenuService;
 import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.util.CommenUtil;
@@ -30,6 +31,8 @@ public class MenuController {
     private IMenuService menuService;
     @Resource
     private IOrderService orderService;
+    @Resource
+    private ICommentService commentService;
 
     @RequestMapping("/selectMenu")
     public Menu selectMenu(String id, HttpSession session) throws Exception{
@@ -70,21 +73,27 @@ public class MenuController {
             result.add(menuListVO);
         }
 
-        //获取当前用户待结算的订单
-        Map<String,Object> map = new HashMap<>();
-        map.put("userId",userId);
-        map.put("status",CommenUtil.NOT_BUY);
-        map.put("shopId",shopId);
-        List<Order> NotPayOrders = orderService.getOnlyNotBuyMenus(map);
-        if(NotPayOrders != null){
-            Integer cost = 0;
-            for (Order order : NotPayOrders){
-                cost += order.getPrice()*order.getNumb();
+        if(result.size() > 0){
+            //获取当前用户待结算的订单
+            Map<String,Object> map = new HashMap<>();
+            map.put("userId",userId);
+            map.put("status",CommenUtil.NOT_BUY);
+            map.put("shopId",shopId);
+            List<Order> NotPayOrders = orderService.getOnlyNotBuyMenus(map);
+            if(NotPayOrders != null){
+                Integer cost = 0;
+                for (Order order : NotPayOrders){
+                    cost += order.getPrice()*order.getNumb();
+                }
+                result.get(0).setCost(cost);
+            }else{
+                result.get(0).setCost(0);
             }
-            result.get(0).setCost(cost);
-        }else{
-            result.get(0).setCost(0);
+
+            //插入评论信息
+            result.get(0).setCommentList(commentService.getShopAllComments(shopId));
         }
+
         return result;
     }
 

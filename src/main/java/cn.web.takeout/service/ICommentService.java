@@ -35,4 +35,12 @@ public interface ICommentService {
      * @throws Exception
      */
     public List getCommentListForPC(String shopId,Integer page) throws Exception;
+
+    /**
+     * 用户端获取商店所有的用户评价
+     * @param shopId
+     * @return
+     * @throws Exception
+     */
+    List getShopAllComments(String shopId) throws Exception;
 }

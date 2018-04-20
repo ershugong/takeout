@@ -9,6 +9,7 @@ public class MenuListVO {
     private List<Menu> menuContent;
     private Integer cost;
     private ShopVO shopVO;
+    private List<CommentVO> commentList;
 
     public String getTypeName() {
         return typeName;
@@ -40,5 +41,13 @@ public class MenuListVO {
 
     public void setShopVO(ShopVO shopVO) {
         this.shopVO = shopVO;
+    }
+
+    public List<CommentVO> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<CommentVO> commentList) {
+        this.commentList = commentList;
     }
 }

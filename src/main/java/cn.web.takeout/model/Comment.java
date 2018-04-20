@@ -12,6 +12,7 @@ public class Comment {
     private String userName;
     private Date createTime;
     private String commentType;
+    private String userHeadPic;
 
     public String getId() {
         return id;
@@ -83,5 +84,13 @@ public class Comment {
 
     public void setCommentType(String commentType) {
         this.commentType = commentType;
+    }
+
+    public String getUserHeadPic() {
+        return userHeadPic;
+    }
+
+    public void setUserHeadPic(String userHeadPic) {
+        this.userHeadPic = userHeadPic;
     }
 }

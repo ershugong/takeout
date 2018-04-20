@@ -8,6 +8,8 @@ public class CommentVO {
     private String commentType;
     private String content;
     private Integer num;
+    private long hours;
+    private String userHeadPic;
 
     public String getMenuHeadPic() {
         return menuHeadPic;
@@ -63,5 +65,21 @@ public class CommentVO {
 
     public void setNum(Integer num) {
         this.num = num;
+    }
+
+    public long getHours() {
+        return hours;
+    }
+
+    public void setHours(long hours) {
+        this.hours = hours;
+    }
+
+    public String getUserHeadPic() {
+        return userHeadPic;
+    }
+
+    public void setUserHeadPic(String userHeadPic) {
+        this.userHeadPic = userHeadPic;
     }
 }

@@ -14,14 +14,14 @@
     </resultMap>
 
     <select id="getAddressByUserId" resultMap="tb_address" parameterType="map">
-        SELECT * FROM tb_address WHERE user_id = #{userId}
+        SELECT * FROM tb_address WHERE user_id = #{userId} AND status = 1
         <if test="isDefault == 1">
             AND is_default = #{isDefault}
         </if>
     </select>
 
     <insert id="insertAddress" parameterType="Address">
-        INSERT INTO tb_address VALUES (#{id},#{province},#{city},#{area},#{detailPlace},#{createTime},#{userId},#{userName},#{phone},#{isDefault})
+        INSERT INTO tb_address VALUES (#{id},#{province},#{city},#{area},#{detailPlace},#{createTime},#{userId},#{userName},#{phone},#{isDefault},#{status})
     </insert>
 
     <update id="updateAddress" parameterType="Address">
@@ -37,5 +37,9 @@
     <select id="selectAddress" parameterType="String" resultMap="tb_address">
         SELECT  * FROM tb_address WHERE id = #{id}
     </select>
+
+    <update id="updateAddressStatus" parameterType="String">
+        UPDATE tb_address SET status = 0 WHERE id = #{id};
+    </update>
 
 </mapper>

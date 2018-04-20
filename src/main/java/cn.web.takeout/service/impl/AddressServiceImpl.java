@@ -52,7 +52,7 @@ public class AddressServiceImpl implements IAddressService{
 
     @Override
     public long delAddress(String id) throws Exception {
-        return addressDao.delAddress(id);
+        return addressDao.updateAddressStatus(id);
     }
 
     @Override

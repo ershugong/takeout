@@ -135,7 +135,8 @@ public class ShopController {
      */
     @ResponseBody
     @RequestMapping("/getActivityShop")
-    public List<ShopVO> getActivityShop(@RequestParam("type") String type, @RequestParam("shops") String shops,@RequestParam("hasDiscount") Integer hasDiscount){
+    public List<ShopVO> getActivityShop(@RequestParam("type") String type, @RequestParam("shops") String shops,
+                                        @RequestParam("hasDiscount") Integer hasDiscount) throws Exception{
         JSONArray array = JSONArray.fromObject(shops);
         List<ShopVO> shopVOList = (List<ShopVO>)JSONArray.toList(array,new ShopVO(),new JsonConfig());
         List<ShopVO> result = new ArrayList<>();
@@ -151,6 +152,27 @@ public class ShopController {
                 }
             }
 
+        }
+        return result;
+    }
+
+    /**
+     * 通过店铺名关键字来筛选店铺
+     * @param shopName
+     * @param shops
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("/searchShopByPartName")
+    public List<ShopVO> searchShopByPartName(@RequestParam("shopName") String shopName, @RequestParam("shops") String shops) throws Exception{
+        JSONArray array = JSONArray.fromObject(shops);
+        List<ShopVO> shopVOList = (List<ShopVO>)JSONArray.toList(array,new ShopVO(),new JsonConfig());
+        List<ShopVO> result = new ArrayList<>();
+        for(ShopVO shopVO : shopVOList){
+            if(shopVO.getShopName().indexOf(shopName) > -1){
+                result.add(shopVO);
+            }
         }
         return result;
     }

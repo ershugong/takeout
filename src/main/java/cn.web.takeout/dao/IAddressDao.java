@@ -45,4 +45,12 @@ public interface IAddressDao {
      * @throws Exception
      */
     Address selectAddress(String id) throws Exception;
+
+    /**
+     * 假删除地址
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    long updateAddressStatus(String id) throws Exception;
 }

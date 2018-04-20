@@ -90,6 +90,10 @@ public class CommenUtil {
      * 每页5条
      */
     public final static Integer COMMENT_PAGE5 = 5;
+    /**
+     * 地址有效
+     */
+    public final static Integer ADDRESS_ON = 1;
 
     public static String getUUID32(){
         String uuid = UUID.randomUUID().toString();//转化为String对象
