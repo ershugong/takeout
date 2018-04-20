@@ -25,7 +25,7 @@ public class CommentServiveImpl implements ICommentService{
     }
 
     @Override
-    public long insertComment(String userId,String menuId,String comment,String userName,String commentType) throws Exception {
+    public long insertComment(String userId,String menuId,String comment,String userName,String commentType,String userHeadPic) throws Exception {
         Comment commentPO = new Comment();
         commentPO.setId(CommenUtil.getUUID32());
         commentPO.setContent(comment);
@@ -36,6 +36,7 @@ public class CommentServiveImpl implements ICommentService{
         commentPO.setUserName(userName);
         commentPO.setCreateTime(new Date());
         commentPO.setCommentType(commentType);
+        commentPO.setUserHeadPic(userHeadPic);
         return commentDao.insertComment(commentPO);
     }
 

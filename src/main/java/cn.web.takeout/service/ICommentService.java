@@ -18,7 +18,7 @@ public interface ICommentService {
      * @return
      * @throws Exception
      */
-    long insertComment(String userId,String menuId,String comment,String userName,String commentType) throws Exception;
+    long insertComment(String userId,String menuId,String comment,String userName,String commentType,String userHeadPic) throws Exception;
 
     /**
      * 通过商店获取其所有的评价

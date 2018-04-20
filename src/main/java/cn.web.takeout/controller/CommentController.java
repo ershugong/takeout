@@ -34,13 +34,13 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping("/insertComment")
-    public List insertComment(String userId, String menuId, String content, String userName,String commentType) throws Exception{
+    public List insertComment(String userId, String menuId, String content, String userName,String commentType,String userHeadPic) throws Exception{
         content = new String(content.getBytes("iso8859-1"),"UTF-8");//GET请求参数包含中文需要转码
         userName = new String(userName.getBytes("iso8859-1"),"UTF-8");//GET请求参数包含中文需要转码
         if(EmojiFilter.containsEmoji(userName)){//过滤特殊的表情
             userName = EmojiFilter.filterEmoji(userName);
         }
-        commentService.insertComment(userId,menuId,content,userName,commentType);
+        commentService.insertComment(userId,menuId,content,userName,commentType,userHeadPic);
         return new ArrayList();
     }
 
