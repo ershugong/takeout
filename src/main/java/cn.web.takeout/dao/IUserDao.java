@@ -27,4 +27,11 @@ public interface IUserDao {
      * @return
      */
     long updateUser(User user);
+
+    /**
+     * 修改用户密码
+     * @param user
+     * @return
+     */
+    long updateUserPassword(User user) throws Exception;
 }

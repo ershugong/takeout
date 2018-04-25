@@ -91,13 +91,14 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping("/toBuy")
-    public List toBuy(String userId,String addressId,String ext) throws Exception{
+    public List toBuy(String userId,String addressId,String ext,String shopId) throws Exception{
         ext = new String(ext.getBytes("iso8859-1"),"UTF-8");//GET请求参数包含中文需要转码
         //获取未结算的订单，修改金额
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("status",CommenUtil.NOT_BUY);
         map.put("targetStatus",CommenUtil.ALREADLY_BUY);
+        map.put("shopId",shopId);
         map.put("addressId",addressId);
         map.put("ext",ext);
         orderService.updateNotBuyOrder(map);

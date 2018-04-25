@@ -45,7 +45,7 @@
         var reLoadWindow = function(){
             window.location.reload();//刷新页面
         }
-        setTimeout(reLoadWindow,10000);
+        //setTimeout(reLoadWindow,10000);
 
         var getOrders = function(page){
             index = page;
@@ -59,6 +59,16 @@
                 method : "POST",
                 success : function(data){
                     var container = $("#tableData");
+                    container.append('        <tr>\n' +
+                        '            <th width="15%">订单ID</th>\n' +
+                        '            <th width="10%">菜名</th>\n' +
+                        '            <th width="10%">样图</th>\n' +
+                        '            <th width="10%">数量</th>\n' +
+                        '            <th width="10%">备注</th>\n' +
+                        '            <th width="10%">用户名</th>\n' +
+                        '            <th>地址</th>\n' +
+                        '            <th width="250">操作</th>\n' +
+                        '        </tr>');
                     container.html("");
                     if(data.length == 0){
                         layer.msg("暂无任何订单数据！");
@@ -84,14 +94,14 @@
                     }
                     $("#pageNum").find('.page'+page).addClass('current');
 
-                    if(data[0].isRemind == 1){//是否提示外卖接单铃声
-                        var a=document.getElementById("audio");
-                        if(a.paused){
-                            a.play();
-                        }else{
-                            a.pause();
-                        }
-                    }
+//                    if(data[0].isRemind == 1){//是否提示外卖接单铃声
+//                        var a=document.getElementById("audio");
+//                        if(a.paused){
+//                            a.play();
+//                        }else{
+//                            a.pause();
+//                        }
+//                    }
 
                 },
                 error: function(data){

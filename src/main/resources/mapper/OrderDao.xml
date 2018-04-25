@@ -43,7 +43,7 @@
         <if test="ext != null">
             ,ext = #{ext}
         </if>
-         WHERE status = #{status} AND user_id = #{userId}
+         WHERE status = #{status} AND user_id = #{userId} AND shop_id = #{shopId}
 
     </update>
 
@@ -60,7 +60,7 @@
     </delete>
 
     <select id="getOrderByshopId" parameterType="String" resultMap="tb_order">
-        SELECT  * FROM  tb_order WHERE shop_id = #{shopId} AND status = '已付款' ORDER BY create_time
+        SELECT  * FROM  tb_order WHERE shop_id = #{shopId} AND status = '已付款' ORDER BY create_time DESC
         <if test="start != null">
             LIMIT #{start},#{num}
         </if>

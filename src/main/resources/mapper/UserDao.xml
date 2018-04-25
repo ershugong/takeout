@@ -31,5 +31,7 @@
         email = #{email},phone = #{phone},head_pic = #{headPic},sex = #{sex}
         WHERE id = #{id}
     </update>
-
+    <update id="updateUserPassword" parameterType="User">
+        UPDATE tb_user SET password = #{password} WHERE id = #{id}
+    </update>
 </mapper>

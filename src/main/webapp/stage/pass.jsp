@@ -5,7 +5,7 @@
   Time: 9:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -16,8 +16,31 @@
     <title></title>
     <link rel="stylesheet" href="../css/pintuer.css">
     <link rel="stylesheet" href="../css/admin.css">
-    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery.min.js"></script>
     <script src="../js/pintuer.js"></script>
+    <script src="../js/layer.js"></script>
+    <script type="text/javascript">
+        $(function(){
+                $("#submit").click(function(){
+                    var newPassword = $("#newPassword").val();
+                    var oldPassword = $("#oldPassword").val();
+                    console.log(oldPassword);
+                    $.ajax({
+                        url : "${pageContext.request.contextPath}/user/updateUserPassword.do",
+                        data : {userName: "${sessionScope.user.userName}",newPassword:newPassword,oldPassword:oldPassword},
+                        type : "post",
+                        success : function(data){
+                            if(data == 1){
+                                layer.msg("更新成功！");
+                            }else{
+                                layer.msg("原始密码错误！");
+                            }
+
+                        }
+                    });
+                });
+            });
+    </script>
 </head>
 <body>
 <div class="panel admin-panel">
@@ -29,8 +52,8 @@
                     <label for="sitename">管理员帐号：</label>
                 </div>
                 <div class="field">
-                    <label style="line-height:33px;">
-                        admin
+                    <label style="line-height:33px;" id="userName">
+                        ${sessionScope.user.userName}
                     </label>
                 </div>
             </div>
@@ -39,7 +62,7 @@
                     <label for="sitename">原始密码：</label>
                 </div>
                 <div class="field">
-                    <input type="password" class="input w50" id="mpass" name="mpass" size="50" placeholder="请输入原始密码" data-validate="required:请输入原始密码" />
+                    <input type="password" class="input w50" name="mpass" size="50" id="oldPassword" placeholder="请输入原始密码" data-validate="required:请输入原始密码" />
                 </div>
             </div>
             <div class="form-group">
@@ -47,7 +70,7 @@
                     <label for="sitename">新密码：</label>
                 </div>
                 <div class="field">
-                    <input type="password" class="input w50" name="newpass" size="50" placeholder="请输入新密码" data-validate="required:请输入新密码,length#>=5:新密码不能小于5位" />
+                    <input type="password" class="input w50" name="newpass" size="50" id="newPassword" placeholder="请输入新密码" data-validate="required:请输入新密码,length#>=5:新密码不能小于5位" />
                 </div>
             </div>
             <div class="form-group">
@@ -64,7 +87,7 @@
                     <label></label>
                 </div>
                 <div class="field">
-                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                    <button class="button bg-main icon-check-square-o" type="submit" id="submit"> 提交</button>
                 </div>
             </div>
         </form>

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -159,5 +160,18 @@ public class UserController {
         map.put("status", 0);
         map.put("msg", "解密失败");
         return map;
+    }
+
+    @RequestMapping("/updateUserPassword")
+    public void updateUserPassword(String userName, String newPassword, String oldPassword, HttpSession session, HttpServletResponse response) throws Exception {
+        User tempUser = userService.checkUser(userName,oldPassword);
+        if(tempUser == null){//原始密码验证失败
+            response.getWriter().print(0);
+        }else{
+            tempUser.setPassword(newPassword);
+            long result = userService.updateUserPassword(tempUser);
+            session.setAttribute("user",tempUser);
+            response.getWriter().print(result);
+        }
     }
 }

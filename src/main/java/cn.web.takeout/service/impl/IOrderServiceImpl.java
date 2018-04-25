@@ -6,6 +6,7 @@ import cn.web.takeout.service.IActivityService;
 import cn.web.takeout.service.IOrderService;
 import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.vo.*;
+import cn.web.takeout.websocket.webController.WebSocketController;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import org.springframework.stereotype.Service;
 
@@ -98,6 +99,12 @@ public class IOrderServiceImpl implements IOrderService {
 
     @Override
     public long updateNotBuyOrder(Map<String, Object> map) {
+        String shopId = (String) map.get("shopId");
+        for(String key : WebSocketController.sessionSet.keySet()){
+            if(shopId.equals(key)){
+                WebSocketController.sessionSet.get(key).getAsyncRemote().sendText("yes");
+            }
+        }
         return orderDao.updateNotBuyOrder(map);
     }
 

@@ -67,4 +67,9 @@ public class UserServiceImpl implements IUserService{
     public long updateUser(User user) {
         return userDao.updateUser(user);
     }
+
+    @Override
+    public long updateUserPassword(User user) throws Exception {
+        return userDao.updateUserPassword(user);
+    }
 }

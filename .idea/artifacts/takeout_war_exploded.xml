@@ -45,6 +45,8 @@
           <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk16:1.46" />
           <element id="library" level="project" name="Maven: net.sf.ezmorph:ezmorph:1.0.6" />
           <element id="library" level="project" name="Maven: com.google.zxing:core:3.3.0" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-websocket:4.3.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-messaging:4.3.5.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">
