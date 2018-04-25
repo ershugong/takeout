@@ -177,6 +177,13 @@ public class ShopController {
         return result;
     }
 
+    /**
+     * 获取店铺的类型 销售情况
+     */
+    public List getShopAccount(String shopId) throws Exception{
+        return null;
+    }
+
 
     /**
      * 给商店添加距离的信息

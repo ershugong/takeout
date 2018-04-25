@@ -107,11 +107,9 @@
         <li><a href="book.jsp" onclick="changeSrc(this);" target="right"><span class="icon-caret-right"></span>评价管理</a></li>
         <li><a href="column.jsp" onclick="changeSrc(this);" target="right" id="order"><span class="icon-caret-right"></span>订单管理</a></li>
     </ul>
-    <%--<h2><span class="icon-pencil-square-o"></span>栏目管理</h2>--%>
+    <h2><span class="icon-pencil-square-o"></span>统计管理</h2>
     <ul>
-        <li><a href="list.jsp" target="right"><span class="icon-caret-right"></span>内容管理</a></li>
-        <li><a href="add.jsp" target="right"><span class="icon-caret-right"></span>添加内容</a></li>
-        <li><a href="cate.jsp" target="right"><span class="icon-caret-right"></span>分类管理</a></li>
+        <li><a href="echat.html" target="right"><span class="icon-caret-right"></span>数据统计</a></li>
     </ul>
 </div>
 <script type="text/javascript">
@@ -144,7 +142,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
 </ul>
 <div class="admin">
-    <iframe scrolling="auto" rameborder="0" src="info.jsp" name="right" width="100%" height="100%" id = 'myFrame'></iframe>
+    <iframe scrolling="auto" rameborder="0" src="echat.html" name="right" width="100%" height="100%" id = 'myFrame'></iframe>
 </div>
 </body>
 </html>
