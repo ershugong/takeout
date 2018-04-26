@@ -9,6 +9,7 @@ import cn.web.takeout.service.IShopService;
 import cn.web.takeout.service.IUserService;
 import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.util.GetLatAndLngByBaidu;
+import cn.web.takeout.vo.AccountResultVO;
 import cn.web.takeout.vo.ActivityVO;
 import cn.web.takeout.vo.ShopVO;
 import net.sf.json.JSONArray;
@@ -180,8 +181,13 @@ public class ShopController {
     /**
      * 获取店铺的类型 销售情况
      */
+    @ResponseBody
+    @RequestMapping("/getShopAccount")
     public List getShopAccount(String shopId) throws Exception{
-        return null;
+        List<AccountResultVO> result = new ArrayList<>();
+        AccountResultVO resultVO = shopService.getShopAccount(shopId);
+        result.add(resultVO);
+        return result;
     }
 
 

@@ -1,6 +1,7 @@
 package cn.web.takeout.service;
 
 import cn.web.takeout.model.Shop;
+import cn.web.takeout.vo.AccountResultVO;
 import cn.web.takeout.vo.ShopVO;
 
 import java.util.List;
@@ -62,4 +63,9 @@ public interface IShopService {
      * @throws Exception
      */
     List<Shop> getActivityShop(String type) throws Exception;
+
+    /**
+     * 获取店铺的类型 销售情况
+     */
+    AccountResultVO getShopAccount(String shopId) throws Exception;
 }

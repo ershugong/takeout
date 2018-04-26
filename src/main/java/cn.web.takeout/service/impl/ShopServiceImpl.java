@@ -1,17 +1,13 @@
 package cn.web.takeout.service.impl;
 
+import cn.web.takeout.dao.IAccountDao;
 import cn.web.takeout.dao.IShopDao;
 import cn.web.takeout.dao.IUserDao;
-import cn.web.takeout.model.Address;
 import cn.web.takeout.model.Shop;
 import cn.web.takeout.model.User;
 import cn.web.takeout.service.IShopService;
-import cn.web.takeout.util.CommenUtil;
 import cn.web.takeout.util.GetLatAndLngByBaidu;
-import cn.web.takeout.vo.ShopDetailVO;
-import cn.web.takeout.vo.ShopVO;
-import net.sf.json.JSONArray;
-import net.sf.json.JsonConfig;
+import cn.web.takeout.vo.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,6 +23,8 @@ public class ShopServiceImpl implements IShopService{
     private IShopDao shopDao;
     @Resource
     private IUserDao userDao;
+    @Resource
+    private IAccountDao accountDao;
     @Override
     public Shop selectShop(String id) {
         return shopDao.selectShop(id);
@@ -142,6 +140,39 @@ public class ShopServiceImpl implements IShopService{
         Map<String,Object> map = new HashMap<>();
         map.put("type",type);
         return shopDao.getActivityShop(map);
+    }
+
+    @Override
+    public AccountResultVO getShopAccount(String shopId) throws Exception {
+        //第一个图标，柱形表----菜单类型的销售统计
+        List<AcountVO> acountVOS = accountDao.getMenuTypeAccount(shopId);
+        AccountResultVO resultVO = new AccountResultVO();
+        if(acountVOS != null){
+            for(AcountVO acountVO : acountVOS){
+                if(resultVO.getMenuTypes() == null){
+                    resultVO.setMenuTypes(new ArrayList<>());
+                }
+                resultVO.getMenuTypes().add(acountVO.getMenuType());//类型
+                if(resultVO.getMenuSales() == null){
+                    resultVO.setMenuSales(new ArrayList<>());
+                }
+                resultVO.getMenuSales().add(acountVO.getTypeSale());//数量
+            }
+        }
+
+
+        List<AcountVO> accountTWO = accountDao.getCommentTypeAcount(shopId);
+        List<TwoAccountVO> twoAccountVOList = new ArrayList<>();
+        if(accountTWO != null){
+            for(AcountVO acountVO : accountTWO){
+                TwoAccountVO twoAccountVO = new TwoAccountVO();
+                twoAccountVO.setName(acountVO.getCommentType());
+                twoAccountVO.setValue(acountVO.getCommentTypeNum());
+                twoAccountVOList.add(twoAccountVO);
+            }
+        resultVO.setCommentList(twoAccountVOList);
+        }
+        return resultVO;
     }
 
 

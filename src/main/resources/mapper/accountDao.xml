@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="cn.web.takeout.dao.IAccountDao">
+    <resultMap id="tb_account" type="cn.web.takeout.vo.AcountVO">
+        <id column="id" property="id"/>
+        <result column="type" property="menuType"></result>
+        <result column="type_sale" property="typeSale"></result>
+        <result column="comment_type_num" property="commentTypeNum"></result>
+        <result column="comment_type" property="commentType"></result>
+    </resultMap>
+
+    <select id="getMenuTypeAccount" parameterType="String" resultMap="tb_account">
+        SELECT m.type,count(*) as type_sale FROM tb_order o,tb_menu m WHERE m.id = o.menu_id AND o.shop_id = #{shopId} GROUP BY m.type;
+    </select>
+
+    <select id="getCommentTypeAcount" parameterType="String" resultMap="tb_account">
+        SELECT comment_type,count(*) as comment_type_num FROM tb_comment WHERE shop_id = #{shopId} GROUP BY comment_type;
+    </select>
+
+</mapper>

@@ -109,7 +109,7 @@
     </ul>
     <h2><span class="icon-pencil-square-o"></span>统计管理</h2>
     <ul>
-        <li><a href="echat.html" target="right"><span class="icon-caret-right"></span>数据统计</a></li>
+        <li><a href="echat.jsp" target="right"><span class="icon-caret-right"></span>数据统计</a></li>
     </ul>
 </div>
 <script type="text/javascript">
@@ -142,7 +142,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
 </ul>
 <div class="admin">
-    <iframe scrolling="auto" rameborder="0" src="echat.html" name="right" width="100%" height="100%" id = 'myFrame'></iframe>
+    <iframe scrolling="auto" rameborder="0" src="echat.jsp" name="right" width="100%" height="100%" id = 'myFrame'></iframe>
 </div>
 </body>
 </html>
