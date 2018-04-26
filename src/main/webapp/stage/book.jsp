@@ -106,12 +106,12 @@
     <div class="panel admin-panel">
         <div class="panel-head"><strong class="icon-reorder"> 留言管理</strong></div>
         <div class="padding border-bottom">
-            <ul class="search">
-                <li>
-                    <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
-                    <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
-                </li>
-            </ul>
+            <%--<ul class="search">--%>
+                <%--<li>--%>
+                    <%--<button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>--%>
+                    <%--<button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>--%>
+                <%--</li>--%>
+            <%--</ul>--%>
         </div>
         <table class="table table-hover text-center" id="container">
             <%--<tr>--%>

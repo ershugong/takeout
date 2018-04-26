@@ -59,17 +59,17 @@
                 method : "POST",
                 success : function(data){
                     var container = $("#tableData");
-                    container.append('        <tr>\n' +
-                        '            <th width="15%">订单ID</th>\n' +
-                        '            <th width="10%">菜名</th>\n' +
-                        '            <th width="10%">样图</th>\n' +
-                        '            <th width="10%">数量</th>\n' +
-                        '            <th width="10%">备注</th>\n' +
-                        '            <th width="10%">用户名</th>\n' +
-                        '            <th>地址</th>\n' +
-                        '            <th width="250">操作</th>\n' +
-                        '        </tr>');
                     container.html("");
+                    container.append('        <tr>' +
+                        '            <th width="15%">订单ID</th>' +
+                        '            <th width="10%">菜名</th>' +
+                        '            <th width="10%">样图</th>' +
+                        '            <th width="10%">数量</th>' +
+                        '            <th width="10%">备注</th>' +
+                        '            <th width="10%">用户名</th>' +
+                        '            <th>地址</th>' +
+                        '            <th width="250">操作</th>' +
+                        '        </tr>');
                     if(data.length == 0){
                         layer.msg("暂无任何订单数据！");
                         return;
@@ -146,7 +146,7 @@
 <div class="panel admin-panel">
     <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
     <div class="padding border-bottom">
-        <a class="button border-yellow" href=""><span class="icon-plus-square-o"></span> 添加内容</a>
+        <%--<a class="button border-yellow" href=""><span class="icon-plus-square-o"></span> 添加内容</a>--%>
     </div>
     <table class="table table-hover text-center" id="tableData">
         <tr>
