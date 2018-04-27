@@ -167,7 +167,7 @@ public class ShopServiceImpl implements IShopService{
             for(AcountVO acountVO : accountTWO){
                 TwoAccountVO twoAccountVO = new TwoAccountVO();
                 twoAccountVO.setName(acountVO.getCommentType());
-                twoAccountVO.setValue(acountVO.getCommentTypeNum());
+                twoAccountVO.setValue(acountVO.getCommentTypeNum()*50);
                 twoAccountVOList.add(twoAccountVO);
             }
         resultVO.setCommentList(twoAccountVOList);

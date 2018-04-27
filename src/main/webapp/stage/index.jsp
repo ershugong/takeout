@@ -27,7 +27,7 @@
 <script type="text/javascript">
     var websocket;
     //点击店铺资料
-    var keyPage = function () {
+    var keyPage = function (res) {
         $("#myFrame").attr("src",$(res).attr("href"));
         $.ajax({
             url : "${pageContext.request.contextPath}/shop/selectShop.do",
@@ -44,7 +44,7 @@
     };
 
     var openSocket = function openWs(){
-        websocket = new WebSocket("ws://10.10.0.59:8080/takeout/websocket");
+        websocket = new WebSocket("ws://localhost:8080/takeout/websocket");
         websocket.onmessage = function (e) {
             if(e.data == "yes"){
                 var a=document.getElementById("audio");
@@ -94,7 +94,8 @@
     <div class="logo margin-big-left fadein-top">
         <h1><img id="headPic" src="../${sessionScope.user.headPic}" class="radius-circle rotate-hover" height="50" alt="" />便捷外卖商家管理中心</h1>
     </div>
-    <div class="head-l"><a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;<a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp;<a class="button button-little bg-red" href="login.html"><span class="icon-power-off"></span> 退出登录</a> </div>
+    <%--&nbsp;&nbsp;<a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a>--%>
+    <div class="head-l"><a class="button button-little bg-green" href="echat.jsp" target="right"><span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;<a class="button button-little bg-red" href="../login.jsp"><span class="icon-power-off"></span> 退出登录</a> </div>
 </div>
 <div class="leftnav">
     <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
@@ -102,7 +103,7 @@
     <ul style="display:block">
         <li><a href="info.jsp" onclick="changeSrc(this);" target="right"><span class="icon-caret-right"></span>个人资料</a></li>
         <li><a href="pass.jsp" onclick="changeSrc(this);" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
-        <li onclick="keyPage();"><a href="page.jsp" target="right"><span class="icon-caret-right"></span>店铺资料</a></li>
+        <li onclick="keyPage(this);"><a href="page.jsp" target="right"><span class="icon-caret-right"></span>店铺资料</a></li>
         <li id="menu"><a href="adv.jsp" onclick="changeSrc(this);" target="right"><span class="icon-caret-right"></span>菜单管理</a></li>
         <li><a href="book.jsp" onclick="changeSrc(this);" target="right"><span class="icon-caret-right"></span>评价管理</a></li>
         <li><a href="column.jsp" onclick="changeSrc(this);" target="right" id="order"><span class="icon-caret-right"></span>订单管理</a></li>

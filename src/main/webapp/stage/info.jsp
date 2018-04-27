@@ -18,6 +18,7 @@
     <script src="../js/jquery.min.js"></script>
     <script src="../js/jquery-form.js"></script>
     <script src="../js/pintuer.js"></script>
+    <script src="../js/layer.js"></script>
     <script type="text/javascript">
         $(function(){
             //判断session中的sex值 性别为男或女
@@ -37,7 +38,7 @@
                         type : "post",
                         dataType : "json",
                         success : function(data){
-                            alert("设置成功！");
+                            layer.msg("设置成功！");
                         },
                         error : function(data){
                             alert("error:" + data.responseText)
@@ -50,7 +51,7 @@
                         dataType : "json",
                         success : function(data) {
                             $("#headPic",window.parent.document).attr("src","../"+data.headPic);
-                            alert("设置成功！");
+                            layer.msg("设置成功！");
                         },
                         error : function(data) {
                             alert("error:" + data.responseText);
@@ -72,7 +73,7 @@
                 // 获取目前上传的文件
                 file = files[0];// 文件大小校验的动作
                 if (file.size > 1024 * 1024 * 2) {
-                    alert('图片大小不能超过 2MB!');
+                    layer.msg('图片大小不能超过 2MB!');
                     return false;
                 }
                 // 获取 window 的 URL 工具
@@ -161,18 +162,18 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="label">
-                    <label>创建时间：</label>
-                </div>
-                <div class="field">
+            <%--<div class="form-group">--%>
+                <%--<div class="label">--%>
+                    <%--<label>创建时间：</label>--%>
+                <%--</div>--%>
+                <%--<div class="field">--%>
                     <!--<textarea name="scopyright" class="input" style="height:120px;"></textarea>
                     <div class="tips"></div>-->
                     <!--<input type="text" name="createTime" value="${sessionScope.user.createTime }" style="display: none" />补充user对象的信息（创建时间）-->
                     <input type="text" name="shopId" value="${sessionScope.user.shopId}" style="display: none" /><!--补充user对象的信息（店铺id）-->
-                    <label id="createTime" class="input">${sessionScope.user.createTime }</label>
-                </div>
-            </div>
+                    <%--<label id="createTime" class="input">${sessionScope.user.createTime }</label>--%>
+                <%--</div>--%>
+            <%--</div>--%>
             <div class="form-group">
                 <div class="label">
                     <label></label>

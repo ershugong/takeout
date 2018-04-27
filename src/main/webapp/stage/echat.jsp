@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <title>ECharts</title>
     <!-- 引入 echarts.js -->
+    <link rel="stylesheet" href="../css/pintuer.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <script src="../js/echarts.min.js"></script>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/layer.js"></script>
@@ -24,19 +26,19 @@
 </style>
 </head>
 <body>
+<div class="panel admin-panel">
+
+    <div class="panel-head"><strong class="icon-reorder"> 数据统计</strong></div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main1" style="width: 600px;height:400px;float:left;"></div>
+    <div id="main1" style="width: 600px;height:400px; float:left;"></div>
 	<div class="chartContainer" id="chart1"></div>
 	<div id="main" style="height:400px;width: 600px"></div>
+</div>
     <script type="text/javascript">
         //从后台中获取统计数据
         var menuTypes = [];
         var menuSales = [];
         var commentAccount = [];
-        var temp = [];
-        var color = {color : "red"};
-        var normal = {normal : color};
-        var itemStyle = {itemStyle : normal};
 
         $.ajax({
             url: "${pageContext.request.contextPath}/shop/getShopAccount.do",
@@ -50,22 +52,10 @@
                     layer.msg("暂无任何统计数据");
                 }else{
                     obj = data[0];
-//                    var menuT = obj.menuTypes;
-//                    for(var i=0;i<menuT.length;i++){
-//                        menuTypes.push(menuT[i]);
-//                    }
                     menuTypes = obj.menuTypes;
                     menuSales = obj.menuSales;
                     commentAccount = obj.commentList;
-//                    for(var i=0;i<commentAccount.length;i++){
-//                        temp.push(commentAccount[i]);
-//                        temp.push(itemStyle);
-//                        console.log(temp);
-//                    }
                 }
-                console.log(itemStyle);
-                console.log(menuTypes);
-                console.log(commentAccount);
             }
         });
 
@@ -77,7 +67,7 @@
         // 指定图表的配置项和数据
         var option = {
             title: {
-                text: 'ECharts 入门示例'
+                text: '类型统计'
             },
             tooltip: {},
             legend: {
@@ -88,14 +78,12 @@
             },
             yAxis: {},
             series: [{
-				color : 'yellow',
+                color : 'yellow',
                 name: '销量',
                 type: 'bar',
                 data: menuSales//类型--->销量
             }]
         };
-
-
 
         // 使用刚指定的配置项和数据显示图表。
         myChart1.setOption(option);
@@ -108,7 +96,10 @@
     //对echarts做基础配置
     myChart2.setOption({
         //背景色是全局的，所以直接在 option 下设置 backgroundColor,一开始放在series里面没有效果'#2c343c'
-        backgroundColor:'white', 
+        backgroundColor:'white',
+        title:{
+            text : '评价统计'
+        },
         visualMap:{
             show:false, // 不显示 visualMap 组件，只用于明暗度的映射
             min:80,// 映射的最小值为 80
@@ -128,7 +119,7 @@
                     shadowOffsetx:0,//阴影水平方向上的偏移
                     shadowOffsetY:0,//阴影垂直方向上的偏移
                     shadowColor:"rgba(0,0,0,0.5)",
-                    color:"red" //设置扇叶整体颜色
+                    color:"pink" //设置扇叶整体颜色
                 },
                 emphasis:{//鼠标hover的高亮时候的样式rgba(255,255,255,0.3)
                     shadowBlur:400,
@@ -138,7 +129,7 @@
             label:{
                 normal:{
                     textStyle:{
-                        color:"red",
+                        color:"black",
                         fontSize:"12"
                     }
                 }
@@ -146,11 +137,11 @@
             labelLine:{//跟itemStyle一样，label和labelLine的样式也有normal和emphasis两个状态。rgba(255,255,255,0.3)
                 normal:{
                     lineStyle:{
-                        color:"red"
+                        color:"black"
                     }
                 }
             },
-            data: commentAccount
+            data: commentAccount,
 //            data:[
 //                {
 //                    value:400,

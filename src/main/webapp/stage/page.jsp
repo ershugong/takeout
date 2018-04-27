@@ -22,7 +22,7 @@
     <script type="text/javascript">
         $(function () {
             //初始化八种类型
-            var isFood = ${sessionScope.shop.isFood};
+            var isFood = "${sessionScope.shop.isFood}";
             if(isFood == 1){//是
                 $("#Food").attr("checked","checked");
             }else{//否
