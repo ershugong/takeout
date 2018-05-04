@@ -60,7 +60,7 @@
     </delete>
 
     <select id="getOrderByshopId" parameterType="String" resultMap="tb_order">
-        SELECT  * FROM  tb_order WHERE shop_id = #{shopId} AND status = '已付款' ORDER BY create_time DESC
+        SELECT  * FROM  tb_order WHERE shop_id = #{shopId} ORDER BY create_time DESC
         <if test="start != null">
             LIMIT #{start},#{num}
         </if>

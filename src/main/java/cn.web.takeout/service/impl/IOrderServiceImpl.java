@@ -208,6 +208,7 @@ public class IOrderServiceImpl implements IOrderService {
                 Address address = addressDao.selectAddress(order.getAddressId());
                 vo.setUserName(address.getUserName());
                 vo.setDetailPlace(address.getProvince()+address.getCity()+address.getArea()+address.getDetailPlace());
+                vo.setStatus(order.getStatus());
                 result.add(vo);
             }
             //获取又未提醒的订单

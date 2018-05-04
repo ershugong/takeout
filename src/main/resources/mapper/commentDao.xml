@@ -24,7 +24,7 @@
     </insert>
 
     <select id="searchCommentByShopId" parameterType="Map" resultMap="tb_comment">
-        SELECT * FROM tb_comment WHERE shop_id = #{shopId}
+        SELECT * FROM tb_comment WHERE shop_id = #{shopId} ORDER BY create_time DESC
         <if test="start != null">
            LIMIT #{start},#{num}
         </if>

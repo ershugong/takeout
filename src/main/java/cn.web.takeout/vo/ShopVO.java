@@ -32,6 +32,7 @@ public class ShopVO {
     private String activityType;//活动类型
     private Integer hasDiscount;//是否有折扣
     private List<Integer> activitys;//活动类型所对应数组的下标
+    private String remark;
 
     public String getId() {
         return id;
@@ -239,5 +240,13 @@ public class ShopVO {
 
     public void setActivitys(List<Integer> activitys) {
         this.activitys = activitys;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

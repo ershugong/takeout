@@ -68,6 +68,7 @@
                         '            <th width="10%">备注</th>' +
                         '            <th width="10%">用户名</th>' +
                         '            <th>地址</th>' +
+                        '            <th width="5%">状态</th>' +
                         '            <th width="250">操作</th>' +
                         '        </tr>');
                     if(data.length == 0){
@@ -79,7 +80,7 @@
                         var srcUrl = '../'+data[index].menuHeadPic;
                         container.append("<tr><td>"+data[index].id+"</td>" +
                             "<td>"+data[index].menuName+"</td><td><img style='height: 30px;width: 80px' src = '"+srcUrl+"'/></td>" +
-                            "<td>"+data[index].numb+"</td><td>"+data[index].ext+"</td><td>"+data[index].userName+"</td><td>"+data[index].detailPlace+"</td>" +
+                            "<td>"+data[index].numb+"</td><td>"+data[index].ext+"</td><td>"+data[index].userName+"</td><td>"+data[index].detailPlace+"</td><td>"+data[index].status+"</td>" +
                             "<td> <div class='button-group'><a type='button' class='button border-main' href='javascript:void(0)' onclick='send(1,"+xxxData+")'><span class='icon-edit'></span>派送</a>" +
                             "<a class='button border-red' href='javascript:void(0)' onclick='send(2,"+xxxData+")'><span class='icon-trash-o'></span> 取消</a>" +
                             "</div></td></tr>");
@@ -116,6 +117,15 @@
 
         //接单
         function send(num,e){
+            var status = e.status;
+            if(status == "已派送"){
+                layer.msg("此订单已派送中...");
+                return;
+            }
+            if(status == "已取消"){
+                layer.msg("此订单已取消中...");
+                return;
+            }
             var type;
             if(num == 1){
                 type = "1";
@@ -144,7 +154,7 @@
 <body>
 <audio id="audio" src="../music/lingsheng.mp3"></audio>
 <div class="panel admin-panel">
-    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <div class="panel-head"><strong class="icon-reorder"> 订单列表</strong></div>
     <div class="padding border-bottom">
         <%--<a class="button border-yellow" href=""><span class="icon-plus-square-o"></span> 添加内容</a>--%>
     </div>

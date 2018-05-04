@@ -10,6 +10,7 @@ public class OrderForShopVO {
     private String userName;
     private Integer isRemind;
     private Integer pages;
+    private String status;
 
     public String getId() {
         return id;
@@ -81,5 +82,13 @@ public class OrderForShopVO {
 
     public void setPages(Integer pages) {
         this.pages = pages;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

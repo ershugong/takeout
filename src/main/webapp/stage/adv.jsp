@@ -60,6 +60,7 @@
             }
         //菜色照片
         $("#img").attr("src","../"+event.headPic);
+            window.location.href='#add';
     }
 
     $(function () {
